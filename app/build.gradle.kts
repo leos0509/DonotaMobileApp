@@ -34,6 +34,8 @@ android {
 
 dependencies {
     implementation("com.google.android.material:material:1.4.0")
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.4.1")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.4.1")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
