@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="heading1">
+        <item name="fontFamily">@font/bevietnampro_bold</item>
+        <item name="android:textSize">36sp</item>
+        <item name="textFillColor">@color/black</item>
+    </style>
+    <style name="heading2">
+        <item name="fontFamily">@font/bevietnampro_semibold</item>
+        <item name="android:textSize">30sp</item>
+        <item name="textFillColor">@color/black</item>
+    </style>
+    <style name="heading3">
+        <item name="fontFamily">@font/bevietnampro_medium</item>
+        <item name="android:textSize">24sp</item>
+        <item name="textFillColor">@color/black</item>
+    </style>
+    <style name="heading4">
+        <item name="fontFamily">@font/bevietnampro_medium</item>
+        <item name="android:textSize">20sp</item>
+        <item name="textFillColor">@color/black</item>
+    </style>
+    <style name="heading5">
+        <item name="fontFamily">@font/bevietnampro_semibold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="textFillColor">@color/black</item>
+    </style>
+    <style name="subtitle">
+        <item name="fontFamily">@font/bevietnampro_medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="textFillColor">@color/black</item>
+    </style>
+    <style name="body1">
+        <item name="fontFamily">@font/opensans_variablefont</item>
+        <item name="fontWeight">400</item>
+        <item name="android:textSize">14sp</item>
+        <item name="textFillColor">@color/black</item>
+    </style>
+    <style name="body2">
+        <item name="fontFamily">@font/opensans_variablefont</item>
+        <item name="android:textSize">12sp</item>
+        <item name="textFillColor">@color/black</item>
+    </style>
+    <style name="bodyBold">
+        <item name="fontFamily">@font/opensans_variablefont</item>
+        <item name="fontWeight">700</item>
+        <item name="android:textSize">14sp</item>
+        <item name="textFillColor">@color/black</item>
+    </style>
+    <style name="smallCaption">
+        <item name="fontFamily">@font/bevietnampro_light</item>
+        <item name="android:textSize">10sp</item>
+        <item name="textFillColor">@color/black</item>
+    </style>
+    <style name="button1">
+        <item name="fontFamily">@font/bevietnampro_bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="textFillColor">@color/black</item>
+    </style>
+    <style name="button2">
+        <item name="fontFamily">@font/bevietnampro_medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="textFillColor">@color/black</item>
+    </style>
+</resources>
