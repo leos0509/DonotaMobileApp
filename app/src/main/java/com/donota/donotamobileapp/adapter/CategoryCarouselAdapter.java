@@ -12,13 +12,13 @@ import com.donota.donotamobileapp.model.CarouselItem;
 
 import java.util.List;
 
-public class CarouselAdapter extends RecyclerView.Adapter<CarouselAdapter.CarouselViewHolder> {
+public class CategoryCarouselAdapter extends RecyclerView.Adapter<CategoryCarouselAdapter.CarouselViewHolder> {
 
     private Context context;
     private List<CarouselItem> items;
     private OnItemClickListener listener;
 
-    public CarouselAdapter(Context context, List<CarouselItem> items, OnItemClickListener listener) {
+    public CategoryCarouselAdapter(Context context, List<CarouselItem> items, OnItemClickListener listener) {
         this.context = context;
         this.items = items;
         this.listener = listener;
