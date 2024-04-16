@@ -1,7 +1,10 @@
 package com.donota.donotamobileapp;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +33,7 @@ public class AccountActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         loadData();
+        addEvents();
     }
 
     private void initData() {
@@ -45,5 +49,17 @@ public class AccountActivity extends AppCompatActivity {
         initData();
         settingOptionsAdapter = new SettingOptionsAdapter(AccountActivity.this, R.layout.setting_items_layout, settingOptions);
         binding.lvSettingOptions.setAdapter(settingOptionsAdapter);
+    }
+
+    private void addEvents() {
+        binding.lvSettingOptions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SettingOptions selectedOption = settingOptions.get(position);
+                Intent intent = new Intent(AccountActivity.this, SettingContentActivity.class);
+                intent.putExtra("settingID", selectedOption.getSettingID());
+                startActivity(intent);
+            }
+        });
     }
 }
