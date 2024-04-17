@@ -13,6 +13,9 @@
         android:theme="@style/Theme.DonotaMobileApp"
         tools:targetApi="31">
         <activity
+            android:name=".OrderConfirmation"
+            android:exported="false" />
+        <activity
             android:name=".ConfirmOtpScreen"
             android:exported="false" />
         <activity
