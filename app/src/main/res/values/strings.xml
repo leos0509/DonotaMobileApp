@@ -12,4 +12,6 @@
 ⭐Đơn hàng thanh toán trả trước giao không thành công: Việc hoàn tiền sẽ được tiến hành ngay khi hàng vận chuyển về nhà bán hàng thành công. \n
 
 ⭐Đơn hàng đặt cọc trước: Việc hoàn tiền sẽ được tiến hành tự động nếu đơn hàng bị hủy bởi DONOTA.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

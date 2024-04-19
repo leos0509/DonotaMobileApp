@@ -23,6 +23,15 @@
             android:exported="false" />
         <activity
             android:name=".activities.AccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OrderConfirmation"
+            android:exported="false" />
+        <activity
+            android:name=".ConfirmOtpScreen"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
