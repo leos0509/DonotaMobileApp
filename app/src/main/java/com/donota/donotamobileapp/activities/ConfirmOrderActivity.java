@@ -22,5 +22,6 @@ public class ConfirmOrderActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        setContentView(R.layout.activity_ordersuccess);
     }
 }

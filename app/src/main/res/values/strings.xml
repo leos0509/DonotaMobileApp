@@ -14,4 +14,8 @@
 ⭐Đơn hàng đặt cọc trước: Việc hoàn tiền sẽ được tiến hành tự động nếu đơn hàng bị hủy bởi DONOTA.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="heading_1"> Making your house home</string>
+    <string name="heading_2">Discover the essence of home</string>
+    <string name="desc_1">Mang đến sự thoải mái và phong cách cho không gian sống của bạn.</string>
+    <string name="desc_2">Khám phá bộ sưu tập tuyển chọn của chúng tôi để tìm những món đồ phản ánh phong cách và cá tính độc đáo của bạn.</string>
 </resources>
