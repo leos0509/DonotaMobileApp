@@ -1,4 +1,4 @@
-package com.donota.donotamobileapp;
+package com.donota.donotamobileapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,12 +10,10 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.viewpager.widget.ViewPager;
 
-import com.donota.adapters.ViewPagerAdapter;
+import com.donota.donotamobileapp.R;
+import com.donota.donotamobileapp.adapters.ViewPagerAdapter;
 import com.donota.donotamobileapp.databinding.ActivitySplashScreenBinding;
 
 public class SplashScreenActivity extends AppCompatActivity {

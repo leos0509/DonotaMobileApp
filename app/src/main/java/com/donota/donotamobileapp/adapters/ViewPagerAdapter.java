@@ -1,4 +1,4 @@
-package com.donota.adapters;
+package com.donota.donotamobileapp.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
