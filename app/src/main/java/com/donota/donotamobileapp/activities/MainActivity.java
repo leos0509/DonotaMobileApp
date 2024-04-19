@@ -3,15 +3,13 @@ package com.donota.donotamobileapp.activities;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.donota.donotamobileapp.fragments.LogInFragment;
+import com.donota.donotamobileapp.fragments.RegisterFragment;
 import com.donota.donotamobileapp.databinding.ActivityMainBinding;
 
 import com.donota.donotamobileapp.R;

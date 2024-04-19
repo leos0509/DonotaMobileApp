@@ -3,7 +3,7 @@
     <string name="CancelOrder_Content">⭐Đơn hàng đang ở trạng thái Chờ xác nhận (Người bán chưa xác nhận đơn) \n
 ⭐Khi đơn hàng ở trạng thái Chờ lấy hàng (Người bán đang đóng gói và chuẩn bị giao cho đơn vị vận chuyển), yêu cầu sẽ cần được Người bán phản hồi: \n
 ⭐Người bán chấp nhận yêu cầu hủy đơn: Đơn hàng sẽ được hủy ngay lập tức \n
-⭐Người bán từ chối yêu cầu hủy đơn: Đơn hàng sẽ tiếp tục được xử lý. Người mua không thể hủy trong trường hợp này dù có liên hệ bộ phận CSKH </string>
+⭐Người bán từ chối yêu cầu hủy đơn: Đơn hàng sẽ tiếp tục được xử lý. Người mua không thể hủy trong trường hợp này dù có liên hệ bộ phận CSKH</string>
 
     <string name="Refund">⭐Đơn hàng thanh toán trả trước bị hủy: Việc hoàn tiền sẽ được tiến hành tự động ngay khi quy trình hủy hoàn tất \n
 

@@ -19,19 +19,16 @@
             android:name=".activities.ConfirmOrderActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.MainActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.AccountActivity"
             android:exported="false" />
         <activity
-            android:name=".OrderConfirmation"
+            android:name=".activities.OrderConfirmation"
             android:exported="false" />
         <activity
-            android:name=".ConfirmOtpScreen"
+            android:name=".activities.ConfirmOtpScreen"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package com.donota.donotamobileapp;
+package com.donota.donotamobileapp.activities;
 
 import android.os.Bundle;
 
