@@ -4,12 +4,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/homePageFragment">
 
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/homePageFragment"
         android:name="com.donota.donotamobileapp.fragments.HomepageFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_homepage" />
+        tools:layout="@layout/fragment_homepage">
+        <action
+            android:id="@+id/action_to_homePageFragment"
+            app:destination="@id/homePageFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/categoryPageFragment"
+        android:name="com.donota.donotamobileapp.fragments.CategoryPageFragment"
+        android:label="Category"
+        tools:layout="@layout/fragment_category_page">
+        <action
+            android:id="@+id/action_to_categoryPageFragment"
+            app:destination="@id/categoryPageFragment" />
+    </fragment>
 
 </navigation>

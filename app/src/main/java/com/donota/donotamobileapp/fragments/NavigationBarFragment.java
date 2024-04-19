@@ -9,6 +9,8 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.donota.donotamobileapp.R;
 
@@ -32,13 +34,13 @@ public class NavigationBarFragment extends Fragment {
 
         // Set click listeners for your buttons
         btnHome.setOnClickListener(v -> {
-            // Handle home button click
-            // For example, navigate to the home screen
+            NavController navController = Navigation.findNavController(view);
+            navController.navigate(R.id.action_to_homePageFragment);
         });
 
         btnSearch.setOnClickListener(v -> {
-            // Handle search button click
-            // For example, navigate to the search screen
+            NavController navController = Navigation.findNavController(view);
+            navController.navigate(R.id.action_to_categoryPageFragment);
         });
 
         btnCart.setOnClickListener(v -> {
