@@ -1,15 +1,16 @@
-package com.donota.donotamobileapp;
+package com.donota.donotamobileapp.activities;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.donota.donotamobileapp.fragments.AddressSettingsFragment;
+import com.donota.donotamobileapp.fragments.PaymentSettingsFragment;
+import com.donota.donotamobileapp.fragments.PolicyFragment;
+import com.donota.donotamobileapp.fragments.ProfileFragment;
+import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.databinding.ActivitySettingContentBinding;
 
 public class SettingContentActivity extends AppCompatActivity {

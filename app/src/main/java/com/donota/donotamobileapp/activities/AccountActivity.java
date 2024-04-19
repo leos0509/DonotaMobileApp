@@ -1,4 +1,4 @@
-package com.donota.donotamobileapp;
+package com.donota.donotamobileapp.activities;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -6,15 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.donota.adapters.SettingOptionsAdapter;
+import com.donota.donotamobileapp.R;
+import com.donota.donotamobileapp.adapters.SettingOptionsAdapter;
 import com.donota.donotamobileapp.databinding.ActivityAccountBinding;
-import com.donota.models.SettingOptions;
+import com.donota.donotamobileapp.models.SettingOptions;
 
 import java.util.ArrayList;
 

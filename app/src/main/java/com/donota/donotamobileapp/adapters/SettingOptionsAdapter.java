@@ -1,9 +1,8 @@
-package com.donota.adapters;
+package com.donota.donotamobileapp.adapters;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.donota.donotamobileapp.R;
-import com.donota.models.SettingOptions;
+import com.donota.donotamobileapp.models.SettingOptions;
 
 import java.util.List;
 

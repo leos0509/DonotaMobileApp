@@ -1,4 +1,4 @@
-package com.donota.models;
+package com.donota.donotamobileapp.models;
 
 public class SettingOptions {
     String settingID;
