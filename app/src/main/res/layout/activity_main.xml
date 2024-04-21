@@ -36,23 +36,27 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnLogIn"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
+            android:background="@drawable/input_bg_change"
             android:backgroundTint="@color/primary2"
+            android:gravity="center"
             android:text="ĐĂNG NHẬP"
             android:textColor="@color/white"
             android:textColorLink="@color/gray"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:gravity="center"
+            android:layout_marginEnd="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnSignUp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnSignUp"/>
+            app:layout_constraintVertical_bias="0.0" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSignUp"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
+            android:background="@drawable/input_bg"
             android:backgroundTint="@color/secondary2"
             android:gravity="center"
             android:text="ĐĂNG KÝ"
@@ -74,8 +78,10 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
     </LinearLayout>
 
