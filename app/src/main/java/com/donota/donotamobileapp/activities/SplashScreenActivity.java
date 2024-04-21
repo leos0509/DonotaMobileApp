@@ -1,7 +1,7 @@
 package com.donota.donotamobileapp.activities;
 
-import static com.donota.donotamobileapp.Utils.DbUtils.DB_FOLDER;
-import static com.donota.donotamobileapp.Utils.DbUtils.DB_NAME;
+import static com.donota.donotamobileapp.utils.DbUtils.DB_FOLDER;
+import static com.donota.donotamobileapp.utils.DbUtils.DB_NAME;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +18,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.adapters.ViewPagerAdapter;
-import com.donota.donotamobileapp.database.impl.ProductDatabaseImpl;
 import com.donota.donotamobileapp.databinding.ActivitySplashScreenBinding;
 
 import java.io.File;

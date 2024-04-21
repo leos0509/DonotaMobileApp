@@ -1,14 +1,15 @@
 package com.donota.donotamobileapp.database.impl;
 
-import static com.donota.donotamobileapp.Utils.DbUtils.COL_PRODUCT_ID;
-import static com.donota.donotamobileapp.Utils.DbUtils.COL_PRODUCT_CATEGORY;
-import static com.donota.donotamobileapp.Utils.DbUtils.COL_PRODUCT_DESCRIPTION;
-import static com.donota.donotamobileapp.Utils.DbUtils.COL_PRODUCT_IMG;
-import static com.donota.donotamobileapp.Utils.DbUtils.COL_PRODUCT_NAME;
-import static com.donota.donotamobileapp.Utils.DbUtils.COL_PRODUCT_PRICE;
-import static com.donota.donotamobileapp.Utils.DbUtils.COL_PRODUCT_QUANTITY;
-import static com.donota.donotamobileapp.Utils.DbUtils.COL_PRODUCT_RATING;
-import static com.donota.donotamobileapp.Utils.DbUtils.TBL_PRODUCT;
+import static com.donota.donotamobileapp.utils.DbUtils.COL_PRODUCT_ID;
+import static com.donota.donotamobileapp.utils.DbUtils.COL_PRODUCT_CATEGORY;
+import static com.donota.donotamobileapp.utils.DbUtils.COL_PRODUCT_DESCRIPTION;
+import static com.donota.donotamobileapp.utils.DbUtils.COL_PRODUCT_IMG;
+import static com.donota.donotamobileapp.utils.DbUtils.COL_PRODUCT_NAME;
+import static com.donota.donotamobileapp.utils.DbUtils.COL_PRODUCT_PRICE;
+import static com.donota.donotamobileapp.utils.DbUtils.COL_PRODUCT_QUANTITY;
+import static com.donota.donotamobileapp.utils.DbUtils.COL_PRODUCT_RATING;
+import static com.donota.donotamobileapp.utils.DbUtils.DB_NAME;
+import static com.donota.donotamobileapp.utils.DbUtils.TBL_PRODUCT;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -20,7 +21,6 @@ import android.util.Log;
 import com.donota.donotamobileapp.database.Databases;
 
 public class ProductDatabaseImpl extends SQLiteOpenHelper implements Databases {
-    public static final String DB_NAME = "donotadb.db";
     public static final int DB_VERSION = 1;
     public ProductDatabaseImpl(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
