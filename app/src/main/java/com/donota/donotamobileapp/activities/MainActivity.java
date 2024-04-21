@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -18,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
 
+    private AppCompatButton btnLogIn;
+    private AppCompatButton btnSignUp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         addEvents();
     }
+
 
     View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
