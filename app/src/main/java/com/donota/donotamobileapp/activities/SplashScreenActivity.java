@@ -79,18 +79,21 @@ public class SplashScreenActivity extends AppCompatActivity {
 
 
     private void setUpDatabase() {
+        File dbFile = getDatabasePath(DB_NAME);
+
+        if (!dbFile.exists()) {
             String dbPath = getApplicationInfo().dataDir + DB_FOLDER + DB_NAME;
             try {
                 InputStream inputStream = getAssets().open(DB_NAME);
-                File f = new File(getApplicationInfo().dataDir+DB_FOLDER);
+                File f = new File(getApplicationInfo().dataDir + DB_FOLDER);
                 if (!f.exists()) {
                     f.mkdir();
                 }
-                OutputStream outputStream = new FileOutputStream( dbPath );
+                OutputStream outputStream = new FileOutputStream(dbPath);
                 byte[] buffer = new byte[1024];
                 int length;
-                while ((length = inputStream.read(buffer)) > 0 ){
-                    outputStream.write(buffer,0,length);
+                while ((length = inputStream.read(buffer)) > 0) {
+                    outputStream.write(buffer, 0, length);
                 }
                 outputStream.flush();
                 outputStream.close();
@@ -98,7 +101,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+        }
         Log.d("Database", "Database loaded");
 
     }
