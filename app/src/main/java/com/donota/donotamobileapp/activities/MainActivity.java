@@ -10,7 +10,7 @@ import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.databinding.ActivityMainBinding;
 import com.donota.donotamobileapp.fragments.NavigationBarFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     ActivityMainBinding binding;
 
     @Override

@@ -16,7 +16,6 @@
             app:destination="@id/homePageFragment" />
     </fragment>
 
-
     <fragment
         android:id="@+id/categoryPageFragment"
         android:name="com.donota.donotamobileapp.fragments.CategoryPageFragment"
