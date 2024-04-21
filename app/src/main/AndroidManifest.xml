@@ -31,7 +31,7 @@
             android:name=".activities.ConfirmOrderActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.AccountActivity"
+            android:name=".activities.OrderManagementActivity"
             android:exported="false" />
         <activity
             android:name=".activities.SplashScreenActivity"
@@ -43,7 +43,7 @@
             android:name=".activities.OrderConfirmation"
             android:exported="false" />
         <activity
-            android:name=".activities.OrderManagementActivity"
+            android:name=".activities.AccountActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

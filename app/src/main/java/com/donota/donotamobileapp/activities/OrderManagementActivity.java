@@ -1,5 +1,6 @@
 package com.donota.donotamobileapp.activities;
 
+import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -7,20 +8,42 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.donota.donotamobileapp.R;
+import com.donota.donotamobileapp.adapters.ProductOrderAdapter;
+import com.donota.donotamobileapp.databinding.ActivityOrderManagementBinding;
+import com.donota.donotamobileapp.fragments.AddressSettingsFragment;
+import com.donota.donotamobileapp.fragments.PaymentSettingsFragment;
+import com.donota.donotamobileapp.fragments.PolicyFragment;
+import com.donota.donotamobileapp.fragments.ProfileFragment;
+import com.donota.donotamobileapp.models.ProductOrder;
+import com.donota.donotamobileapp.models.SettingOptions;
+
+import java.util.ArrayList;
 
 public class OrderManagementActivity extends AppCompatActivity {
+
+    ActivityOrderManagementBinding binding;
+    Dialog dialog;
+
+    ProductOrderAdapter productOrderAdapter;
+    ArrayList<ProductOrder> productOrders;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_order_management);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        binding = ActivityOrderManagementBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        loadFragment();
+    }
+
+    private void loadFragment() {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+
+
     }
 }
