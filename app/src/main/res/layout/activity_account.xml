@@ -28,8 +28,6 @@
     </androidx.cardview.widget.CardView>
 
 
-
-
     <TextView
         android:id="@+id/txtUserName"
         android:layout_width="wrap_content"

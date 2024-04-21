@@ -2,11 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.OrderSuccessActivity"
+    tools:context=".activities.ChangePwSuccessActivity"
     android:background="@color/gray">
-
     <ImageView
         android:id="@+id/imvCheck"
         android:layout_width="140dp"
@@ -18,10 +18,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="250dp"/>
     <TextView
-        android:id="@+id/txtOrderSuccess"
+        android:id="@+id/txtChangePwSuccess"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Đặt hàng thành công!"
+        android:text="Đổi mật khẩu thành công!"
         android:textSize="26sp"
         android:textStyle="bold"
         android:textColor="@color/primary2"
@@ -32,18 +32,18 @@
         android:id="@+id/txtThanks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cảm ơn bạn đã mua hàng."
+        android:text="Mật khẩu của bạn đã được thay đổi."
         android:textColor="@color/primary2"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/txtOrderSuccess"
-        app:layout_constraintBottom_toTopOf="@+id/btnViewOrder"
+        app:layout_constraintTop_toBottomOf="@id/txtChangePwSuccess"
+        app:layout_constraintBottom_toTopOf="@id/btnViewMainPage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnViewOrder"
+        android:id="@+id/btnViewLoginPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Xem chi tiết đơn hàng"
+        android:text="Đăng nhập"
         android:textSize="22sp"
         android:textColor="#FFFFFF"
         android:background="@drawable/background_button"
