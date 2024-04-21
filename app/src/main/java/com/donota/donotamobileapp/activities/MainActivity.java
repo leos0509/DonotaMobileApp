@@ -1,5 +1,6 @@
 package com.donota.donotamobileapp.activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
@@ -20,9 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
 
-    private AppCompatButton btnLogIn;
-    private AppCompatButton btnSignUp;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
         addEvents();
     }
-
 
     View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
