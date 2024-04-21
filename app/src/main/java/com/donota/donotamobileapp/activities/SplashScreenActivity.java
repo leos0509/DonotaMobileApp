@@ -4,8 +4,6 @@ import static com.donota.donotamobileapp.Utils.DbUtils.DB_FOLDER;
 import static com.donota.donotamobileapp.Utils.DbUtils.DB_NAME;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -34,7 +32,6 @@ public class SplashScreenActivity extends AppCompatActivity {
     LinearLayout mDotLayout;
     Button btn_next, btn_skip;
     TextView[] dots;
-    ProductDatabaseImpl db;
     ViewPagerAdapter viewPagerAdapter;
     ActivitySplashScreenBinding binding;
 
