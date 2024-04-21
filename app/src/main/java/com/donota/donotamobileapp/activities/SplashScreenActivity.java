@@ -1,8 +1,14 @@
 package com.donota.donotamobileapp.activities;
 
+import static com.donota.donotamobileapp.Utils.DbUtils.DB_FOLDER;
+import static com.donota.donotamobileapp.Utils.DbUtils.DB_NAME;
+
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -14,13 +20,21 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.adapters.ViewPagerAdapter;
+import com.donota.donotamobileapp.database.impl.ProductDatabaseImpl;
 import com.donota.donotamobileapp.databinding.ActivitySplashScreenBinding;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class SplashScreenActivity extends AppCompatActivity {
     ViewPager mSlideViewPager;
     LinearLayout mDotLayout;
     Button btn_next, btn_skip;
     TextView[] dots;
+    ProductDatabaseImpl db;
     ViewPagerAdapter viewPagerAdapter;
     ActivitySplashScreenBinding binding;
 
@@ -30,6 +44,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         binding = ActivitySplashScreenBinding.inflate(getLayoutInflater());
         EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
+
+        setUpDatabase();
 
         btn_next = binding.btnNext;
         btn_skip = binding.btnSkip;
@@ -62,6 +78,32 @@ public class SplashScreenActivity extends AppCompatActivity {
         mSlideViewPager.setAdapter(viewPagerAdapter);
         setUpIndicator(0);
         mSlideViewPager.addOnPageChangeListener(viewListener);
+    }
+
+
+    private void setUpDatabase() {
+            String dbPath = getApplicationInfo().dataDir + DB_FOLDER + DB_NAME;
+            try {
+                InputStream inputStream = getAssets().open(DB_NAME);
+                File f = new File(getApplicationInfo().dataDir+DB_FOLDER);
+                if (!f.exists()) {
+                    f.mkdir();
+                }
+                OutputStream outputStream = new FileOutputStream( dbPath );
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = inputStream.read(buffer)) > 0 ){
+                    outputStream.write(buffer,0,length);
+                }
+                outputStream.flush();
+                outputStream.close();
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        Log.d("Database", "Database loaded");
+
     }
 
     public void setUpIndicator(int position) {
