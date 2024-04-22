@@ -37,7 +37,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         btn_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(SplashScreenActivity.this, MainActivity.class);
+                Intent i = new Intent(SplashScreenActivity.this, LoginSignupActivity.class);
                 startActivity(i);
                 finish();
             }
@@ -49,7 +49,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 if (getItem(0) < 1)
                     mSlideViewPager.setCurrentItem(getItem(1), true);
                 else {
-                    Intent i = new Intent(SplashScreenActivity.this, MainActivity.class);
+                    Intent i = new Intent(SplashScreenActivity.this, LoginSignupActivity.class);
                     startActivity(i);
                     finish();
                 }
