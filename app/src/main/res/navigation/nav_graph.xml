@@ -28,9 +28,9 @@
 
     <fragment
         android:id="@+id/cartPageFragment"
-        android:name="com.donota.donotamobileapp.fragments.CartFragment"
+        android:name="com.donota.donotamobileapp.fragments.CartPageFragment"
         android:label="Cart"
-        tools:layout="@layout/fragment_cart">
+        tools:layout="@layout/fragment_cart_page">
     </fragment>
 
 </navigation>
