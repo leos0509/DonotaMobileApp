@@ -37,7 +37,7 @@ public class OrderManagementActivity extends AppCompatActivity {
         binding = ActivityOrderManagementBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        loadFragment(); // Add this line
+        loadFragment();
     }
 
     private void loadFragment() {
