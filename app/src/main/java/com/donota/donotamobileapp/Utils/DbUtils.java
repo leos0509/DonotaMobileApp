@@ -3,6 +3,7 @@ package com.donota.donotamobileapp.utils;
 public class DbUtils {
     public static final String DB_NAME = "donotadb.db";
     public static final int DB_VERSION = 1;
+
     public static final String DB_FOLDER = "/databases/";
     public static final String TBL_CUSTOMER_PROFILE = "tbcustomerprofile";
     public static final String COL_CUSTOMER_ID = "customerid";
