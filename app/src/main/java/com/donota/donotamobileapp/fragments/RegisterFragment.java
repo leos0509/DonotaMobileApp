@@ -1,7 +1,5 @@
 package com.donota.donotamobileapp.fragments;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,14 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.donota.donotamobileapp.R;
-import com.donota.donotamobileapp.database.impl.TbCustomerProfileImpl;
 import com.donota.donotamobileapp.database.impl.TbCustomerProfileImpl;
 import com.donota.donotamobileapp.databinding.FragmentRegisterBinding;
-import com.donota.donotamobileapp.models.Customers;
 import com.donota.donotamobileapp.utils.DbUtils;
 
 /**
