@@ -13,6 +13,7 @@ import static com.donota.donotamobileapp.utils.DbUtils.COL_CUSTOMER_PURCHASE_HIS
 import static com.donota.donotamobileapp.utils.DbUtils.COL_CUSTOMER_WISHLIST;
 import static com.donota.donotamobileapp.utils.DbUtils.TBL_CUSTOMER_PROFILE;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,9 +21,24 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.donota.donotamobileapp.database.Databases;
+import com.donota.donotamobileapp.models.Customers;
 
 public class CustomerDatabaseImpl extends SQLiteOpenHelper implements Databases {
     public static final int DB_VERSION = 1;
+    public static final String TBL_CUSTOMER_PROFILE = "customerProfile";
+
+    public static final String COL_CUSTOMER_ID = "customerId";
+    public static final String COL_CUSTOMER_NAME = "customerName";
+    public static final String COL_CUSTOMER_EMAIL = "customerEmail" ;
+    public static final String COL_CUSTOMER_USERNAME = "customerUsername" ;
+    public static final String COL_CUSTOMER_PHONENUMB = "customerPhoneNumb";
+    public static final String COL_CUSTOMER_ADDRESS = "customerAddress";
+    public static final String COL_CUSTOMER_PURCHASE_HISTORY = "customerPurchaseHistory";
+    public static final String COL_CUSTOMER_ACCOUNT = "customerAccount";
+    public static final String COL_CUSTOMER_ACCOUNT_PASSWORD = "customerPassword";
+    public static final String COL_CUSTOMER_CART = "customerCart";
+    public static final String COL_CUSTOMER_WISHLIST = "customerWishlist";
+    public static final String COL_CUSTOMER_DOB = "customerDob";
 
     public CustomerDatabaseImpl(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -31,7 +47,7 @@ public class CustomerDatabaseImpl extends SQLiteOpenHelper implements Databases 
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql = " CREATE TABLE IF NOT EXISTS " + TBL_CUSTOMER_PROFILE  + "  (" + COL_CUSTOMER_ID + " TEXT PRIMARY KEY NOT NULL UNIQUE, " + COL_CUSTOMER_NAME +
-                " TEXT NOT NULL,  " + COL_CUSTOMER_PHONENUMB + " INTERGER NOT NULL UNIQUE, " + COL_CUSTOMER_ADDRESS + "  TEXT, " + COL_CUSTOMER_PURCHASE_HISTORY
+                " TEXT NOT NULL,  " + COL_CUSTOMER_EMAIL + " TEXT NOT NULL,  " + COL_CUSTOMER_USERNAME + " TEXT NOT NULL,  " + COL_CUSTOMER_PHONENUMB + " INTERGER NOT NULL UNIQUE, " + COL_CUSTOMER_ADDRESS + "  TEXT, " + COL_CUSTOMER_PURCHASE_HISTORY
                 + " TEXT, " + COL_CUSTOMER_ACCOUNT + " TEXT UNIQUE , " + COL_CUSTOMER_ACCOUNT_PASSWORD + "TEXT, " + COL_CUSTOMER_CART + " TEXT, "
                 + COL_CUSTOMER_WISHLIST + " TEXT, " + COL_CUSTOMER_DOB + " INTEGER)";
         db.execSQL(sql);
@@ -60,4 +76,14 @@ public class CustomerDatabaseImpl extends SQLiteOpenHelper implements Databases 
             return false;
         }
     }
+
+    public void insertCustomer (Customers customer) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_CUSTOMER_USERNAME, customer.getCustomerUsername());
+        values.put(COL_CUSTOMER_EMAIL, customer.getCustomerEmail());
+        values.put(COL_CUSTOMER_ACCOUNT_PASSWORD, customer.getCustomerPassword());
+        db.insert(TBL_CUSTOMER_PROFILE,null,values);
+    }
+
 }
