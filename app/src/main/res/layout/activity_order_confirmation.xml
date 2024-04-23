@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.OrderConfirmation"
+    tools:context=".activities.CheckOutActivity"
     android:background="@color/gray">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -97,15 +97,23 @@
             app:layout_constraintStart_toEndOf="@+id/imvOrderProductIcon"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ListView
-            android:id="@+id/lvOrderProduct"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/imvOrderProductIcon"
-            app:layout_constraintTop_toBottomOf="@+id/txtOrderProduct" />
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtOrderProduct"
+            app:layout_constraintBottom_toBottomOf="@+id/orderConfirmProduct">
+
+            <ListView
+                android:id="@+id/lvOrderProduct"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/imvOrderProductIcon"
+                app:layout_constraintTop_toBottomOf="@+id/txtOrderProduct" />
+
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

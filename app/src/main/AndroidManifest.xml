@@ -34,10 +34,10 @@
             android:name=".activities.SplashScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.ConfirmOtpScreen"
+            android:name=".activities.ConfirmOtpScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.OrderConfirmation"
+            android:name=".activities.CheckOutActivity"
             android:exported="false" />
         <activity
             android:name=".activities.LoginSignupActivity"
