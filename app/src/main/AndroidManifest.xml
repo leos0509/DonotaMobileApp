@@ -13,6 +13,12 @@
         android:theme="@style/Theme.DonotaMobileApp"
         tools:targetApi="31">
         <activity
+            android:name=".activities.OrderStatusActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.OrderManagementActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.ChangePwSuccessActivity"
             android:exported="false" />
         <activity
