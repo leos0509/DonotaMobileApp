@@ -1,10 +1,12 @@
 package com.donota.donotamobileapp.database.impl;
 
+
+
 import static com.donota.donotamobileapp.utils.DbUtils.COL_CUSTOMER_ID;
-import static com.donota.donotamobileapp.utils.DbUtils.COL_ORDER_ID;
-import static com.donota.donotamobileapp.utils.DbUtils.COL_ORDER_VALUE;
+import static com.donota.donotamobileapp.utils.DbUtils.COL_PRODUCT_ID;
 import static com.donota.donotamobileapp.utils.DbUtils.DB_NAME;
-import static com.donota.donotamobileapp.utils.DbUtils.TBL_ORDER;
+import static com.donota.donotamobileapp.utils.DbUtils.DB_VERSION;
+import static com.donota.donotamobileapp.utils.DbUtils.TBL_CUSTOMER_WISHLIST;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -12,26 +14,25 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+
 import com.donota.donotamobileapp.database.Databases;
 
-public class OrderDatabaseImpl extends SQLiteOpenHelper implements Databases {
+public class TbCustomerWishListImpl extends SQLiteOpenHelper implements Databases {
 
-    public static final int DB_VERSION = 1;
-
-    public OrderDatabaseImpl(Context context) {
+    public TbCustomerWishListImpl(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = " CREATE TABLE IF NOT EXISTS " + TBL_ORDER  + "  (" + COL_ORDER_ID + " TEXT PRIMARY KEY NOT NULL UNIQUE, " + COL_ORDER_VALUE +
-                " NUMERIC,  " + COL_CUSTOMER_ID + "TEXT    REFERENCES tbcustomerprofile (customerid) NOT NULL)";
+        String sql = " CREATE TABLE IF NOT EXISTS " + TBL_CUSTOMER_WISHLIST + " (" + COL_CUSTOMER_ID + " TEXT    REFERENCES tbcustomerprofile (customerid) NOT NULL, " + COL_PRODUCT_ID +
+                " TEXT    REFERENCES tbproduct (productid)) ";
         db.execSQL(sql);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TBL_ORDER);
+        db.execSQL("DROP TABLE IF EXISTS " + TBL_CUSTOMER_WISHLIST);
         onCreate(db);
     }
 
@@ -52,5 +53,4 @@ public class OrderDatabaseImpl extends SQLiteOpenHelper implements Databases {
             return false;
         }
     }
-
 }

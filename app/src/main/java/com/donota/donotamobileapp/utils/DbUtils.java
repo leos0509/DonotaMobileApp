@@ -2,18 +2,16 @@ package com.donota.donotamobileapp.utils;
 
 public class DbUtils {
     public static final String DB_NAME = "donotadb.db";
+    public static final int DB_VERSION = 1;
 
     public static final String DB_FOLDER = "/databases/";
     public static final String TBL_CUSTOMER_PROFILE = "tbcustomerprofile";
     public static final String COL_CUSTOMER_ID = "customerid";
     public static final String COL_CUSTOMER_NAME = "customername";
     public static final String COL_CUSTOMER_PHONENUMB = "phonenumb";
-    public static final String COL_CUSTOMER_ADDRESS = "address";
     public static final String COL_CUSTOMER_PURCHASE_HISTORY = "purchasehistory";
     public static final String COL_CUSTOMER_ACCOUNT = "customeraccount";
     public static final String COL_CUSTOMER_ACCOUNT_PASSWORD = "customeraccountpassword";
-    public static final String COL_CUSTOMER_CART = "customercart";
-    public static final String COL_CUSTOMER_WISHLIST = "wishlist";
     public static final String COL_CUSTOMER_DOB = "customerdob";
 
     public static final String TBL_PRODUCT = "tbproduct";
@@ -33,5 +31,11 @@ public class DbUtils {
     public static final String COL_ORDER_DATE = "orderdate";
     public static final String COL_DELIVERY_DATE = "deliverydate";
     public static final String COL_ORDER_QUANTITY = "orderquantity";
+
+    public static final String TBL_CUSTOMER_CART = "tbcustomercart";
+    public static final String COL_CUSTOMER_CART_QUANTITY = "quantity";
+    public static final String TBL_CUSTOMER_WISHLIST = "tbcustomerwishlist";
+    public static final String TBL_CUSTOMER_ADDRESS = "tbcustomeraddress";
+    public static final String COL_CUSTOMER_ADDRESS = "address";
 
 }

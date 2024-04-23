@@ -7,6 +7,7 @@ import static com.donota.donotamobileapp.utils.DbUtils.COL_ORDER_DETAIL_ID;
 import static com.donota.donotamobileapp.utils.DbUtils.COL_ORDER_ID;
 import static com.donota.donotamobileapp.utils.DbUtils.COL_ORDER_QUANTITY;
 import static com.donota.donotamobileapp.utils.DbUtils.COL_PRODUCT_ID;
+import static com.donota.donotamobileapp.utils.DbUtils.DB_VERSION;
 import static com.donota.donotamobileapp.utils.DbUtils.TBL_ORDER_DETAIL;
 
 import android.content.Context;
@@ -17,10 +18,9 @@ import android.util.Log;
 
 import com.donota.donotamobileapp.database.Databases;
 
-public class OrderDetailDatabaseImpl extends SQLiteOpenHelper implements Databases {
-    public static final int DB_VERSION = 1;
+public class TbOrderDetailImpl extends SQLiteOpenHelper implements Databases {
 
-    public OrderDetailDatabaseImpl(Context context) {
+    public TbOrderDetailImpl(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
     @Override

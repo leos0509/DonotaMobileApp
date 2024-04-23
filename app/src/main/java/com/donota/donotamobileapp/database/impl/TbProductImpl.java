@@ -9,6 +9,7 @@ import static com.donota.donotamobileapp.utils.DbUtils.COL_PRODUCT_PRICE;
 import static com.donota.donotamobileapp.utils.DbUtils.COL_PRODUCT_QUANTITY;
 import static com.donota.donotamobileapp.utils.DbUtils.COL_PRODUCT_RATING;
 import static com.donota.donotamobileapp.utils.DbUtils.DB_NAME;
+import static com.donota.donotamobileapp.utils.DbUtils.DB_VERSION;
 import static com.donota.donotamobileapp.utils.DbUtils.TBL_PRODUCT;
 
 import android.content.Context;
@@ -20,9 +21,8 @@ import android.util.Log;
 
 import com.donota.donotamobileapp.database.Databases;
 
-public class ProductDatabaseImpl extends SQLiteOpenHelper implements Databases {
-    public static final int DB_VERSION = 1;
-    public ProductDatabaseImpl(Context context) {
+public class TbProductImpl extends SQLiteOpenHelper implements Databases {
+    public TbProductImpl(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
