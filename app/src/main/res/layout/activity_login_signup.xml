@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
+    tools:context=".activities.LoginSignupActivity">
 
     <ImageView
         android:id="@+id/imvBannerLogIn"
@@ -36,42 +36,52 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnLogIn"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
+            android:background="@drawable/input_bg_change"
             android:backgroundTint="@color/primary2"
+            android:gravity="center"
             android:text="ĐĂNG NHẬP"
             android:textColor="@color/white"
             android:textColorLink="@color/gray"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:gravity="center"
+            android:layout_marginEnd="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnSignUp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnSignUp"/>
+            app:layout_constraintVertical_bias="0.0" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSignUp"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
+            android:background="@drawable/input_bg"
             android:backgroundTint="@color/secondary2"
-            android:paddingRight="40dp"
+            android:gravity="center"
             android:text="ĐĂNG KÝ"
             android:textColor="@color/white"
             android:textColorLink="@color/gray"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btnLogIn"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/containerLogInLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
     </LinearLayout>
 

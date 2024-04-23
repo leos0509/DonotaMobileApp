@@ -4,34 +4,29 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.donota.donotamobileapp.databinding.ActivityLoginSignupBinding;
 import com.donota.donotamobileapp.fragments.LogInFragment;
 import com.donota.donotamobileapp.fragments.RegisterFragment;
-import com.donota.donotamobileapp.databinding.ActivityMainBinding;
+import com.donota.donotamobileapp.databinding.ActivityLoginSignupBinding;
 
 import com.donota.donotamobileapp.R;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginSignupActivity extends AppCompatActivity {
 
-    ActivityMainBinding binding;
-
-    private AppCompatButton btnLogIn;
-    private AppCompatButton btnSignUp;
+    ActivityLoginSignupBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityLoginSignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         addEvents();
     }
-
 
     View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
