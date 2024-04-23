@@ -31,7 +31,7 @@ public class PreferenceUtils {
     }
 
     public static int getCustomerId(Context context) {
-        return getSharedPreferences(context).getString(KEY_CUSTOMER_ID, null);
+        return getSharedPreferences(context).getInt(KEY_CUSTOMER_ID, 0);
     }
     public static String getCustomerAccount(Context context) {
         return getSharedPreferences(context).getString(KEY_CUSTOMER_ACCOUNT, null);
