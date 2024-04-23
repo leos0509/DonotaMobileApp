@@ -3,7 +3,6 @@ package com.donota.donotamobileapp.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.hardware.camera2.CameraExtensionSession;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -19,11 +18,6 @@ import com.donota.donotamobileapp.database.impl.TbCustomerProfileImpl;
 import com.donota.donotamobileapp.databinding.FragmentLogInBinding;
 import com.donota.donotamobileapp.utils.PreferenceUtils;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link LogInFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class LogInFragment extends Fragment {
     FragmentLogInBinding binding;
     TbCustomerProfileImpl tbCustomerProfile;
@@ -100,7 +94,7 @@ public class LogInFragment extends Fragment {
         tbCustomerProfile = new TbCustomerProfileImpl(context);
         String queryValidate = "SELECT count(customerid) FROM tbcustomerprofile WHERE (customeraccount LIKE '" + customerAccountEmail +
                 "') OR ( customeremail LIKE '" + customerAccountEmail + "')";
-        int count = 0;
+        int count;
         try {
             Cursor cursor = tbCustomerProfile.queryData(queryValidate);
             if (cursor != null && cursor.moveToFirst()) {
@@ -119,7 +113,7 @@ public class LogInFragment extends Fragment {
 
         String queryValidate  = "SELECT count(customerid) FROM tbcustomerprofile WHERE customeraccountpassword LIKE '" + passWord + "' AND (customeraccount LIKE '" + customerAccountEmail +
                 "' OR customeremail LIKE '" + customerAccountEmail + "')";
-        int count = 0;
+        int count;
         try {
             Cursor cursor = tbCustomerProfile.queryData(queryValidate);
             if (cursor != null && cursor.moveToFirst()) {
