@@ -54,7 +54,7 @@ public class HomePageFragment extends Fragment {
         String imageUrl = "https://mocshop.com.vn/library/module_new/bao-gia-thiet-ke---thi-cong-noi-that_s2030.jpg";
         Glide.with(getContext()) // Use getContext() instead of this
                 .load(imageUrl)
-                .override(200, 200)
+                .override(200, 100)
                 .centerCrop()
                 .into(imageView);
 

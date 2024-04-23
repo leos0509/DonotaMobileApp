@@ -5,9 +5,6 @@ public class SettingOptions {
     int settingIcon;
     String settingName;
 
-    //Constructor
-
-
     public SettingOptions(String settingID, int settingIcon, String settingName) {
         this.settingID = settingID;
         this.settingIcon = settingIcon;
@@ -15,7 +12,7 @@ public class SettingOptions {
     }
 
     public String getSettingID() {
-        return settingID;
+        return this.settingID;
     }
 
     public void setSettingID(String settingID) {
@@ -23,7 +20,7 @@ public class SettingOptions {
     }
 
     public int getSettingIcon() {
-        return settingIcon;
+        return this.settingIcon;
     }
 
     public void setSettingIcon(int settingIcon) {
@@ -31,7 +28,7 @@ public class SettingOptions {
     }
 
     public String getSettingName() {
-        return settingName;
+        return this.settingName;
     }
 
     public void setSettingName(String settingName) {

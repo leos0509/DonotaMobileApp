@@ -48,6 +48,11 @@ public class PaymentSettingsFragment extends Fragment {
         return fragment;
     }
 
+    public static Fragment newInstance() {
+        PaymentSettingsFragment fragment = new PaymentSettingsFragment();
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
