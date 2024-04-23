@@ -13,9 +13,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.donota.donotamobileapp.R;
-import com.donota.donotamobileapp.database.impl.CustomerDatabaseImpl;
+import com.donota.donotamobileapp.database.impl.TbCustomerProfileImpl;
+import com.donota.donotamobileapp.database.impl.TbCustomerProfileImpl;
 import com.donota.donotamobileapp.databinding.FragmentRegisterBinding;
 import com.donota.donotamobileapp.models.Customers;
+import com.donota.donotamobileapp.utils.DbUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -89,15 +91,14 @@ public class RegisterFragment extends Fragment {
                 Customers customer = new Customers(null, null, customerEmail, customerUserName, null, null, null, null, customerPassword, null, null, null);
 
                 // Lưu thông tin của khách hàng vào cơ sở dữ liệu
-                CustomerDatabaseImpl customerDatabase = new CustomerDatabaseImpl(getActivity());
-                boolean isSuccess = customerDatabase.execSql("INSERT INTO " + CustomerDatabaseImpl.TBL_CUSTOMER_PROFILE +
-                        " (" + CustomerDatabaseImpl.COL_CUSTOMER_ID + ", " + CustomerDatabaseImpl.COL_CUSTOMER_NAME + ", " +
-                        CustomerDatabaseImpl.COL_CUSTOMER_EMAIL + ", " + CustomerDatabaseImpl.COL_CUSTOMER_USERNAME + ", " +
-                        CustomerDatabaseImpl.COL_CUSTOMER_PHONENUMB + ", " + CustomerDatabaseImpl.COL_CUSTOMER_ADDRESS + ", " +
-                        CustomerDatabaseImpl.COL_CUSTOMER_PURCHASE_HISTORY + ", " + CustomerDatabaseImpl.COL_CUSTOMER_ACCOUNT + ", " +
-                        CustomerDatabaseImpl.COL_CUSTOMER_ACCOUNT_PASSWORD + ", " + CustomerDatabaseImpl.COL_CUSTOMER_CART + ", " +
-                        CustomerDatabaseImpl.COL_CUSTOMER_WISHLIST + ", " + CustomerDatabaseImpl.COL_CUSTOMER_DOB + ") " +
-                        "VALUES ('" + customer.getCustomerUsername() + "', '" + customer.getCustomerEmail() + "', '" +
+                TbCustomerProfileImpl customerDatabase = new TbCustomerProfileImpl(getActivity());
+                boolean isSuccess = customerDatabase.execSql("INSERT INTO " + DbUtils.TBL_CUSTOMER_PROFILE +
+                        " (" + DbUtils.COL_CUSTOMER_ID + ", " + DbUtils.COL_CUSTOMER_NAME + ", " +
+                        DbUtils.COL_CUSTOMER_EMAIL + ", " + DbUtils.COL_CUSTOMER_ACCOUNT + ", " +
+                        DbUtils.COL_CUSTOMER_PHONENUMB + ", " + DbUtils.COL_CUSTOMER_ADDRESS + ", " +
+                        DbUtils.COL_CUSTOMER_PURCHASE_HISTORY + ", " + DbUtils.COL_CUSTOMER_ACCOUNT + ", " +
+                        DbUtils.COL_CUSTOMER_ACCOUNT_PASSWORD + ", " +  DbUtils.COL_CUSTOMER_DOB + ", " + DbUtils.COL_CUSTOMER_EMAIL +
+                        ") VALUES ('" + customer.getCustomerUsername() + "', '" + customer.getCustomerEmail() + "', '" +
                         customer.getCustomerPassword() + "', NULL, NULL, NULL, NULL, NULL, NULL)");
 
                 // Kiểm tra kết quả và hiển thị thông báo cho người dùng

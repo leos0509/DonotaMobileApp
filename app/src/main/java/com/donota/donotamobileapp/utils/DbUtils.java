@@ -13,6 +13,7 @@ public class DbUtils {
     public static final String COL_CUSTOMER_ACCOUNT = "customeraccount";
     public static final String COL_CUSTOMER_ACCOUNT_PASSWORD = "customeraccountpassword";
     public static final String COL_CUSTOMER_DOB = "customerdob";
+    public static final String COL_CUSTOMER_EMAIL = "customeremail";
 
     public static final String TBL_PRODUCT = "tbproduct";
     public static final String COL_PRODUCT_ID = "productid";

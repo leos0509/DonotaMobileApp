@@ -1,5 +1,6 @@
 package com.donota.donotamobileapp.database.impl;
 
+import static com.donota.donotamobileapp.utils.DbUtils.COL_CUSTOMER_EMAIL;
 import static com.donota.donotamobileapp.utils.DbUtils.DB_NAME;
 import static com.donota.donotamobileapp.utils.DbUtils.COL_CUSTOMER_ACCOUNT;
 import static com.donota.donotamobileapp.utils.DbUtils.COL_CUSTOMER_ACCOUNT_PASSWORD;
@@ -28,9 +29,9 @@ public class TbCustomerProfileImpl extends SQLiteOpenHelper implements Databases
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = " CREATE TABLE IF NOT EXISTS " + TBL_CUSTOMER_PROFILE  + "  (" + COL_CUSTOMER_ID + " PRIMARY KEY ASC ON CONFLICT ROLLBACK AUTOINCREMENT NOT NULL UNIQUE, "
+        String sql = " CREATE TABLE IF NOT EXISTS " + TBL_CUSTOMER_PROFILE  + "  (" + COL_CUSTOMER_ID + "INTERGER PRIMARY KEY ASC ON CONFLICT ROLLBACK AUTOINCREMENT NOT NULL UNIQUE, "
                 + COL_CUSTOMER_NAME + " TEXT NOT NULL,  " + COL_CUSTOMER_PHONENUMB + " INTERGER NOT NULL UNIQUE, " + COL_CUSTOMER_PURCHASE_HISTORY
-                + " TEXT, " + COL_CUSTOMER_ACCOUNT + " TEXT UNIQUE , " + COL_CUSTOMER_ACCOUNT_PASSWORD + "TEXT, "  + COL_CUSTOMER_DOB + " INTEGER)";
+                + " TEXT, " + COL_CUSTOMER_ACCOUNT + " TEXT UNIQUE , " + COL_CUSTOMER_ACCOUNT_PASSWORD + "TEXT, "  + COL_CUSTOMER_DOB + " INTEGER, " + COL_CUSTOMER_EMAIL + " TEXT UNIQUE NOT NULL)";
         db.execSQL(sql);
     }
 
