@@ -30,7 +30,7 @@ public class PreferenceUtils {
         editor.apply();
     }
 
-    public static String getCustomerId(Context context) {
+    public static int getCustomerId(Context context) {
         return getSharedPreferences(context).getString(KEY_CUSTOMER_ID, null);
     }
     public static String getCustomerAccount(Context context) {
