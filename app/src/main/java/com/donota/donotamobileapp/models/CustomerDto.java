@@ -1,39 +1,33 @@
 package com.donota.donotamobileapp.models;
 
-public class Customers {
-    private String customerId;
+public class CustomerDto {
+    private int customerId;
     private String customerName;
     private String customerEmail;
-    private String customerUsername;
     private Integer customerPhoneNumb;
-    private String customerAddress;
     private String customerPurchaseHistory;
     private String customerAccount;
-    private String customerPassword;
-    private String customerCart;
-    private String customerWishlist;
+    private String customerAccountPassword;
     private Integer customerDob;
 
-    public Customers(String customerId, String customerName, String customerEmail, String customerUsername, Integer customerPhoneNumb, String customerAddress, String customerPurchaseHistory, String customerAccount, String customerPassword, String customerCart, String customerWishlist, Integer customerDob) {
+    public CustomerDto() {};
+
+    public CustomerDto(int customerId, String customerName, String customerEmail, Integer customerPhoneNumb, String customerPurchaseHistory, String customerAccount, String customerAccountPassword, Integer customerDob) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
-        this.customerUsername = customerUsername;
         this.customerPhoneNumb = customerPhoneNumb;
-        this.customerAddress = customerAddress;
         this.customerPurchaseHistory = customerPurchaseHistory;
         this.customerAccount = customerAccount;
-        this.customerPassword = customerPassword;
-        this.customerCart = customerCart;
-        this.customerWishlist = customerWishlist;
+        this.customerAccountPassword = customerAccountPassword;
         this.customerDob = customerDob;
     }
 
-    public String getCustomerId() {
+    public int getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(String customerId) {
+    public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
 
@@ -53,28 +47,12 @@ public class Customers {
         this.customerEmail = customerEmail;
     }
 
-    public String getCustomerUsername() {
-        return customerUsername;
-    }
-
-    public void setCustomerUsername(String customerUsername) {
-        this.customerUsername = customerUsername;
-    }
-
     public Integer getCustomerPhoneNumb() {
         return customerPhoneNumb;
     }
 
     public void setCustomerPhoneNumb(Integer customerPhoneNumb) {
         this.customerPhoneNumb = customerPhoneNumb;
-    }
-
-    public String getCustomerAddress() {
-        return customerAddress;
-    }
-
-    public void setCustomerAddress(String customerAddress) {
-        this.customerAddress = customerAddress;
     }
 
     public String getCustomerPurchaseHistory() {
@@ -93,28 +71,12 @@ public class Customers {
         this.customerAccount = customerAccount;
     }
 
-    public String getCustomerPassword() {
-        return customerPassword;
+    public String getCustomerAccountPassword() {
+        return customerAccountPassword;
     }
 
-    public void setCustomerPassword(String customerPassword) {
-        this.customerPassword = customerPassword;
-    }
-
-    public String getCustomerCart() {
-        return customerCart;
-    }
-
-    public void setCustomerCart(String customerCart) {
-        this.customerCart = customerCart;
-    }
-
-    public String getCustomerWishlist() {
-        return customerWishlist;
-    }
-
-    public void setCustomerWishlist(String customerWishlist) {
-        this.customerWishlist = customerWishlist;
+    public void setCustomerAccountPassword(String customerAccountPassword) {
+        this.customerAccountPassword = customerAccountPassword;
     }
 
     public Integer getCustomerDob() {
