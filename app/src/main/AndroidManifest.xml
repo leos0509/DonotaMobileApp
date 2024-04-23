@@ -14,6 +14,12 @@
         android:theme="@style/Theme.DonotaMobileApp"
         tools:targetApi="31">
         <activity
+            android:name=".activities.OrderStatusActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.OrderManagementActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.ChangePwSuccessActivity"
             android:exported="false" />
         <activity
@@ -35,13 +41,13 @@
             android:name=".activities.SplashScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.ConfirmOtpScreen"
+            android:name=".activities.ConfirmOtpScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.OrderConfirmation"
+            android:name=".activities.CheckOutActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.LoginSignupActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

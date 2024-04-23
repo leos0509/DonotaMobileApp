@@ -1,3 +1,4 @@
+
 package com.donota.donotamobileapp.activities;
 
 import android.os.Bundle;
@@ -10,7 +11,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.donota.donotamobileapp.R;
 
-public class OrderConfirmation extends AppCompatActivity {
+public class OrderConfirmationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
