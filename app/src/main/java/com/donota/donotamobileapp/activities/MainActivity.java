@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.databinding.ActivityMainBinding;
-import com.donota.donotamobileapp.fragments.NavigationBarFragment;
+import com.donota.donotamobileapp.fragments.HomeNavFragment;
 
 public class MainActivity extends AppCompatActivity{
     ActivityMainBinding binding;
@@ -20,14 +20,18 @@ public class MainActivity extends AppCompatActivity{
         setContentView(binding.getRoot());
 
         loadFragment();
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
     }
 
     private void loadFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        transaction.replace(R.id.fragment_container, new NavigationBarFragment());
+        if (fragmentManager.findFragmentById(R.id.rootNavFragmentContainer) == null) {
+            transaction.add(R.id.rootNavFragmentContainer, new HomeNavFragment());
+        }
         transaction.commit();
-
     }
 }

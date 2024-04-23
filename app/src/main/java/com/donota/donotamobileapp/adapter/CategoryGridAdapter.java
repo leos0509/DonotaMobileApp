@@ -4,12 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.donota.donotamobileapp.R;
 
-public class CategoryGridAdapter extends BaseAdapter {
+public class CategoryGridAdapter extends RecyclerView.Adapter<CategoryGridAdapter.ViewHolder> {
 
     private Context context;
     private String[] items;
@@ -20,29 +22,30 @@ public class CategoryGridAdapter extends BaseAdapter {
     }
 
     @Override
-    public int getCount() {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_item, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.itemText.setText(items[position]);
+        holder.imvThumb.setImageResource(R.drawable.dining_table);
+    }
+
+    @Override
+    public int getItemCount() {
         return items.length;
     }
 
-    @Override
-    public Object getItem(int position) {
-        return items[position];
-    }
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView itemText;
+        ImageView imvThumb;
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.category_item, parent, false);
+        public ViewHolder(View itemView) {
+            super(itemView);
+            itemText = itemView.findViewById(R.id.txtCategoryName);
+            imvThumb = itemView.findViewById(R.id.imvCategory);
         }
-
-        TextView itemText = convertView.findViewById(R.id.txtCategoryName);
-        itemText.setText(items[position]);
-
-        return convertView;
     }
 }
