@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.donota.donotamobileapp.activities.AccountActivity;
 import com.donota.donotamobileapp.database.impl.TbCustomerProfileImpl;
 import com.donota.donotamobileapp.databinding.FragmentRegisterBinding;
-import com.donota.donotamobileapp.models.CustomerDto;
+import com.donota.donotamobileapp.models.CustomerDto ;
 import com.donota.donotamobileapp.utils.DbUtils;
 import com.donota.donotamobileapp.utils.PreferenceUtils;
 

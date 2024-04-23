@@ -20,18 +20,15 @@ public class NavigationBarFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_navigation_bar, container, false);
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Initialize buttons
         Button btnHome = view.findViewById(R.id.btn_home);
         Button btnSearch = view.findViewById(R.id.btn_search);
         Button btnCart = view.findViewById(R.id.btn_cart);
         Button btnProfile = view.findViewById(R.id.btn_profile);
 
-        // Set click listeners for your buttons
         btnHome.setOnClickListener(v -> {
             navigateTo(new HomePageFragment());
         });
@@ -48,9 +45,9 @@ public class NavigationBarFragment extends Fragment {
         });
 
         btnProfile.setOnClickListener(v -> {
+            navigateTo(new AccountPageFragment());
         });
     }
-
     private void navigateTo(Fragment destinationFragment) {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.homeNavFragmentContainer, destinationFragment);

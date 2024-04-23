@@ -48,6 +48,11 @@ public class PolicyFragment extends Fragment {
         return fragment;
     }
 
+    public static Fragment newInstance() {
+        PolicyFragment fragment = new PolicyFragment();
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
