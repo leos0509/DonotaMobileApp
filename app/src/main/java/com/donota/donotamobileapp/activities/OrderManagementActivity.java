@@ -15,6 +15,7 @@ import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.adapters.ProductOrderAdapter;
 import com.donota.donotamobileapp.databinding.ActivityOrderManagementBinding;
 import com.donota.donotamobileapp.fragments.AddressSettingsFragment;
+import com.donota.donotamobileapp.fragments.ConfirmedOrderFragment;
 import com.donota.donotamobileapp.fragments.PaymentSettingsFragment;
 import com.donota.donotamobileapp.fragments.PolicyFragment;
 import com.donota.donotamobileapp.fragments.ProfileFragment;
@@ -53,7 +54,7 @@ public class OrderManagementActivity extends AppCompatActivity {
         FragmentTransaction transaction = manager.beginTransaction();
         ConfirmedOrderFragment confirmedOrderFragment = new ConfirmedOrderFragment();
         transaction.replace(R.id.fcvOrderManagement, confirmedOrderFragment);
-        transaction.addToBackStack(null); // Add this line to allow navigating back
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 }
