@@ -80,47 +80,64 @@ public class RegisterFragment extends Fragment {
         binding.btnConfirmSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Context context = getActivity();
                 String customerAccount = binding.edtUserName.getText().toString();
                 String customerEmail = binding.edtEmail.getText().toString();
                 String customerPassword = binding.edtInputPw.getText().toString();
                 String confirmPassword = binding.edtReInputPw.getText().toString();
 
-                if (checkEmailInput(getActivity(), customerEmail)) {
+                if (verifyEmailInput(context, customerEmail) && verifyCustomerAccountInput(context, customerAccount)) {
                     if (!customerPassword.equals(confirmPassword)) {
                         Toast.makeText(getActivity(), "Mật khẩu xác nhận không trùng khớp!", Toast.LENGTH_SHORT).show();
-                        return;
+                    } else {
+                        PreferenceUtils.setUserAccount(context, customerAccount);
+
                     }
                 } else {
-                    return;
+                    Toast.makeText(getContext(), "Đã xảy ra lỗi khi đăng ký!", Toast.LENGTH_SHORT).show();;
                 }
                 PreferenceUtils.setUserAccount(getActivity(), customerAccount);
                 CustomerDto customer = new CustomerDto();
 
-                TbCustomerProfileImpl customerDatabase = new TbCustomerProfileImpl(getActivity());
-
-
-                // Kiểm tra kết quả và hiển thị thông báo cho người dùng
-//                if (registerSuccess) {
-//                    Toast.makeText(getContext(), "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
-//                    // Nếu cần, chuyển người dùng đến màn hình đăng nhập hoặc màn hình chính của ứng dụng
-//                } else {
-//                    Toast.makeText(getContext(), "Đã xảy ra lỗi khi đăng ký!", Toast.LENGTH_SHORT).show();
-//                }
+//                TbCustomerProfileImpl customerDatabase = new TbCustomerProfileImpl(getActivity());
             }
         });
         return binding.getRoot();
     }
-    private boolean checkEmailInput (Context context, String email) {
+    private boolean verifyEmailInput (Context context, String email) {
         String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "(gmail\\.com|uel\\.edu\\.vn|yahoo\\.com|st\\.uel\\.edu\\.vn)$";
             Pattern pattern = Pattern.compile(EMAIL_PATTERN);
             Matcher matcher = pattern.matcher(email);
         if (matcher.matches()) {
             tbCustomerProfile = new TbCustomerProfileImpl(context);
-            String queryCustomerEmail = "SELECT count(customeremail) FROM tbcustomerprofile WHERE customeremail LIKE '"+ email + "'";
-            Cursor cursor = tbCustomerProfile.queryData(queryCustomerEmail);
-            return cursor.getInt(0) == 0;
+            try {
+                String queryCustomerEmail = "SELECT count(customeremail) FROM tbcustomerprofile WHERE customeremail LIKE '" + email + "'";
+                Cursor cursor = tbCustomerProfile.queryData(queryCustomerEmail);
+                if (cursor != null && cursor.moveToFirst()) {
+                    int count = cursor.getInt(0);
+                    cursor.close();
+                    return count == 0;
+                }
+            } finally {
+                tbCustomerProfile.close();
             }
+        }
         return false;
     }
-    private boolean checkUserAccountInput (Context context) {return true;}
+
+    private boolean verifyCustomerAccountInput (Context context, String customerAccount) {
+        tbCustomerProfile = new TbCustomerProfileImpl(context);
+        try {
+            String queryCustomerAccount = "SELECT count(customeraccount) FROM tbcustomerprofile WHERE customeraccount LIKE '" + customerAccount + "'";
+            Cursor cursor = tbCustomerProfile.queryData(queryCustomerAccount);
+            if (cursor != null && cursor.moveToFirst()) {
+                int count = cursor.getInt(0);
+                cursor.close();
+                return count == 0;
+            }
+        } finally {
+            tbCustomerProfile.close();
+        }
+        return false;
+    }
 }
