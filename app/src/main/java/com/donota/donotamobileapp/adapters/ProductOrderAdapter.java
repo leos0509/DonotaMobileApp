@@ -61,7 +61,7 @@ public class ProductOrderAdapter extends BaseAdapter {
         holder.imvProductThumb.setImageResource(productOrder.getProductThumb());
         holder.txtProductName.setText(productOrder.getProductName());
         holder.txtQuantity.setText(productOrder.getProductQuantity());
-        holder.txtProductPrice.setText(String.valueOf( Math.round(productOrder.getProductPrice())) + "VND");
+        holder.txtProductPrice.setText(String.valueOf( Math.round(productOrder.getProductPrice())) + "đ");
 
         return view;
     }

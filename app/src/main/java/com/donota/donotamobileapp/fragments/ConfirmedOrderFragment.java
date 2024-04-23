@@ -7,10 +7,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import com.donota.donotamobileapp.R;
-import com.donota.donotamobileapp.activities.OrderManagementActivity;
+import com.donota.donotamobileapp.adapters.ProductOrderAdapter;
+import com.donota.donotamobileapp.databinding.FragmentConfirmedOrderBinding;
+import com.donota.donotamobileapp.models.ProductOrder;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,6 +22,10 @@ import com.donota.donotamobileapp.activities.OrderManagementActivity;
  * create an instance of this fragment.
  */
 public class ConfirmedOrderFragment extends Fragment {
+    FragmentConfirmedOrderBinding binding;
+    ListView listView;
+    ProductOrderAdapter productOrderAdapter;
+    List<ProductOrder> productOrders;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,16 +70,12 @@ public class ConfirmedOrderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_confirmed_order, container, false);
+        // Inflate the layout for this fragment
+        binding = FragmentConfirmedOrderBinding.inflate(inflater, container, false);
 
-        TextView txtConfirmation = view.findViewById(R.id.txtConfirmation);
-        txtConfirmation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((OrderManagementActivity) requireActivity()).loadConfirmedOrderFragment();
-            }
-        });
 
-        return view;
+
+
+        return binding.getRoot();
     }
 }
