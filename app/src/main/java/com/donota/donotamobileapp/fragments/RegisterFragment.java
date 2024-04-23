@@ -1,6 +1,7 @@
 package com.donota.donotamobileapp.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.donota.donotamobileapp.activities.AccountActivity;
 import com.donota.donotamobileapp.database.impl.TbCustomerProfileImpl;
 import com.donota.donotamobileapp.databinding.FragmentRegisterBinding;
 import com.donota.donotamobileapp.models.CustomerDto;
@@ -45,15 +47,6 @@ public class RegisterFragment extends Fragment {
 
     TbCustomerProfileImpl tbCustomerProfile;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RegisterFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static RegisterFragment newInstance(String param1, String param2) {
         RegisterFragment fragment = new RegisterFragment();
         Bundle args = new Bundle();
@@ -75,7 +68,6 @@ public class RegisterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentRegisterBinding.inflate(inflater,container,false);
         binding.btnConfirmSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,15 +83,14 @@ public class RegisterFragment extends Fragment {
                         Toast.makeText(getActivity(), "Mật khẩu xác nhận không trùng khớp!", Toast.LENGTH_SHORT).show();
                     } else {
                         PreferenceUtils.setUserAccount(context, customerAccount);
-
+                        PreferenceUtils.setUserAccount(getActivity(), customerAccount);
+                        Intent intent = new Intent(getActivity(), AccountActivity.class);
+                        startActivity(intent);
                     }
                 } else {
                     Toast.makeText(getContext(), "Đã xảy ra lỗi khi đăng ký!", Toast.LENGTH_SHORT).show();;
                 }
-                PreferenceUtils.setUserAccount(getActivity(), customerAccount);
-                CustomerDto customer = new CustomerDto();
 
-//                TbCustomerProfileImpl customerDatabase = new TbCustomerProfileImpl(getActivity());
             }
         });
         return binding.getRoot();
