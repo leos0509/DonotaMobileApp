@@ -16,7 +16,7 @@
                 android:id="@+id/txtHeading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Dia chi"
+                android:text="Địa chỉ"
                 android:textStyle="bold"
                 android:textColor="@color/primary2"
                 android:textSize="16sp"
@@ -78,7 +78,7 @@
                 app:layout_constraintTop_toBottomOf="@id/cvAddress"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="THAY DOI"
+                android:text="THAY ĐỔI"
                 android:textColor="@color/white"
                 android:layout_marginTop="10dp"/>
 
