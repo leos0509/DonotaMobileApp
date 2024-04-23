@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Donota Mobile App</string>
+    <string name="app_name">DONOTA</string>
     <string name="CancelOrder_Content">⭐Đơn hàng đang ở trạng thái Chờ xác nhận (Người bán chưa xác nhận đơn) \n
 ⭐Khi đơn hàng ở trạng thái Chờ lấy hàng (Người bán đang đóng gói và chuẩn bị giao cho đơn vị vận chuyển), yêu cầu sẽ cần được Người bán phản hồi: \n
 ⭐Người bán chấp nhận yêu cầu hủy đơn: Đơn hàng sẽ được hủy ngay lập tức \n
@@ -7,15 +7,16 @@
 
     <string name="Refund">⭐Đơn hàng thanh toán trả trước bị hủy: Việc hoàn tiền sẽ được tiến hành tự động ngay khi quy trình hủy hoàn tất \n
 
-⭐Đơn hàng hoàn trả về cho nhà bán hàng hoặc về Lazada: Việc hoàn tiền sẽ được tiến hành ngay khi có kết quả đánh giá từ nhà bán hàng hay đơn vị kiểm tra của DONOTA về sản phẩm hoàn tất. \n
+⭐Đơn hàng hoàn trả về cho nhà bán hàng hoặc về DONOTA: Việc hoàn tiền sẽ được tiến hành ngay khi có kết quả đánh giá từ nhà bán hàng hay đơn vị kiểm tra của DONOTA về sản phẩm hoàn tất. \n
 
 ⭐Đơn hàng thanh toán trả trước giao không thành công: Việc hoàn tiền sẽ được tiến hành ngay khi hàng vận chuyển về nhà bán hàng thành công. \n
 
 ⭐Đơn hàng đặt cọc trước: Việc hoàn tiền sẽ được tiến hành tự động nếu đơn hàng bị hủy bởi DONOTA.</string>
+    <!-- Splash Screen -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="heading_1"> Making your house home</string>
     <string name="heading_2">Discover the essence of home</string>
     <string name="desc_1">Mang đến sự thoải mái và phong cách cho không gian sống của bạn.</string>
     <string name="desc_2">Khám phá bộ sưu tập tuyển chọn của chúng tôi để tìm những món đồ phản ánh phong cách và cá tính độc đáo của bạn.</string>
     <string name="f_pw"><u>Quên mật khẩu?</u></string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

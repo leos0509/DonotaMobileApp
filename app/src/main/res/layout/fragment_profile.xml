@@ -55,7 +55,7 @@
                     android:id="@+id/txtHoTen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ho va ten"
+                    android:text="Họ và tên"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/primary1"/>
@@ -81,7 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Ngay sinh"
+                    android:text="Ngày sinh"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/primary1"/>
@@ -107,7 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="So dien thoai"
+                    android:text="Số điện thoại"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/primary1"/>
@@ -163,12 +163,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/Info">
                 <TableRow
+                    android:id="@+id/ChangePass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:paddingHorizontal="15dp">
-
 
                     <TextView
                         android:id="@+id/txtChangePass"

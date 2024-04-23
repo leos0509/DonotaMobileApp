@@ -18,12 +18,15 @@ import com.donota.donotamobileapp.R;
 public class LoginSignupActivity extends AppCompatActivity {
 
     ActivityLoginSignupBinding binding;
+    LogInFragment logInFragment = new LogInFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginSignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.containerLogInLayout,logInFragment).commit();
 
         addEvents();
     }

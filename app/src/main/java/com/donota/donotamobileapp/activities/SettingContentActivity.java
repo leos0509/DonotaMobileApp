@@ -32,16 +32,15 @@ public class SettingContentActivity extends AppCompatActivity {
         String settingID = getIntent().getStringExtra("settingID");
         if ("personal_info".equals(settingID)) {
             transaction.replace(R.id.fcvSetting, new ProfileFragment());
-        } else if ("payment_setting".equals(settingID)) {
+        } else if ("wishlist".equals(settingID)) {
+            transaction.replace(R.id.fcvSetting, new AddressSettingsFragment());
+        }else if ("payment_setting".equals(settingID)) {
             transaction.replace(R.id.fcvSetting, new PaymentSettingsFragment());
         } else if ("address_setting".equals(settingID)) {
             transaction.replace(R.id.fcvSetting, new AddressSettingsFragment());
         } else if ("policy_setting".equals(settingID)) {
             transaction.replace(R.id.fcvSetting, new PolicyFragment());
         }
-
-
-
 
         transaction.commit();
     }

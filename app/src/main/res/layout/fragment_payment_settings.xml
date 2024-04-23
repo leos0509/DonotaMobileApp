@@ -14,7 +14,7 @@
             android:id="@+id/txtPhuongThuc1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tai khoan ngan hang"
+            android:text="Tài khoản ngân hàng"
             android:textStyle="bold"
             android:textColor="@color/primary1"
             android:textSize="16sp"
@@ -47,7 +47,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Them the moi"
+                    android:text="Thêm thẻ mới"
                     android:layout_gravity="center"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -56,7 +56,7 @@
                 android:id="@+id/txtPhuongThuc2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="The tin dung/The ghi no"
+                android:text="Thẻ tín dụng/Thẻ ghi nợ"
                 android:textStyle="bold"
                 android:textColor="@color/primary1"
                 android:textSize="16sp"
@@ -90,7 +90,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Them the moi"
+                        android:text="Thêm thẻ mới"
                         android:layout_gravity="center"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

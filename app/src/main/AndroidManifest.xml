@@ -25,22 +25,19 @@
             android:name=".activities.SettingContentActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.ConfirmOrderActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.AccountActivity"
+            android:name=".activities.CheckOutActivity"
             android:exported="false" />
         <activity
             android:name=".activities.LoginSignupActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.ConfirmOtpScreen"
-            android:exported="false" />
-        <activity
-            android:name=".activities.OrderConfirmation"
+            android:name=".activities.ConfirmOtpScreenActivity"
             android:exported="false" />
         <activity
             android:name=".activities.SplashScreenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AccountActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
