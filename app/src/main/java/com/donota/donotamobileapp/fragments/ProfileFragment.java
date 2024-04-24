@@ -50,6 +50,11 @@ public class ProfileFragment extends Fragment {
         return fragment;
     }
 
+    public static Fragment newInstance() {
+        ProfileFragment fragment = new ProfileFragment();
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

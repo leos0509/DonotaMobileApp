@@ -2,41 +2,33 @@ package com.donota.donotamobileapp.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.activities.AccountActivity;
 import com.donota.donotamobileapp.database.impl.TbCustomerProfileImpl;
 import com.donota.donotamobileapp.databinding.FragmentRegisterBinding;
-import com.donota.donotamobileapp.models.CustomerDto;
-import com.donota.donotamobileapp.utils.DbUtils;
 import com.donota.donotamobileapp.utils.PreferenceUtils;
 
-import java.util.Currency;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RegisterFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class RegisterFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -82,13 +74,17 @@ public class RegisterFragment extends Fragment {
                     if (!customerPassword.equals(confirmPassword)) {
                         Toast.makeText(getActivity(), "Mật khẩu xác nhận không trùng khớp!", Toast.LENGTH_SHORT).show();
                     } else {
-                        PreferenceUtils.setUserAccount(context, customerAccount);
-                        PreferenceUtils.setUserAccount(getActivity(), customerAccount);
-                        Intent intent = new Intent(getActivity(), AccountActivity.class);
-                        startActivity(intent);
+                        PreferenceUtils.setCustomerAccount(context, customerAccount);
+                        AccountPageFragment accountPageFragment = new AccountPageFragment();
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.rootNavFragmentContainer, new HomeNavFragment());
+                        fragmentTransaction.replace(R.id.homeNavFragmentContainer, new AccountPageFragment());
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
                     }
                 } else {
-                    Toast.makeText(getContext(), "Đã xảy ra lỗi khi đăng ký!", Toast.LENGTH_SHORT).show();;
+                    Toast.makeText(getContext(), "Đã xảy ra lỗi khi đăng ký!", Toast.LENGTH_SHORT).show();
                 }
 
             }
