@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements LogInFragment.OnL
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         if (fragmentManager.findFragmentById(R.id.rootNavFragmentContainer) == null) {
-            transaction.add(R.id.rootNavFragmentContainer, new SplashScreenFragment());
+            transaction.add(R.id.rootNavFragmentContainer, new HomeNavFragment());
         }
         transaction.commit();
     }
@@ -56,11 +56,13 @@ public class MainActivity extends AppCompatActivity implements LogInFragment.OnL
 
         if (!dbFile.exists()) {
             try {
+                // Create the directory if it doesn't exist
                 File dbFolder = new File(getApplicationInfo().dataDir + DB_FOLDER);
                 if (!dbFolder.exists()) {
                     dbFolder.mkdir();
                 }
 
+                // Copy the database file from assets to the data directory
                 InputStream inputStream = getAssets().open(DB_NAME);
                 OutputStream outputStream = new FileOutputStream(dbFile);
                 byte[] buffer = new byte[1024];
@@ -83,8 +85,7 @@ public class MainActivity extends AppCompatActivity implements LogInFragment.OnL
     public void onLoginSuccess() {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-//        transaction.replace(R.id.rootNavFragmentContainer, new AccountPageFragment(), "Login Success"); using this one
-        transaction.replace(R.id.rootNavFragmentContainer, new HomeNavFragment(), "Login Success"); //This one is for testing purposes
+        transaction.replace(R.id.rootNavFragmentContainer, new HomeNavFragment(), "Login Success");
         transaction.addToBackStack(null);
         transaction.commit();
     }
