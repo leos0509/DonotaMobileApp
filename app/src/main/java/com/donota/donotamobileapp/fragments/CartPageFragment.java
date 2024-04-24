@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.adapter.CartItemAdapter;
@@ -22,7 +23,7 @@ import java.util.List;
  * Use the {@link CartPageFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CartPageFragment extends Fragment {
+public class CartPageFragment extends Fragment implements CartItemAdapter.OnCheckedItemCountChangedListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -86,10 +87,20 @@ public class CartPageFragment extends Fragment {
         cartItems.add(new CartItem("Item 2", 29.99, 2));
         cartItems.add(new CartItem("Item 2", 29.99, 2));
 
-        CartItemAdapter adapter = new CartItemAdapter(cartItems);
+        CartItemAdapter adapter = new CartItemAdapter(cartItems, this);
         recyclerView.setAdapter(adapter);
 
         return view;
     }
 
+    @Override
+    public void onCheckedItemCountChanged(int count) {
+
+    }
+
+    @Override
+    public void onCheckedItemPriceSumChanged(double sum) {
+        TextView checkedItemPriceSumTextView = getView().findViewById(R.id.txtTotalPrice);
+        checkedItemPriceSumTextView.setText(String.valueOf(sum));
+    }
 }

@@ -105,7 +105,6 @@ public class HomePageFragment extends Fragment implements ProductGridAdapter.OnP
         carouselAdapter1 = new BestSellerCarouselAdapter(getContext(), items, new BestSellerCarouselAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                // Handle item click for the first carousel
             }
         });
         carouselRecyclerView1.setAdapter(carouselAdapter1);
