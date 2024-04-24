@@ -40,12 +40,11 @@ public class ProductDetailFragment extends Fragment {
 
         productCards = new ArrayList<>();
 
-        productCards.add(new ProductCard(R.drawable.product_img_holder, "Product 1", "4.5", "$19.99"));
-        productCards.add(new ProductCard(R.drawable.product_img_holder, "Product 2", "4.0", "$29.99"));
-        productCards.add(new ProductCard(R.drawable.product_img_holder, "Product 3", "3.5", "$39.99"));
 
         RecyclerView recyclerView = view.findViewById(R.id.revSimilarProduct);
-        ProductCarouselAdapter adapter = new ProductCarouselAdapter(getContext(), productCards);
+        ProductCarouselAdapter adapter = new ProductCarouselAdapter(getContext(), productCards, position -> {
+
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setAdapter(adapter);
 

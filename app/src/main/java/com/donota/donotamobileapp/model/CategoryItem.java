@@ -1,20 +1,30 @@
 package com.donota.donotamobileapp.model;
 
 public class CategoryItem {
-    private int imgResId;
+    private  String productId;
+    private String productImageUrl;
     String categoryName;
 
-    public CategoryItem(int imgResId, String categoryName) {
-        this.imgResId = imgResId;
+    public CategoryItem(String productId, String productImageUrl, String categoryName) {
+        this.productId = productId;
+        this.productImageUrl = productImageUrl;
         this.categoryName = categoryName;
     }
 
-    public int getImgResId() {
-        return imgResId;
+    public String getProductId() {
+        return productId;
     }
 
-    public void setImgResId(int imgResId) {
-        this.imgResId = imgResId;
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public String getProductImageUrl() {
+        return productImageUrl;
+    }
+
+    public void setProductImageUrl(String productImageUrl) {
+        this.productImageUrl = productImageUrl;
     }
 
     public String getCategoryName() {

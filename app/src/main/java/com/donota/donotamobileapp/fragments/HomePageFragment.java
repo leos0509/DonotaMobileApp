@@ -26,11 +26,9 @@ import com.donota.donotamobileapp.model.CarouselItem;
 import com.donota.donotamobileapp.model.ProductCard;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
 
 public class HomePageFragment extends Fragment {
 
@@ -42,6 +40,8 @@ public class HomePageFragment extends Fragment {
     private RecyclerView carouselCategoryRecyclerView;
     private RecyclerView productRecyclerView;
     private List<CarouselItem> carouselItems;
+
+    private ProductGridAdapter.OnProductClickListener onProductClickListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,23 +69,15 @@ public class HomePageFragment extends Fragment {
     }
     private void setupCarousels() {
         List<CarouselItem> bestSellerItems = loadBestSellerCarouselData();
-        // Setup for the first carousel
         carouselBestSellerRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        // Handle item click for the first carousel
-        BestSellerCarouselAdapter carouselBestSellerAdapter = new BestSellerCarouselAdapter(getContext(), bestSellerItems, new BestSellerCarouselAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                // Handle item click for the first carousel
-            }
+        BestSellerCarouselAdapter carouselBestSellerAdapter = new BestSellerCarouselAdapter(getContext(), bestSellerItems, position -> {
+            // Handle item click for the first carousel
         });
         carouselBestSellerRecyclerView.setAdapter(carouselBestSellerAdapter);
 
         List<CarouselItem> categoryItems = loadCategoryCarouselData();
         carouselCategoryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        CategoryCarouselAdapter carouselCategoryAdapter = new CategoryCarouselAdapter(getContext(), categoryItems, new CategoryCarouselAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-            }
+        CategoryCarouselAdapter carouselCategoryAdapter = new CategoryCarouselAdapter(getContext(), categoryItems, position -> {
         });
         carouselCategoryRecyclerView.setAdapter(carouselCategoryAdapter);
     }
@@ -126,7 +118,7 @@ public class HomePageFragment extends Fragment {
 
     private void setupProducts() {
         List<ProductCard> productCards = loadProductData();
-        ProductGridAdapter productGridAdapter = new ProductGridAdapter(getContext(), productCards);
+        ProductGridAdapter productGridAdapter = new ProductGridAdapter(getContext(), productCards, onProductClickListener);
         productRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         productRecyclerView.setAdapter(productGridAdapter);
     }
@@ -144,25 +136,6 @@ public class HomePageFragment extends Fragment {
         cursor.close();
         tbProduct.close();
         return productList;
-    }
-
-    private List<String> getFirstCategory() {
-        tbProduct = new TbProductImpl(getContext());
-
-        String sql = "SELECT productcategory FROM tbproduct WHERE ";
-        Cursor cursor = tbProduct.queryData(sql);
-        List<String> listWithDuplicates = new ArrayList<>(); // Danh sách có các phần tử trùng
-        while (cursor.moveToNext()) {
-            String categoriesString = cursor.getString(0);
-            String[] categories = categoriesString.split(";");
-            listWithDuplicates.add(categories[0].trim());
-//            for (String category : categories) {
-//                listWithDuplicates.add(category.trim());
-        }
-        cursor.close();
-        tbProduct.close();
-        Set<String> setWithoutDuplicates = new HashSet<>(listWithDuplicates);
-        return new ArrayList<>(setWithoutDuplicates);
     }
 
     private void loadFragment() {
