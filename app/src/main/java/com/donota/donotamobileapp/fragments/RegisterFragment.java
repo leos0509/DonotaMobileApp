@@ -61,6 +61,7 @@ public class RegisterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentRegisterBinding.inflate(inflater,container,false);
+
         binding.btnConfirmSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

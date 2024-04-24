@@ -8,6 +8,17 @@
     android:background="@color/white"
     tools:context=".activities.AccountActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/topAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:menu="@menu/top_menu_bar"
+        android:fitsSystemWindows="true"
+        android:elevation="5dp"
+        android:background="@color/primary2"/>
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvAva"
