@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity implements LogInFragment.OnL
         Log.d("Database", "Database loaded");
     }
 
-
     @Override
     public void onLoginSuccess() {
         FragmentManager manager = getSupportFragmentManager();
