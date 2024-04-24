@@ -28,6 +28,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnNext"
         android:layout_width="310dp"
@@ -52,13 +54,5 @@
         app:layout_constraintBottom_toTopOf="@+id/btnNext"
         android:layout_marginBottom="30dp"
         app:layout_constraintStart_toStartOf="parent">
-
     </LinearLayout>
-
-
-
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

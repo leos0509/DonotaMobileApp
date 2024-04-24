@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -21,32 +22,16 @@ import com.donota.donotamobileapp.utils.PreferenceUtils;
 public class LogInFragment extends Fragment {
     FragmentLogInBinding binding;
     TbCustomerProfileImpl tbCustomerProfile;
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-
-    private String mParam1;
-    private String mParam2;
-
     public LogInFragment() {
     }
 
-    public static LogInFragment newInstance(String param1, String param2) {
+    public static LogInFragment newInstance() {
         LogInFragment fragment = new LogInFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public interface OnLoginSuccessListener {
+        void onLoginSuccess();
     }
 
     @Override
@@ -71,8 +56,7 @@ public class LogInFragment extends Fragment {
                             if (cursor != null && cursor.moveToFirst()) {
                                 PreferenceUtils.setCustomerId(context, cursor.getString(0));
                                 cursor.close();
-                                Intent intent = new Intent(context, MainActivity.class);
-                                startActivity(intent);
+                                listener.onLoginSuccess();
                             }
                         } finally {
                             tbCustomerProfile.close();
@@ -127,4 +111,19 @@ public class LogInFragment extends Fragment {
         }
         return false;
     }
+
+    // Inside LogInFragment
+    private OnLoginSuccessListener listener;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof OnLoginSuccessListener) {
+            listener = (OnLoginSuccessListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnLoginSuccessListener");
+        }
+    }
+
 }

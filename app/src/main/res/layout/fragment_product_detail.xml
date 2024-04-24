@@ -124,7 +124,6 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/btnChat"/>
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
@@ -168,6 +167,7 @@
                 android:layout_height="wrap_content"
                 app:elevation="10dp"
                 android:clipChildren="true"
+                android:layout_marginBottom="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cardvProductDes">
@@ -198,51 +198,61 @@
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-    <androidx.cardview.widget.CardView
-        android:id="@+id/btnCollectionDetail"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clipToOutline="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-        <LinearLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btnCollectionDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal">
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_home"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="Thêm vào giỏ"
-                style="@style/button1"
-                android:layout_weight="1"
-                android:paddingVertical="10dp"
-                android:paddingHorizontal="30dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginHorizontal="0dp"
-                android:textSize="12sp"
-                android:textColor="@color/primary1"
-                android:fontFamily="@font/bevietnampro_regular"
-                android:drawableLeft="@drawable/baseline_shopping_cart_24"
-                android:drawableTint="@color/primary1"
-                android:background="@drawable/white_nav_btn_bg"/>
+            android:elevation="20dp"
+            android:clipChildren="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_home"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="Thêm vào giỏ"
+                    style="@style/button1"
+                    android:layout_weight="1"
+                    android:paddingVertical="10dp"
+                    android:paddingHorizontal="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="0dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/primary1"
+                    android:fontFamily="@font/bevietnampro_regular"
+                    android:drawableLeft="@drawable/baseline_shopping_cart_24"
+                    android:drawableTint="@color/primary1"
+                    android:background="@drawable/white_nav_btn_bg"/>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_search"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="Mua ngay"
-                style="@style/button1"
-                android:layout_weight="1"
-                android:paddingVertical="10dp"
-                android:textSize="12sp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginHorizontal="0dp"
-                android:textColor="@color/primary1"
-                android:fontFamily="@font/bevietnampro_regular"
-                android:drawableTint="@color/primary1"
-                android:background="@drawable/white_nav_btn_bg"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_search"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="Mua ngay"
+                    style="@style/button1"
+                    android:layout_weight="1"
+                    android:paddingVertical="10dp"
+                    android:textSize="12sp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="0dp"
+                    android:textColor="@color/primary1"
+                    android:fontFamily="@font/bevietnampro_regular"
+                    android:drawableTint="@color/primary1"
+                    android:background="@drawable/white_nav_btn_bg"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

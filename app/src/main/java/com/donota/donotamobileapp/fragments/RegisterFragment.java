@@ -6,12 +6,15 @@ import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.activities.AccountActivity;
 import com.donota.donotamobileapp.database.impl.TbCustomerProfileImpl;
 import com.donota.donotamobileapp.databinding.FragmentRegisterBinding;
@@ -72,8 +75,13 @@ public class RegisterFragment extends Fragment {
                         Toast.makeText(getActivity(), "Mật khẩu xác nhận không trùng khớp!", Toast.LENGTH_SHORT).show();
                     } else {
                         PreferenceUtils.setCustomerAccount(context, customerAccount);
-                        Intent intent = new Intent(getActivity(), AccountActivity.class);
-                        startActivity(intent);
+                        AccountPageFragment accountPageFragment = new AccountPageFragment();
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.rootNavFragmentContainer, new HomeNavFragment());
+                        fragmentTransaction.replace(R.id.homeNavFragmentContainer, new AccountPageFragment());
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
                     }
                 } else {
                     Toast.makeText(getContext(), "Đã xảy ra lỗi khi đăng ký!", Toast.LENGTH_SHORT).show();

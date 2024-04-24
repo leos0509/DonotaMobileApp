@@ -12,7 +12,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.databinding.ActivityMainBinding;
+import com.donota.donotamobileapp.fragments.AccountPageFragment;
 import com.donota.donotamobileapp.fragments.HomeNavFragment;
+import com.donota.donotamobileapp.fragments.LogInFragment;
+import com.donota.donotamobileapp.fragments.SplashScreenFragment;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,7 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements LogInFragment.OnLoginSuccessListener {
     ActivityMainBinding binding;
 
     @Override
@@ -42,7 +45,7 @@ public class MainActivity extends AppCompatActivity{
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         if (fragmentManager.findFragmentById(R.id.rootNavFragmentContainer) == null) {
-            transaction.add(R.id.rootNavFragmentContainer, new HomeNavFragment());
+            transaction.add(R.id.rootNavFragmentContainer, new SplashScreenFragment());
         }
         transaction.commit();
     }
@@ -74,5 +77,15 @@ public class MainActivity extends AppCompatActivity{
             }
         }
         Log.d("Database", "Database loaded");
+    }
+
+
+    @Override
+    public void onLoginSuccess() {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.rootNavFragmentContainer, new AccountPageFragment(), "Login Success");
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
