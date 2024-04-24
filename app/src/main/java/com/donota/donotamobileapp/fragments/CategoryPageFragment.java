@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.adapter.CategoryGridAdapter;
+import com.donota.donotamobileapp.utils.SpacingItemDecoration;
 import com.donota.donotamobileapp.database.impl.TbProductImpl;
 import com.donota.donotamobileapp.model.CategoryItem;
 
