@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.model.CarouselItem;
 
@@ -33,8 +34,10 @@ public class BestSellerCarouselAdapter extends RecyclerView.Adapter<BestSellerCa
     @Override
     public void onBindViewHolder(CarouselViewHolder holder, int position) {
         CarouselItem item = items.get(position);
-        holder.imageView.setImageResource(item.getImageResId());
-        holder.imageView.setOnClickListener(v -> {
+        Glide.with(context)
+                .load(item.getProductImageUrl())
+                .into(holder.imvItem);
+        holder.imvItem.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onItemClick(position);
             }
@@ -47,11 +50,11 @@ public class BestSellerCarouselAdapter extends RecyclerView.Adapter<BestSellerCa
     }
 
     public static class CarouselViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
+        ImageView imvItem;
 
         public CarouselViewHolder(View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.carousel_image);
+            imvItem = itemView.findViewById(R.id.carousel_image);
         }
     }
 

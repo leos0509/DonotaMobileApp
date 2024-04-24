@@ -19,9 +19,9 @@ public class PreferenceUtils {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
-    public static void setCustomerId(Context context, String customerId) {
+    public static void setCustomerId(Context context, int customerId) {
         SharedPreferences.Editor editor = getSharedPreferences(context).edit();
-        editor.putString(KEY_CUSTOMER_ID, customerId);
+        editor.putInt(KEY_CUSTOMER_ID, customerId);
         editor.apply();
     }
     public static void setCustomerAccount(Context context, String customerAccount) {
@@ -30,8 +30,8 @@ public class PreferenceUtils {
         editor.apply();
     }
 
-    public static String getCustomerId(Context context) {
-        return getSharedPreferences(context).getString(KEY_CUSTOMER_ID, null);
+    public static int getCustomerId(Context context) {
+        return getSharedPreferences(context).getInt(KEY_CUSTOMER_ID, 0);
     }
     public static String getCustomerAccount(Context context) {
         return getSharedPreferences(context).getString(KEY_CUSTOMER_ACCOUNT, null);

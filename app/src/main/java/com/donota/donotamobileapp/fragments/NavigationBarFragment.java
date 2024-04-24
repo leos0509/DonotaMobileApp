@@ -34,7 +34,7 @@ public class NavigationBarFragment extends Fragment {
         });
 
         btnSearch.setOnClickListener(v -> {
-            navigateTo(new WishlistPageFragment());
+            navigateTo(new CategoryPageFragment());
         });
 
         btnCart.setOnClickListener(v -> {

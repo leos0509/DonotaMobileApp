@@ -1,90 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.AddressSettingsFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray">
+
+        <TextView
+            android:id="@+id/txtHeading"
+            style="@style/subtitle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:background="@color/gray">
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="Địa chỉ"
+            android:textColor="@color/primary2"
+            android:textFontWeight="700"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:elevation="5dp"
+            app:layout_constraintTop_toBottomOf="@id/txtHeading">
 
-            <TextView
-                android:id="@+id/txtHeading"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Địa chỉ"
-                android:textStyle="bold"
-                android:textColor="@color/primary2"
-                android:textSize="16sp"
-                android:layout_margin="20dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:orientation="vertical"
+                android:paddingVertical="5dp">
 
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/txtHeading"
-                android:background="@color/white"
-                android:layout_marginTop="5dp"
-                android:elevation="5dp">
-                <LinearLayout
+                <TextView
+                    android:id="@+id/txtName"
+                    style="@style/button1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/txtName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Jerry Le"
-                        android:layout_marginVertical="5dp"
-                        android:layout_marginHorizontal="20dp"
-                        android:textSize="16dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/primary1"/>
-                    <TextView
-                        android:id="@+id/txtPhone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="0789678963"
-                        android:layout_marginHorizontal="20dp"
-                        android:textSize="16dp"
-                        android:textColor="@color/primary2"/>
-                    <TextView
-                        android:id="@+id/txtAddress"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Số 669 Đường Quốc lộ 1, Khu phố 3, Phường Linh Xuân, Quận Thủ Đức, TP. Hồ Chí Minh."
-                        android:layout_marginHorizontal="20dp"
-                        android:textSize="16dp"
-                        android:textColor="@color/primary2"
-                        android:layout_marginBottom="5dp"/>
-                </LinearLayout>
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="5dp"
+                    android:text="Jerry Le"
+                    android:textColor="@color/primary1" />
 
+                <TextView
+                    android:id="@+id/txtPhone"
+                    style="@style/body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:text="0789678963"
+                    android:textColor="@color/primary2" />
 
-            </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/txtAddress"
+                    style="@style/body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Số 669 Đường Quốc lộ 1, Khu phố 3, Phường Linh Xuân, Quận Thủ Đức, TP. Hồ Chí Minh."
+                    android:textColor="@color/primary2" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/primary1"
-                app:layout_constraintTop_toBottomOf="@id/cvAddress"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:text="THAY ĐỔI"
-                android:textColor="@color/white"
-                android:layout_marginTop="10dp"/>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/primary1_4dp_corner_bg"
+            android:text="Thay đổi"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cvAddress" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
 
 

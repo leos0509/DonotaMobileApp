@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".EmptyCartFragment">
+    tools:context=".fragments.EmptyCartFragment">
 
     <ImageView
         android:id="@+id/imvEmptyCart"
         android:layout_width="140dp"
         android:layout_height="140dp"
-        android:src="@drawable/baseline_shopping_cart_24"
+        android:src="@drawable/empty_cart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,7 +20,7 @@
         android:id="@+id/txtEmptyCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Giỏ hàng trống"
+        android:text="Giỏ hàng trống!"
         android:textSize="26sp"
         android:textColor="@color/primary2"
         app:layout_constraintTop_toBottomOf="@id/imvEmptyCart"
@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnBuyNow"
+        android:id="@+id/btnShoppingNow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Mua sắm ngay"

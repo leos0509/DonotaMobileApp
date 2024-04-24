@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Product Name"
-            android:textSize="12sp"
+            style="@style/body2"
             android:layout_marginTop="5dp"
             android:paddingVertical="5dp"
             app:layout_constraintTop_toBottomOf="@id/imvProduct"
@@ -54,8 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="190.000đ"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            style="@style/body2"
             android:layout_marginTop="10dp"
             app:layout_constraintTop_toBottomOf="@id/btnRating"
             app:layout_constraintStart_toStartOf="parent"/>
