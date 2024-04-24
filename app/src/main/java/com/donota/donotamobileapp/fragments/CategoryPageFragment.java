@@ -70,6 +70,11 @@ public class CategoryPageFragment extends Fragment {
 
         });
         categoryTypesRecyclerView.setAdapter(adapterTypes);
+
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing_4dp);
+        categoryCollectionsRecyclerView.addItemDecoration(new SpacingItemDecoration(spacingInPixels, spacingInPixels));
+        categoryRoomsRecyclerView.addItemDecoration(new SpacingItemDecoration(spacingInPixels, spacingInPixels));
+        categoryTypesRecyclerView.addItemDecoration(new SpacingItemDecoration(spacingInPixels, spacingInPixels));
     }
 
 
