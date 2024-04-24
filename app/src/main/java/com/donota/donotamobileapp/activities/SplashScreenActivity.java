@@ -1,7 +1,7 @@
 package com.donota.donotamobileapp.activities;
 
-import static com.donota.donotamobileapp.Utils.DbUtils.DB_FOLDER;
-import static com.donota.donotamobileapp.Utils.DbUtils.DB_NAME;
+import static com.donota.donotamobileapp.utils.DbUtils.DB_FOLDER;
+import static com.donota.donotamobileapp.utils.DbUtils.DB_NAME;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +18,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.adapters.ViewPagerAdapter;
-import com.donota.donotamobileapp.database.impl.ProductDatabaseImpl;
 import com.donota.donotamobileapp.databinding.ActivitySplashScreenBinding;
 
 import java.io.File;
@@ -50,7 +49,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         btn_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(SplashScreenActivity.this, MainActivity.class);
+                Intent i = new Intent(SplashScreenActivity.this, LoginSignupActivity.class);
                 startActivity(i);
                 finish();
             }
@@ -62,7 +61,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 if (getItem(0) < 1)
                     mSlideViewPager.setCurrentItem(getItem(1), true);
                 else {
-                    Intent i = new Intent(SplashScreenActivity.this, MainActivity.class);
+                    Intent i = new Intent(SplashScreenActivity.this, LoginSignupActivity.class);
                     startActivity(i);
                     finish();
                 }
@@ -82,14 +81,16 @@ public class SplashScreenActivity extends AppCompatActivity {
         File dbFile = getDatabasePath(DB_NAME);
 
         if (!dbFile.exists()) {
-            String dbPath = getApplicationInfo().dataDir + DB_FOLDER + DB_NAME;
             try {
-                InputStream inputStream = getAssets().open(DB_NAME);
-                File f = new File(getApplicationInfo().dataDir + DB_FOLDER);
-                if (!f.exists()) {
-                    f.mkdir();
+                // Create the directory if it doesn't exist
+                File dbFolder = new File(getApplicationInfo().dataDir + DB_FOLDER);
+                if (!dbFolder.exists()) {
+                    dbFolder.mkdir();
                 }
-                OutputStream outputStream = new FileOutputStream(dbPath);
+
+                // Copy the database file from assets to the data directory
+                InputStream inputStream = getAssets().open(DB_NAME);
+                OutputStream outputStream = new FileOutputStream(dbFile);
                 byte[] buffer = new byte[1024];
                 int length;
                 while ((length = inputStream.read(buffer)) > 0) {
@@ -103,7 +104,6 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
         }
         Log.d("Database", "Database loaded");
-
     }
 
     public void setUpIndicator(int position) {
