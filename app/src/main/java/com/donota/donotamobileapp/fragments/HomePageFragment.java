@@ -24,6 +24,8 @@ import com.donota.donotamobileapp.database.impl.TbProductImpl;
 import com.donota.donotamobileapp.databinding.FragmentHomepageBinding;
 import com.donota.donotamobileapp.model.CarouselItem;
 import com.donota.donotamobileapp.model.ProductCard;
+import com.donota.donotamobileapp.utils.CarouselItemDecoration;
+import com.donota.donotamobileapp.utils.SpacingItemDecoration;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -59,7 +61,7 @@ public class HomePageFragment extends Fragment {
         ImageView imageView = view.findViewById(R.id.imvSlider);
 
         String imageUrl = "https://mocshop.com.vn/library/module_new/bao-gia-thiet-ke---thi-cong-noi-that_s2030.jpg";
-        Glide.with(getContext()) // Use getContext() instead of this
+        Glide.with(getContext())
                 .load(imageUrl)
                 .override(200, 100)
                 .centerCrop()
@@ -71,7 +73,6 @@ public class HomePageFragment extends Fragment {
         List<CarouselItem> bestSellerItems = loadBestSellerCarouselData();
         carouselBestSellerRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         BestSellerCarouselAdapter carouselBestSellerAdapter = new BestSellerCarouselAdapter(getContext(), bestSellerItems, position -> {
-            // Handle item click for the first carousel
         });
         carouselBestSellerRecyclerView.setAdapter(carouselBestSellerAdapter);
 
@@ -79,7 +80,12 @@ public class HomePageFragment extends Fragment {
         carouselCategoryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         CategoryCarouselAdapter carouselCategoryAdapter = new CategoryCarouselAdapter(getContext(), categoryItems, position -> {
         });
+
         carouselCategoryRecyclerView.setAdapter(carouselCategoryAdapter);
+
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing_4dp);
+        carouselBestSellerRecyclerView.addItemDecoration(new CarouselItemDecoration(spacingInPixels, spacingInPixels));
+        carouselCategoryRecyclerView.addItemDecoration(new CarouselItemDecoration(spacingInPixels, spacingInPixels));
     }
     private List<CarouselItem> loadBestSellerCarouselData() {
         carouselItems = new ArrayList<>();
@@ -121,6 +127,9 @@ public class HomePageFragment extends Fragment {
         ProductGridAdapter productGridAdapter = new ProductGridAdapter(getContext(), productCards, onProductClickListener);
         productRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         productRecyclerView.setAdapter(productGridAdapter);
+
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing_4dp);
+        productRecyclerView.addItemDecoration(new SpacingItemDecoration(spacingInPixels, spacingInPixels));
     }
 
     private List<ProductCard> loadProductData() {
@@ -145,5 +154,4 @@ public class HomePageFragment extends Fragment {
         transaction.add(R.id.navigation_bar, new NavigationBarFragment());
         transaction.commit();
     }
-
 }

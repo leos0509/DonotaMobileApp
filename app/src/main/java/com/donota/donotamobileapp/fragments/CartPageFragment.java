@@ -103,4 +103,6 @@ public class CartPageFragment extends Fragment implements CartItemAdapter.OnChec
         TextView checkedItemPriceSumTextView = getView().findViewById(R.id.txtTotalPrice);
         checkedItemPriceSumTextView.setText(String.valueOf(sum));
     }
+
+
 }
