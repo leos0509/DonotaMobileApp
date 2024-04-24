@@ -62,7 +62,6 @@ public class LogInFragment extends Fragment {
                         } finally {
                             tbCustomerProfile.close();
                         }
-
                     } else {
                         Toast.makeText(context, "Mật khẩu sai, xin hãy nhập lại !!!", Toast.LENGTH_SHORT).show();
                     }
