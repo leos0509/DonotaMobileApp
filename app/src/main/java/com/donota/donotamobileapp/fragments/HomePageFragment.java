@@ -1,5 +1,6 @@
 package com.donota.donotamobileapp.fragments;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,7 +44,8 @@ public class HomePageFragment extends Fragment {
     private RecyclerView productRecyclerView;
     private List<CarouselItem> carouselItems;
 
-    private ProductGridAdapter.OnProductClickListener onProductClickListener;
+
+    private OnDataPass dataPasser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -124,7 +126,9 @@ public class HomePageFragment extends Fragment {
 
     private void setupProducts() {
         List<ProductCard> productCards = loadProductData();
-        ProductGridAdapter productGridAdapter = new ProductGridAdapter(getContext(), productCards, onProductClickListener);
+        ProductGridAdapter productGridAdapter = new ProductGridAdapter(getContext(), productCards, productCard -> {
+            sendData(productCard.getProductId());
+        });
         productRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         productRecyclerView.setAdapter(productGridAdapter);
 
@@ -135,12 +139,12 @@ public class HomePageFragment extends Fragment {
     private List<ProductCard> loadProductData() {
         List<ProductCard> productList = new ArrayList<>();
         tbProduct = new TbProductImpl(getContext());
-        String queryProduct = "SELECT productimg, productname, productrating, productprice from tbproduct ";
+        String queryProduct = "SELECT productimg, productname, productrating, productprice, productId from tbproduct ";
         Cursor cursor = tbProduct.queryData(queryProduct);
         while (cursor!= null && cursor.moveToNext()) {
             String[] imgUrls = cursor.getString(0).split(";");
             String firstImg = imgUrls[0].trim();
-            productList.add(new ProductCard(firstImg, cursor.getString(1),cursor.getString(2),cursor.getInt(3)));
+            productList.add(new ProductCard(firstImg, cursor.getString(1),cursor.getString(2),cursor.getInt(3), cursor.getString(4)));
         }
         cursor.close();
         tbProduct.close();
@@ -150,8 +154,22 @@ public class HomePageFragment extends Fragment {
     private void loadFragment() {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-
         transaction.add(R.id.navigation_bar, new NavigationBarFragment());
         transaction.commit();
+    }
+    public interface OnDataPass {
+        void onDataPass(String selectedProductID);
+    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnDataPass) {
+            dataPasser = (OnDataPass) context;
+        } else {
+            throw new ClassCastException(context.toString() + " must implement OnDataPass interface");
+        }
+    }
+    public void sendData(String data) {
+        dataPasser.onDataPass(data);
     }
 }
