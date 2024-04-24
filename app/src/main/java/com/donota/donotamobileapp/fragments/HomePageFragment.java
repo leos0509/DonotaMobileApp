@@ -20,16 +20,17 @@ import com.donota.donotamobileapp.adapter.CategoryCarouselAdapter;
 import com.donota.donotamobileapp.adapter.ProductGridAdapter;
 import com.donota.donotamobileapp.model.CarouselItem;
 import com.donota.donotamobileapp.model.ProductCard;
+import com.donota.donotamobileapp.utils.CarouselItemDecoration;
+import com.donota.donotamobileapp.utils.SpacingItemDecoration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HomePageFragment extends Fragment {
+public class HomePageFragment extends Fragment implements ProductGridAdapter.OnProductClickListener {
 
     private RecyclerView carouselRecyclerView1;
     private RecyclerView carouselRecyclerView2;
-    private RecyclerView productRecyclerView;
     private BestSellerCarouselAdapter carouselAdapter1;
     private CategoryCarouselAdapter carouselAdapter2;
 
@@ -42,8 +43,7 @@ public class HomePageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_homepage, container, false);
         carouselRecyclerView1 = view.findViewById(R.id.revCarouselBestSeller);
         carouselRecyclerView2 = view.findViewById(R.id.revCarouselCategory);
-        productRecyclerView = view.findViewById(R.id.revProduct);
-        recyclerView = view.findViewById(R.id.revProduct); // Initialize recyclerView
+        recyclerView = view.findViewById(R.id.revProduct);
         setupCarousels();
         setupProducts();
 
@@ -62,7 +62,6 @@ public class HomePageFragment extends Fragment {
     }
 
     private void setupProducts() {
-        // Initialize the data
         ArrayList<ProductCard> productCards = new ArrayList<>();
         productCards.add(new ProductCard(R.drawable.dining_table, "Product Name 1", "5.0", "190.000đ"));
         productCards.add(new ProductCard(R.drawable.sofa, "Product Name 2", "5.0", "250.000đ"));
@@ -70,12 +69,24 @@ public class HomePageFragment extends Fragment {
         productCards.add(new ProductCard(R.drawable.sofa, "Product Name 2", "5.0", "250.000đ"));
         productCards.add(new ProductCard(R.drawable.sofa, "Product Name 2", "5.0", "250.000đ"));
         productCards.add(new ProductCard(R.drawable.sofa, "Product Name 2", "5.0", "250.000đ"));
-        // Add more items as needed
 
-        // Set up the RecyclerView
-        ProductGridAdapter productGridAdapter = new ProductGridAdapter(getContext(), productCards);
+        ProductGridAdapter productGridAdapter = new ProductGridAdapter(getContext(), productCards, this);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(productGridAdapter);
+
+
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing_4dp);
+        recyclerView.addItemDecoration(new SpacingItemDecoration(spacingInPixels, spacingInPixels));
+    }
+
+    @Override
+    public void onProductClick(ProductCard productCard) {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        transaction.add(R.id.rootNavFragmentContainer, new ProductDetailFragment());
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     private void setupCarousels() {
@@ -106,13 +117,18 @@ public class HomePageFragment extends Fragment {
             }
         });
         carouselRecyclerView2.setAdapter(carouselAdapter2);
+
+
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing_2dp);
+        carouselRecyclerView1.addItemDecoration(new CarouselItemDecoration(spacingInPixels, spacingInPixels));
+        carouselRecyclerView2.addItemDecoration(new CarouselItemDecoration(spacingInPixels, spacingInPixels));
     }
 
     private void loadFragment() {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        transaction.replace(R.id.navigation_bar, new NavigationBarFragment());
+        transaction.add(R.id.navigation_bar, new NavigationBarFragment());
         transaction.commit();
     }
 }
