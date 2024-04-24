@@ -46,6 +46,7 @@ public class CategoryGridAdapter extends RecyclerView.Adapter<CategoryGridAdapte
                 listener.onItemClick(position);
             }
         });
+        holder.itemCategory.setText(item.getCategoryName());
     }
 
     @Override
