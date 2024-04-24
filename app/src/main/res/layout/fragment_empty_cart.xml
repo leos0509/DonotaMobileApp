@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.EmptyCartFragment">
+
+    <ImageView
+        android:id="@+id/imvEmptyCart"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:src="@drawable/empty_cart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="250dp"/>
+    <TextView
+        android:id="@+id/txtEmptyCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Giỏ hàng trống!"
+        android:textSize="26sp"
+        android:textColor="@color/primary2"
+        app:layout_constraintTop_toBottomOf="@id/imvEmptyCart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnShoppingNow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mua sắm ngay"
+        android:textSize="22sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/background_button"
+        app:layout_constraintTop_toBottomOf="@id/txtEmptyCart"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="70dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
