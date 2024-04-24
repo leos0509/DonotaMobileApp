@@ -1,7 +1,5 @@
 package com.donota.donotamobileapp.fragments;
 
-import android.content.Context;
-import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,26 +9,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.adapter.CartItemAdapter;
-import com.donota.donotamobileapp.database.impl.TbCartImpl;
-import com.donota.donotamobileapp.databinding.FragmentCartPageBinding;
 import com.donota.donotamobileapp.model.CartItem;
-import com.donota.donotamobileapp.utils.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartPageFragment extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link CartPageFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class CartPageFragment extends Fragment implements CartItemAdapter.OnCheckedItemCountChangedListener {
 
-    FragmentCartPageBinding binding;
-    Context context;
-    TbCartImpl tbCart;
-
-    CartItemAdapter adapter;
-
-    List<CartItem> cartItemList;
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -41,7 +37,16 @@ public class CartPageFragment extends Fragment {
     public CartPageFragment() {
         // Required empty public constructor
     }
-    
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment CartFragment.
+     */
+    // TODO: Rename and change types and number of parameters
     public static CartPageFragment newInstance(String param1, String param2) {
         CartPageFragment fragment = new CartPageFragment();
         Bundle args = new Bundle();
@@ -63,35 +68,39 @@ public class CartPageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentCartPageBinding.inflate(inflater, container, false);
-        initData();
-        return binding.getRoot();
+        View view = inflater.inflate(R.layout.fragment_cart_page, container, false);
+
+        RecyclerView recyclerView = view.findViewById(R.id.recvCartItems);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Example data
+        List<CartItem> cartItems = new ArrayList<>();
+        cartItems.add(new CartItem("Item 1", 19.99, 1));
+        cartItems.add(new CartItem("Item 2", 29.99, 2));
+        cartItems.add(new CartItem("Item 2", 29.99, 2));
+        cartItems.add(new CartItem("Item 2", 29.99, 2));
+        cartItems.add(new CartItem("Item 2", 29.99, 2));
+        cartItems.add(new CartItem("Item 2", 29.99, 2));
+        cartItems.add(new CartItem("Item 2", 29.99, 2));
+        cartItems.add(new CartItem("Item 2", 29.99, 2));
+        cartItems.add(new CartItem("Item 2", 29.99, 2));
+        cartItems.add(new CartItem("Item 2", 29.99, 2));
+        cartItems.add(new CartItem("Item 2", 29.99, 2));
+
+        CartItemAdapter adapter = new CartItemAdapter(cartItems, this);
+        recyclerView.setAdapter(adapter);
+
+        return view;
     }
 
-    private void initData() {
-        adapter = new CartItemAdapter(loadData());
-        binding.recvCartItems.setAdapter(adapter);
+    @Override
+    public void onCheckedItemCountChanged(int count) {
+
     }
 
-    private List<CartItem> loadData() {
-        context = getActivity();
-        tbCart = new TbCartImpl(context);
-        int customerId = PreferenceUtils.getCustomerId(context);
-        cartItemList = new ArrayList<>();
-
-        String queryCart = "SELECT tp.productname, tp.productprice, tp.productimg, tc.quantity \n\r"+
-                            "FROM tbproduct tp \n\r" +
-                            "JOIN tbcustomercart tc \n\r" +
-                            "ON tp.productid = tc.productid \n\r" +
-                            "WHERE tc.customerid = '" + String.valueOf(customerId) + "'";
-        Cursor cursor = tbCart.queryData(queryCart);
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                cartItemList.add(new CartItem(cursor.getString(0), cursor.getInt(1), cursor.getInt(3),cursor.getString(2)));
-            }
-            cursor.close();
-            tbCart.close();
-        }
-        return cartItemList;
+    @Override
+    public void onCheckedItemPriceSumChanged(double sum) {
+        TextView checkedItemPriceSumTextView = getView().findViewById(R.id.txtTotalPrice);
+        checkedItemPriceSumTextView.setText(String.valueOf(sum));
     }
 }
