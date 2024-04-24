@@ -10,6 +10,7 @@
     tools:context=".activities.MainActivity">
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/rootNavFragmentContainer"
+        android:background="@drawable/recyclerview_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"

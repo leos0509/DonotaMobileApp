@@ -114,7 +114,7 @@
                     android:id="@+id/step1TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
+                    style="@style/smallCaption"
                     android:text="Chờ xác nhận"
                     android:layout_weight="1"
                     android:gravity="center"/>
@@ -124,7 +124,7 @@
                     android:id="@+id/step2TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
+                    style="@style/smallCaption"
                     android:text="Chờ giao hàng"
                     android:layout_weight="1"
                     android:gravity="center"/>
@@ -134,7 +134,7 @@
                     android:id="@+id/step3TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
+                    style="@style/smallCaption"
                     android:text="Đang giao hàng"
                     android:layout_weight="1"
                     android:gravity="center"/>
@@ -144,16 +144,13 @@
                     android:id="@+id/step4TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:text="Đánh gia"
+                    style="@style/smallCaption"
+                    android:text="Đánh giá"
                     android:layout_weight="1"
                     android:gravity="center"/>
             </TableRow>
         </TableLayout>
     </androidx.cardview.widget.CardView>
-
-
-
     <androidx.cardview.widget.CardView
         android:id="@+id/crv01"
         android:layout_width="match_parent"
@@ -168,18 +165,17 @@
             android:id="@+id/lvSettingOptions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-
     </androidx.cardview.widget.CardView>
-
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/crv01"
-        android:text="DANG XUAT"
+        android:text="Đăng xuất"
+        style="@style/button2"
+        android:padding="10dp"
         android:backgroundTint="@color/primary1"
         android:textColor="@color/white"
-        android:textSize="18sp"
         android:layout_marginTop="16dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
