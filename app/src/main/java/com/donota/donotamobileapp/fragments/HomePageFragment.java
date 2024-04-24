@@ -1,8 +1,6 @@
 package com.donota.donotamobileapp.fragments;
 
-import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,37 +18,32 @@ import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.adapter.BestSellerCarouselAdapter;
 import com.donota.donotamobileapp.adapter.CategoryCarouselAdapter;
 import com.donota.donotamobileapp.adapter.ProductGridAdapter;
-import com.donota.donotamobileapp.database.impl.TbProductImpl;
-import com.donota.donotamobileapp.databinding.FragmentHomepageBinding;
 import com.donota.donotamobileapp.model.CarouselItem;
 import com.donota.donotamobileapp.model.ProductCard;
+import com.donota.donotamobileapp.utils.CarouselItemDecoration;
+import com.donota.donotamobileapp.utils.SpacingItemDecoration;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
-public class HomePageFragment extends Fragment {
+public class HomePageFragment extends Fragment implements ProductGridAdapter.OnProductClickListener {
 
-    private FragmentHomepageBinding binding;
+    private RecyclerView carouselRecyclerView1;
+    private RecyclerView carouselRecyclerView2;
+    private BestSellerCarouselAdapter carouselAdapter1;
+    private CategoryCarouselAdapter carouselAdapter2;
 
-    private TbProductImpl tbProduct;
-
-    private RecyclerView carouselBestSellerRecyclerView;
-    private RecyclerView carouselCategoryRecyclerView;
-    private RecyclerView productRecyclerView;
-    private List<CarouselItem> carouselItems;
-
-    private ProductGridAdapter.OnProductClickListener onProductClickListener;
+    private RecyclerView recyclerView; // This should be initialized before use
+    private ProductGridAdapter productAdapter;
+    private List<ProductCard> productList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homepage, container, false);
-
-        carouselBestSellerRecyclerView = view.findViewById(R.id.revCarouselBestSeller);
-        carouselCategoryRecyclerView = view.findViewById(R.id.revCarouselCategory);
-        productRecyclerView = view.findViewById(R.id.revProduct);
-
+        carouselRecyclerView1 = view.findViewById(R.id.revCarouselBestSeller);
+        carouselRecyclerView2 = view.findViewById(R.id.revCarouselCategory);
+        recyclerView = view.findViewById(R.id.revProduct);
         setupCarousels();
         setupProducts();
 
@@ -67,75 +60,67 @@ public class HomePageFragment extends Fragment {
 
         return view;
     }
-    private void setupCarousels() {
-        List<CarouselItem> bestSellerItems = loadBestSellerCarouselData();
-        carouselBestSellerRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        BestSellerCarouselAdapter carouselBestSellerAdapter = new BestSellerCarouselAdapter(getContext(), bestSellerItems, position -> {
-            // Handle item click for the first carousel
-        });
-        carouselBestSellerRecyclerView.setAdapter(carouselBestSellerAdapter);
-
-        List<CarouselItem> categoryItems = loadCategoryCarouselData();
-        carouselCategoryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        CategoryCarouselAdapter carouselCategoryAdapter = new CategoryCarouselAdapter(getContext(), categoryItems, position -> {
-        });
-        carouselCategoryRecyclerView.setAdapter(carouselCategoryAdapter);
-    }
-    private List<CarouselItem> loadBestSellerCarouselData() {
-        carouselItems = new ArrayList<>();
-        tbProduct = new TbProductImpl(getContext());
-        String sql = "SELECT productid, productimg FROM tbproduct WHERE productprice > 17500000 ";
-        Cursor cursor = tbProduct.queryData(sql);
-        while (cursor.moveToNext()) {
-            String[] imgUrls = cursor.getString(1).split(";");
-            String itemImg = imgUrls[0].trim();
-            carouselItems.add(new CarouselItem(itemImg, cursor.getString(0)));
-        }
-        cursor.close();
-        tbProduct.close();
-        return carouselItems;
-    }
-    private List<CarouselItem> loadCategoryCarouselData() {
-        carouselItems = new ArrayList<>();
-        tbProduct = new TbProductImpl(getContext());
-        String sql = "SELECT productid, productimg, productcategorysub1\n" +
-                "FROM tbproduct AS t1\n" +
-                "WHERE productid = (\n" +
-                "    SELECT MIN(productid)\n" +
-                "    FROM tbproduct AS t2\n" +
-                "    WHERE t2.productcategorysub1 = t1.productcategorysub1);";
-        Cursor cursor = tbProduct.queryData(sql);
-        while (cursor.moveToNext()) {
-            String[] imgUrls = cursor.getString(1).split(";");
-            String itemImg = imgUrls[0].trim();
-            Log.d("sub1", cursor.getString(2));
-            carouselItems.add(new CarouselItem(itemImg, cursor.getString(0)));
-        }
-        cursor.close();
-        tbProduct.close();
-        return carouselItems;
-    }
 
     private void setupProducts() {
-        List<ProductCard> productCards = loadProductData();
-        ProductGridAdapter productGridAdapter = new ProductGridAdapter(getContext(), productCards, onProductClickListener);
-        productRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        productRecyclerView.setAdapter(productGridAdapter);
+        ArrayList<ProductCard> productCards = new ArrayList<>();
+        productCards.add(new ProductCard(R.drawable.dining_table, "Product Name 1", "5.0", "190.000đ"));
+        productCards.add(new ProductCard(R.drawable.sofa, "Product Name 2", "5.0", "250.000đ"));
+        productCards.add(new ProductCard(R.drawable.sofa, "Product Name 2", "5.0", "250.000đ"));
+        productCards.add(new ProductCard(R.drawable.sofa, "Product Name 2", "5.0", "250.000đ"));
+        productCards.add(new ProductCard(R.drawable.sofa, "Product Name 2", "5.0", "250.000đ"));
+        productCards.add(new ProductCard(R.drawable.sofa, "Product Name 2", "5.0", "250.000đ"));
+
+        ProductGridAdapter productGridAdapter = new ProductGridAdapter(getContext(), productCards, this);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        recyclerView.setAdapter(productGridAdapter);
+
+
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing_4dp);
+        recyclerView.addItemDecoration(new SpacingItemDecoration(spacingInPixels, spacingInPixels));
     }
 
-    private List<ProductCard> loadProductData() {
-        List<ProductCard> productList = new ArrayList<>();
-        tbProduct = new TbProductImpl(getContext());
-        String queryProduct = "SELECT productimg, productname, productrating, productprice from tbproduct ";
-        Cursor cursor = tbProduct.queryData(queryProduct);
-        while (cursor!= null && cursor.moveToNext()) {
-            String[] imgUrls = cursor.getString(0).split(";");
-            String firstImg = imgUrls[0].trim();
-            productList.add(new ProductCard(firstImg, cursor.getString(1),cursor.getString(2),cursor.getInt(3)));
-        }
-        cursor.close();
-        tbProduct.close();
-        return productList;
+    @Override
+    public void onProductClick(ProductCard productCard) {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        transaction.add(R.id.rootNavFragmentContainer, new ProductDetailFragment());
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    private void setupCarousels() {
+        List<CarouselItem> items = Arrays.asList(
+                new CarouselItem(R.drawable.bed),
+                new CarouselItem(R.drawable.sofa),
+                new CarouselItem(R.drawable.dining_table),
+                new CarouselItem(R.drawable.chair),
+                new CarouselItem(R.drawable.storage),
+                new CarouselItem(R.drawable.tv_board),
+                new CarouselItem(R.drawable.living_table)
+        );
+
+        // Setup for the first carousel
+        carouselRecyclerView1.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        carouselAdapter1 = new BestSellerCarouselAdapter(getContext(), items, new BestSellerCarouselAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+            }
+        });
+        carouselRecyclerView1.setAdapter(carouselAdapter1);
+
+        carouselRecyclerView2.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        carouselAdapter2 = new CategoryCarouselAdapter(getContext(), items, new CategoryCarouselAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+            }
+        });
+        carouselRecyclerView2.setAdapter(carouselAdapter2);
+
+
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing_2dp);
+        carouselRecyclerView1.addItemDecoration(new CarouselItemDecoration(spacingInPixels, spacingInPixels));
+        carouselRecyclerView2.addItemDecoration(new CarouselItemDecoration(spacingInPixels, spacingInPixels));
     }
 
     private void loadFragment() {
@@ -145,5 +130,4 @@ public class HomePageFragment extends Fragment {
         transaction.add(R.id.navigation_bar, new NavigationBarFragment());
         transaction.commit();
     }
-
 }

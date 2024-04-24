@@ -51,7 +51,7 @@ public class AccountPageFragment extends Fragment {
     private void initData() {
         settingOptions = new ArrayList<>();
         settingOptions.add(new SettingOptions("personal_info", R.drawable.baseline_person, "Tài khoản"));
-        settingOptions.add(new SettingOptions("setting", R.drawable.baseline_settings, "Cài đặt chung"));
+        settingOptions.add(new SettingOptions("wishlist", R.drawable.material_symbols__favorite_outline, "Sản phẩm yêu thích"));
         settingOptions.add(new SettingOptions("payment_setting", R.drawable.baseline_credit_card, "Cài đặt thanh toán"));
         settingOptions.add(new SettingOptions("address_setting", R.drawable.baseline_location, "Cài đặt địa chỉ"));
         settingOptions.add(new SettingOptions("policy_setting", R.drawable.baseline_policy, "Chính sách"));
@@ -76,15 +76,15 @@ public class AccountPageFragment extends Fragment {
     }
 
     private void handleFragmentTransaction(String settingID) {
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction(); // Use getParentFragmentManager()
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         Fragment newFragment = null;
 
         switch (settingID) {
             case "personal_info":
                 newFragment = ProfileFragment.newInstance();
                 break;
-            case "setting":
-                newFragment = ProfileFragment.newInstance();
+            case "wishlist":
+                newFragment = WishlistPageFragment.newInstance();
                 break;
             case "payment_setting":
                 newFragment = PaymentSettingsFragment.newInstance();
@@ -98,7 +98,7 @@ public class AccountPageFragment extends Fragment {
         }
 
         if (newFragment != null) {
-            transaction.replace(R.id.homeNavFragmentContainer, newFragment); // Ensure this container ID exists in your activity's layout
+            transaction.add(R.id.rootNavFragmentContainer, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
         }
