@@ -45,6 +45,7 @@ public class ProductDetailFragment extends Fragment {
         ProductCarouselAdapter adapter = new ProductCarouselAdapter(getContext(), productCards, position -> {
 
         });
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setAdapter(adapter);
 

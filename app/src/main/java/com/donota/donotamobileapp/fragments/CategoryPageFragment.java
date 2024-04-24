@@ -76,8 +76,13 @@ public class CategoryPageFragment extends Fragment {
     private List<CategoryItem> loadCategoryRoomsData() {
         List<CategoryItem> items = new ArrayList<>();
         tbProduct = new TbProductImpl(getContext());
-        String queryCategoryRooms = "SELECT productid, productimg, productcategorysub3 FROM tbproduct AS t1 \n" +
-                                    "WHERE productcategorysub3  LIKE (SELECT DISTINCT t2.productcategorysub3 FROM tbproduct AS t2 );";
+        String queryCategoryRooms = "SELECT productid, productimg, productcategorysub3\n" +
+                "FROM tbproduct AS t1\n" +
+                "WHERE productid = (\n" +
+                "    SELECT MIN(productid)\n" +
+                "    FROM tbproduct AS t2\n" +
+                "    WHERE (t2.productcategorysub3 = t1.productcategorysub3) AND (t1.productcategorysub3 NOT LIKE '%;%')\n" +
+                ");   ";
         Cursor cursor = tbProduct.queryData(queryCategoryRooms);
         Log.d("Van vao duoc load room", "mung ghe");
         while (cursor!= null && cursor.moveToNext()) {
