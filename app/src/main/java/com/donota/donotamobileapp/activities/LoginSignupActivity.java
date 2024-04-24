@@ -25,6 +25,7 @@ public class LoginSignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginSignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        getSupportFragmentManager().beginTransaction().replace(R.id.containerLogInLayout,logInFragment).commit();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.containerLogInLayout,logInFragment).commit();
 

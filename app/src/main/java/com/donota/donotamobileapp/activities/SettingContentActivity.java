@@ -12,6 +12,7 @@ import com.donota.donotamobileapp.fragments.PolicyFragment;
 import com.donota.donotamobileapp.fragments.ProfileFragment;
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.databinding.ActivitySettingContentBinding;
+import com.donota.donotamobileapp.fragments.WishlistPageFragment;
 
 public class SettingContentActivity extends AppCompatActivity {
 
@@ -33,14 +34,17 @@ public class SettingContentActivity extends AppCompatActivity {
         if ("personal_info".equals(settingID)) {
             transaction.replace(R.id.fcvSetting, new ProfileFragment());
         } else if ("wishlist".equals(settingID)) {
-            transaction.replace(R.id.fcvSetting, new AddressSettingsFragment());
-        }else if ("payment_setting".equals(settingID)) {
+            transaction.replace(R.id.fcvSetting, new WishlistPageFragment());
+        } else if ("payment_setting".equals(settingID)) {
             transaction.replace(R.id.fcvSetting, new PaymentSettingsFragment());
         } else if ("address_setting".equals(settingID)) {
             transaction.replace(R.id.fcvSetting, new AddressSettingsFragment());
         } else if ("policy_setting".equals(settingID)) {
             transaction.replace(R.id.fcvSetting, new PolicyFragment());
         }
+
+
+
 
         transaction.commit();
     }

@@ -80,13 +80,11 @@ public class MainActivity extends AppCompatActivity implements LogInFragment.OnL
         Log.d("Database", "Database loaded");
     }
 
-
     @Override
     public void onLoginSuccess() {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-//        transaction.replace(R.id.rootNavFragmentContainer, new AccountPageFragment(), "Login Success"); using this one
-        transaction.replace(R.id.rootNavFragmentContainer, new HomeNavFragment(), "Login Success"); //This one is for testing purposes
+        transaction.replace(R.id.rootNavFragmentContainer, new HomeNavFragment(), "Login Success");
         transaction.addToBackStack(null);
         transaction.commit();
     }

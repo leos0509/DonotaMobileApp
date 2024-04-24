@@ -28,9 +28,8 @@ public class WishlistPageFragment extends Fragment implements ProductGridAdapter
     public WishlistPageFragment() {
     }
 
-    public static WishlistPageFragment newInstance(String param1, String param2) {
+    public static WishlistPageFragment newInstance() {
         WishlistPageFragment fragment = new WishlistPageFragment();
-        // You can pass parameters to the fragment here if needed
         return fragment;
     }
 

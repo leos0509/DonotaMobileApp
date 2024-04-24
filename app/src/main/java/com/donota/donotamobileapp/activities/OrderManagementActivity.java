@@ -33,6 +33,7 @@ public class OrderManagementActivity extends AppCompatActivity {
 
     ProductOrderAdapter productOrderAdapter;
     ArrayList<ProductOrder> productOrders;
+    ConfirmedOrderFragment confirmedOrderFragment = new ConfirmedOrderFragment();
 
     ConfirmedOrderFragment confirmedOrderFragment = new ConfirmedOrderFragment();
 
@@ -41,6 +42,7 @@ public class OrderManagementActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityOrderManagementBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        getSupportFragmentManager().beginTransaction().replace(R.id.fcvOrderManagement,confirmedOrderFragment).commit();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fcvOrderManagement,confirmedOrderFragment).commit();
 
