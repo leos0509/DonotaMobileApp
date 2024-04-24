@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:overScrollMode="never"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.CategoryPageFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="100dp"
+        android:paddingHorizontal="10dp">
+        <TextView
+            android:id="@+id/txtCateRoom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            style="@style/button2"
+            android:text="Danh mục phòng"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/revCateRoom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/recyclerview_bg"
+            android:layout_marginTop="6dp"
+            app:layout_constraintTop_toBottomOf="@id/txtCateRoom"
+            android:overScrollMode="never"
+            android:numColumns="2" />
+
+        <TextView
+            android:id="@+id/txtCateType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            style="@style/button2"
+            android:text="Danh mục loại sản phẩm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/revCateRoom" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/revCateType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/recyclerview_bg"
+            android:layout_marginTop="6dp"
+            app:layout_constraintTop_toBottomOf="@id/txtCateType"
+            android:overScrollMode="never"
+            android:numColumns="2"/>
+
+        <TextView
+            android:id="@+id/txtCateCollection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            style="@style/button2"
+            android:text="Danh mục bộ sưu tập"
+            app:layout_constraintTop_toBottomOf="@id/revCateType"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/revCateCollection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/recyclerview_bg"
+            android:layout_marginTop="6dp"
+            android:overScrollMode="never"
+            app:layout_constraintTop_toBottomOf="@id/txtCateCollection"
+            android:numColumns="2"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
