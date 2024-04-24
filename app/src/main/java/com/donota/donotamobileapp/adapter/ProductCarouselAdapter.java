@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.model.ProductCard;
 import androidx.appcompat.widget.AppCompatButton;
@@ -20,10 +21,12 @@ public class ProductCarouselAdapter extends RecyclerView.Adapter<ProductCarousel
 
     private Context context;
     private List<ProductCard> productCards;
+    private OnItemClickListener listener;
 
-    public ProductCarouselAdapter(Context context, List<ProductCard> productCards) {
+    public ProductCarouselAdapter(Context context, List<ProductCard> productCards, OnItemClickListener listener) {
         this.context = context;
         this.productCards = productCards;
+        this.listener = listener;
     }
 
     @NonNull
@@ -36,10 +39,12 @@ public class ProductCarouselAdapter extends RecyclerView.Adapter<ProductCarousel
     @Override
     public void onBindViewHolder(@NonNull ProductCardViewHolder holder, int position) {
         ProductCard productCard = productCards.get(position);
-        holder.imvProduct.setImageResource(productCard.getImageResourceId());
+        Glide.with(context)
+                .load(productCard.getImageUrl())
+                .into(holder.imvProduct);
         holder.txtProductName.setText(productCard.getProductName());
         holder.btnRating.setText(productCard.getRating());
-        holder.txtPrice.setText(productCard.getPrice());
+        holder.txtPrice.setText(String.valueOf(productCard.getPrice()));
     }
 
     @Override
@@ -60,5 +65,8 @@ public class ProductCarouselAdapter extends RecyclerView.Adapter<ProductCarousel
             btnRating = itemView.findViewById(R.id.btnRating);
             txtPrice = itemView.findViewById(R.id.txtProductPrice);
         }
+    }
+    public interface OnItemClickListener {
+        void onItemClick(int position);
     }
 }

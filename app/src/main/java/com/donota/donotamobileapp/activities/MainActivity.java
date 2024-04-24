@@ -14,6 +14,7 @@ import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.databinding.ActivityMainBinding;
 import com.donota.donotamobileapp.fragments.AccountPageFragment;
 import com.donota.donotamobileapp.fragments.HomeNavFragment;
+import com.donota.donotamobileapp.fragments.HomePageFragment;
 import com.donota.donotamobileapp.fragments.LogInFragment;
 import com.donota.donotamobileapp.fragments.SplashScreenFragment;
 
@@ -84,7 +85,8 @@ public class MainActivity extends AppCompatActivity implements LogInFragment.OnL
     public void onLoginSuccess() {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.rootNavFragmentContainer, new AccountPageFragment(), "Login Success");
+//        transaction.replace(R.id.rootNavFragmentContainer, new AccountPageFragment(), "Login Success"); using this one
+        transaction.replace(R.id.rootNavFragmentContainer, new HomeNavFragment(), "Login Success"); //This one is for testing purposes
         transaction.addToBackStack(null);
         transaction.commit();
     }

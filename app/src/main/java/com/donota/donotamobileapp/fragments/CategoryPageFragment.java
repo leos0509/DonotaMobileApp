@@ -1,58 +1,143 @@
 package com.donota.donotamobileapp.fragments;
 
+import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.adapter.CategoryGridAdapter;
 import com.donota.donotamobileapp.utils.SpacingItemDecoration;
+import com.donota.donotamobileapp.database.impl.TbProductImpl;
+import com.donota.donotamobileapp.model.CategoryItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryPageFragment extends Fragment {
 
-    public CategoryPageFragment() {
+    private List<CategoryItem> itemList;
+
+    private TbProductImpl tbProduct;
+
+    private RecyclerView categoryRoomsRecyclerView;
+    private RecyclerView categoryTypesRecyclerView;
+    private RecyclerView categoryCollectionsRecyclerView;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_category_page, container, false);
+
+        categoryTypesRecyclerView = view.findViewById(R.id.revCateType);
+        categoryRoomsRecyclerView = view.findViewById(R.id.revCateRoom);
+        categoryCollectionsRecyclerView = view.findViewById(R.id.revCateCollection);
+
+        Log.d("Page cate loaded", "Nothing to say");
+
+        initAdapter();
+        loadFragment();
+
+        categoryTypesRecyclerView.setNestedScrollingEnabled(false);
+        categoryRoomsRecyclerView.setNestedScrollingEnabled(false);
+        categoryCollectionsRecyclerView.setNestedScrollingEnabled(false);
+        return view;
+    }
+
+    private void initAdapter() {
+        categoryRoomsRecyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
+        CategoryGridAdapter adapterRooms = new CategoryGridAdapter(requireContext(), loadCategoryRoomsData(), position -> {
+
+        });
+        categoryRoomsRecyclerView.setAdapter(adapterRooms);
+
+        categoryCollectionsRecyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
+        CategoryGridAdapter adapterCollections = new CategoryGridAdapter(requireContext(), loadCategoryCollectionsData(), position -> {
+
+        });
+        categoryCollectionsRecyclerView.setAdapter(adapterCollections);
+
+
+        categoryTypesRecyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
+        CategoryGridAdapter adapterTypes = new CategoryGridAdapter(requireContext(), loadCategoryTypesData(), position -> {
+
+        });
+        categoryTypesRecyclerView.setAdapter(adapterTypes);
     }
 
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_category_page, container, false);
+    private List<CategoryItem> loadCategoryRoomsData() {
+        Log.d("Load data Rooms", "loaded");
 
-        String[] items = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5"};
+        List<CategoryItem> items = new ArrayList<>();
+        tbProduct = new TbProductImpl(getContext());
+        String queryCategoryRooms = "SELECT productid, productimg, SUBSTR(productcategorysub3, 1, INSTR(productcategorysub3, ';') - 1) AS first_part FROM tbproduct AS t1 \n" +
+                                    "WHERE productid = (\n" +
+                                    "    SELECT MIN(productid)\n" +
+                                    "    FROM tbproduct AS t2\n" +
+                                    "    WHERE t2.productcategorysub3 = t1.first_part);";
+        Cursor cursor = tbProduct.queryData(queryCategoryRooms);
+        while (cursor!= null && cursor.moveToNext()) {
+            String[] imgUrls = cursor.getString(1).split(";");
+            String firstImg = imgUrls[0].trim();
+            items.add(new CategoryItem(cursor.getString(1), firstImg ,cursor.getString(2)));
+        }
+        cursor.close();
+        tbProduct.close();
+        return items;
+    }
+    private List<CategoryItem> loadCategoryCollectionsData() {
+        List<CategoryItem> items = new ArrayList<>();
+        tbProduct = new TbProductImpl(getContext());
+        String queryCategoryRooms = "SELECT productid, productimg, productcategorysub4\n" +
+                                    "FROM tbproduct AS t1\n" +
+                                    "WHERE productid = (\n" +
+                                    "    SELECT MIN(productid)\n" +
+                                    "    FROM tbproduct AS t2\n" +
+                                    "    WHERE (t2.productcategorysub4 NOT LIKE '1') AND (t2.productcategorysub4 = t1.productcategorysub4));";
+        Cursor cursor = tbProduct.queryData(queryCategoryRooms);
+        while (cursor!= null && cursor.moveToNext()) {
+            String[] imgUrls = cursor.getString(1).split(";");
+            String firstImg = imgUrls[0].trim();
+            items.add(new CategoryItem(cursor.getString(1), firstImg ,cursor.getString(2)));
+        }
+        cursor.close();
+        tbProduct.close();
+        return items;
+    }
+    private List<CategoryItem> loadCategoryTypesData() {
+        List<CategoryItem> items = new ArrayList<>();
+        tbProduct = new TbProductImpl(getContext());
+        String queryCategoryRooms = "SELECT productid, productimg, productcategorysub1\n" +
+                                    "FROM tbproduct AS t1\n" +
+                                    "WHERE productid = (\n" +
+                                    "    SELECT MIN(productid)\n" +
+                                    "    FROM tbproduct AS t2\n" +
+                                    "    WHERE t2.productcategorysub1 = t1.productcategorysub1);";
+        Cursor cursor = tbProduct.queryData(queryCategoryRooms);
+        while (cursor!= null && cursor.moveToNext()) {
+            String[] imgUrls = cursor.getString(1).split(";");
+            String firstImg = imgUrls[0].trim();
+            items.add(new CategoryItem(cursor.getString(1), firstImg ,cursor.getString(2)));
+        }
+        cursor.close();
+        tbProduct.close();
+        return items;
+    }
 
-        RecyclerView recyclerView1 = view.findViewById(R.id.revCateType);
-        RecyclerView recyclerView2 = view.findViewById(R.id.revCateRoom);
-        RecyclerView recyclerView3 = view.findViewById(R.id.revCateCollection);
+    private void loadFragment() {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        recyclerView1.setNestedScrollingEnabled(false);
-        recyclerView2.setNestedScrollingEnabled(false);
-        recyclerView3.setNestedScrollingEnabled(false);
-
-        // Create an instance of CategoryGridAdapter and pass the premade item data
-        CategoryGridAdapter adapter = new CategoryGridAdapter(requireContext(), items);
-
-        // Set the adapter to the RecyclerViews
-        recyclerView1.setLayoutManager(new GridLayoutManager(requireContext(), 2));
-        recyclerView1.setAdapter(adapter);
-
-        recyclerView2.setLayoutManager(new GridLayoutManager(requireContext(), 2));
-        recyclerView2.setAdapter(adapter);
-
-        recyclerView3.setLayoutManager(new GridLayoutManager(requireContext(), 2));
-        recyclerView3.setAdapter(adapter);
-
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing_2dp);
-        recyclerView1.addItemDecoration(new SpacingItemDecoration(spacingInPixels, spacingInPixels));
-        recyclerView2.addItemDecoration(new SpacingItemDecoration(spacingInPixels, spacingInPixels));
-        recyclerView3.addItemDecoration(new SpacingItemDecoration(spacingInPixels, spacingInPixels));
-
-        return view;
+        transaction.add(R.id.navigation_bar, new NavigationBarFragment());
+        transaction.commit();
     }
 }

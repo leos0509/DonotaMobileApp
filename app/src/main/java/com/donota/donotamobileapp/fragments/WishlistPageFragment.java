@@ -45,16 +45,16 @@ public class WishlistPageFragment extends Fragment implements ProductGridAdapter
     private void setupProducts(View view) {
         recyclerView = view.findViewById(R.id.revWishlistProduct);
         ArrayList<ProductCard> productCards = new ArrayList<>();
-        productCards.add(new ProductCard(R.drawable.dining_table, "Product Name 1", "5.0", "190.000đ"));
-        productCards.add(new ProductCard(R.drawable.sofa, "Product Name 2", "5.0", "250.000đ"));
-        productCards.add(new ProductCard(R.drawable.dining_table, "Product Name 1", "5.0", "190.000đ"));
-        productCards.add(new ProductCard(R.drawable.sofa, "Product Name 2", "5.0", "250.000đ"));
-        productCards.add(new ProductCard(R.drawable.dining_table, "Product Name 1", "5.0", "190.000đ"));
-        productCards.add(new ProductCard(R.drawable.sofa, "Product Name 2", "5.0", "250.000đ"));
-        productCards.add(new ProductCard(R.drawable.dining_table, "Product Name 1", "5.0", "190.000đ"));
-        productCards.add(new ProductCard(R.drawable.sofa, "Product Name 2", "5.0", "250.000đ"));
-        productCards.add(new ProductCard(R.drawable.dining_table, "Product Name 1", "5.0", "190.000đ"));
-        productCards.add(new ProductCard(R.drawable.sofa, "Product Name 2", "5.0", "250.000đ"));
+//        productCards.add(new ProductCard(R.drawable.dining_table, "Product Name 1", "5.0", "190.000đ"));
+//        productCards.add(new ProductCard(R.drawable.sofa, "Product Name 2", "5.0", "250.000đ"));
+//        productCards.add(new ProductCard(R.drawable.dining_table, "Product Name 1", "5.0", "190.000đ"));
+//        productCards.add(new ProductCard(R.drawable.sofa, "Product Name 2", "5.0", "250.000đ"));
+//        productCards.add(new ProductCard(R.drawable.dining_table, "Product Name 1", "5.0", "190.000đ"));
+//        productCards.add(new ProductCard(R.drawable.sofa, "Product Name 2", "5.0", "250.000đ"));
+//        productCards.add(new ProductCard(R.drawable.dining_table, "Product Name 1", "5.0", "190.000đ"));
+//        productCards.add(new ProductCard(R.drawable.sofa, "Product Name 2", "5.0", "250.000đ"));
+//        productCards.add(new ProductCard(R.drawable.dining_table, "Product Name 1", "5.0", "190.000đ"));
+//        productCards.add(new ProductCard(R.drawable.sofa, "Product Name 2", "5.0", "250.000đ"));
 
         ProductGridAdapter productGridAdapter = new ProductGridAdapter(getContext(), productCards, (ProductGridAdapter.OnProductClickListener) this);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
