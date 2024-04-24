@@ -25,11 +25,11 @@
         <activity
             android:name=".activities.SettingContentActivity"
             android:exported="false" />
-<!--        <activity-->
-<!--            android:name=".activities.AccountActivity"-->
-<!--            android:exported="false" />-->
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.AccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.SplashScreenActivity"
             android:exported="false" />
         <activity
             android:name=".activities.LoginSignupActivity"
@@ -41,7 +41,7 @@
             android:name=".activities.CheckOutActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.SplashScreenActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

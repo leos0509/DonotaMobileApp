@@ -1,59 +1,45 @@
 package com.donota.donotamobileapp.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.model.ProductCard;
 import androidx.appcompat.widget.AppCompatButton;
 
 import java.util.List;
 
-public class ProductGridAdapter extends RecyclerView.Adapter<ProductGridAdapter.ProductCardViewHolder> {
+public class ProductCarouselAdapter extends RecyclerView.Adapter<ProductCarouselAdapter.ProductCardViewHolder> {
 
     private Context context;
     private List<ProductCard> productCards;
-    private OnProductClickListener onProductClickListener;
 
-    public ProductGridAdapter(Context context, List<ProductCard> productCards, OnProductClickListener onProductClickListener) {
+    public ProductCarouselAdapter(Context context, List<ProductCard> productCards) {
         this.context = context;
         this.productCards = productCards;
-        this.onProductClickListener = onProductClickListener;
-    }
-
-    public interface OnProductClickListener {
-        void onProductClick(ProductCard productCard);
     }
 
     @NonNull
     @Override
     public ProductCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_item, parent, false);
-        Log.d("ProductGridAdapter", "onCreateViewHolder: Creating ViewHolder");
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_item_carousel, parent, false);
         return new ProductCardViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProductCardViewHolder holder, int position) {
         ProductCard productCard = productCards.get(position);
-
-        Log.d("ProductGridAdapter", "onBindViewHolder: Binding item at position " + position);
-
-        Glide.with(context)
-                .load(productCard.getImageUrl())
-                .into(holder.imvProduct);
-        holder.itemView.setOnClickListener(v -> onProductClickListener.onProductClick(productCard));
+        holder.imvProduct.setImageResource(productCard.getImageResourceId());
         holder.txtProductName.setText(productCard.getProductName());
         holder.btnRating.setText(productCard.getRating());
-        holder.txtPrice.setText(String.valueOf(productCard.getPrice()));
+        holder.txtPrice.setText(productCard.getPrice());
     }
 
     @Override
@@ -74,7 +60,5 @@ public class ProductGridAdapter extends RecyclerView.Adapter<ProductGridAdapter.
             btnRating = itemView.findViewById(R.id.btnRating);
             txtPrice = itemView.findViewById(R.id.txtProductPrice);
         }
-
     }
-
 }

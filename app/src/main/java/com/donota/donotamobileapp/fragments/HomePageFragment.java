@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.bumptech.glide.Glide;
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.adapter.BestSellerCarouselAdapter;
@@ -54,6 +53,7 @@ public class HomePageFragment extends Fragment {
 
         setupCarousels();
         setupProducts();
+
         loadFragment();
 
         ImageView imageView = view.findViewById(R.id.imvSlider);
@@ -169,7 +169,7 @@ public class HomePageFragment extends Fragment {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        transaction.replace(R.id.navigation_bar, new NavigationBarFragment());
+        transaction.add(R.id.navigation_bar, new NavigationBarFragment());
         transaction.commit();
     }
 
