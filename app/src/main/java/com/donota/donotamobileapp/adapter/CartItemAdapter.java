@@ -1,5 +1,6 @@
 package com.donota.donotamobileapp.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import com.donota.donotamobileapp.model.CartItem;
 import java.util.List;
 
 public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartItemViewHolder> {
-
+    Context context;
     private List<CartItem> cartItems;
 
     public CartItemAdapter(List<CartItem> cartItems) {

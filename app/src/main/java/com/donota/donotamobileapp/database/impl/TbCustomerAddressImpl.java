@@ -22,7 +22,7 @@ public class TbCustomerAddressImpl extends SQLiteOpenHelper implements Databases
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = " CREATE TABLE IF NOT EXISTS " + TBL_CUSTOMER_ADDRESS + " (" + COL_CUSTOMER_ID + " TEXT    REFERENCES tbcustomerprofile (customerid) NOT NULL, " + COL_CUSTOMER_ADDRESS +
+        String sql = " CREATE TABLE IF NOT EXISTS " + TBL_CUSTOMER_ADDRESS + " (" + COL_CUSTOMER_ID + " INTEGER    REFERENCES tbcustomerprofile (customerid) NOT NULL, " + COL_CUSTOMER_ADDRESS +
                 " TEXT    NOT NULL) ";
         db.execSQL(sql);
     }

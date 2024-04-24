@@ -29,8 +29,9 @@ public class TbProductImpl extends SQLiteOpenHelper implements Databases {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql = " CREATE TABLE IF NOT EXISTS " + TBL_PRODUCT + " (" + COL_PRODUCT_ID + " TEXT PRIMARY KEY NOT NULL UNIQUE, "+ COL_PRODUCT_NAME +
-                " TEXT NOT NULL,  " + COL_PRODUCT_PRICE + " NUMERIC, " +COL_PRODUCT_QUANTITY + "  NUMERIC, " + COL_PRODUCT_CATEGORY + " TEXT, " + COL_PRODUCT_DESCRIPTION +
-                " TEXT, " + COL_PRODUCT_IMG + "TEXT, " + COL_PRODUCT_RATING + " REAL)";
+                " TEXT NOT NULL,  " + COL_PRODUCT_PRICE + " NUMERIC, " +COL_PRODUCT_QUANTITY + "  NUMERIC, " + COL_PRODUCT_CATEGORY
+                + " TEXT, productcategorysub2 TEXT,  productcategorysub3 TEXT, productcategorysub4 TEXT," + COL_PRODUCT_DESCRIPTION
+                + " TEXT, " + COL_PRODUCT_IMG + "TEXT, " + COL_PRODUCT_RATING + " REAL)";
         db.execSQL(sql);
     }
 

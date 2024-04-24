@@ -27,7 +27,7 @@ public class TbOrderImpl extends SQLiteOpenHelper implements Databases {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql = " CREATE TABLE IF NOT EXISTS " + TBL_ORDER  + "  (" + COL_ORDER_ID + " TEXT PRIMARY KEY NOT NULL UNIQUE, " + COL_ORDER_VALUE +
-                " NUMERIC,  " + COL_CUSTOMER_ID + "TEXT    REFERENCES tbcustomerprofile (customerid) NOT NULL)";
+                " NUMERIC,  " + COL_CUSTOMER_ID + "INTEGER    REFERENCES tbcustomerprofile (customerid) NOT NULL)";
         db.execSQL(sql);
     }
 

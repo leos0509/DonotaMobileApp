@@ -1,32 +1,48 @@
 package com.donota.donotamobileapp.model;
 
 public class ProductCard {
-    private int imageResourceId;
+    private String imageUrl;
     private String productName;
     private String rating;
-    private String price;
+    private int price;
 
-    public ProductCard(int imageResourceId, String productName, String rating, String price) {
-        this.imageResourceId = imageResourceId;
+    public ProductCard(String imageUrl, String productName, String rating, int price) {
+        this.imageUrl = imageUrl;
         this.productName = productName;
         this.rating = rating;
         this.price = price;
     }
 
-    public int getImageResourceId() {
-        return imageResourceId;
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getProductName() {
         return productName;
     }
 
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
     public String getRating() {
         return rating;
     }
 
-    public String getPrice() {
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public int getPrice() {
         return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }
 

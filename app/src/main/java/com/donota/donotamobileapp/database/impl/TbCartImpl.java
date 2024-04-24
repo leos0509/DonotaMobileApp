@@ -24,7 +24,7 @@ public class TbCartImpl extends SQLiteOpenHelper implements Databases {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = " CREATE TABLE IF NOT EXISTS " + TBL_CUSTOMER_CART + " (" + COL_CUSTOMER_ID + " TEXT    REFERENCES tbcustomerprofile (customerid) NOT NULL, " + COL_PRODUCT_ID +
+        String sql = " CREATE TABLE IF NOT EXISTS " + TBL_CUSTOMER_CART + " (" + COL_CUSTOMER_ID + " INTERGER    REFERENCES tbcustomerprofile (customerid) NOT NULL, " + COL_PRODUCT_ID +
                 " TEXT    REFERENCES tbproduct (productid),  " + COL_CUSTOMER_CART_QUANTITY + "INTEGER NOT NULL ON CONFLICT ROLLBACK DEFAULT (1))";
         db.execSQL(sql);
     }
