@@ -2,11 +2,12 @@ package com.donota.donotamobileapp.fragments;
 
 import android.database.Cursor;
 import android.os.Bundle;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
+
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -41,8 +42,6 @@ public class CategoryPageFragment extends Fragment {
         categoryRoomsRecyclerView = view.findViewById(R.id.revCateRoom);
         categoryCollectionsRecyclerView = view.findViewById(R.id.revCateCollection);
 
-        Log.d("Page cate loaded", "Nothing to say");
-
         initAdapter();
         loadFragment();
 
@@ -75,19 +74,17 @@ public class CategoryPageFragment extends Fragment {
 
 
     private List<CategoryItem> loadCategoryRoomsData() {
-        Log.d("Load data Rooms", "loaded");
-
         List<CategoryItem> items = new ArrayList<>();
         tbProduct = new TbProductImpl(getContext());
-        String queryCategoryRooms = "SELECT productid, productimg, SUBSTR(productcategorysub3, 1, INSTR(productcategorysub3, ';') - 1) AS first_part FROM tbproduct AS t1 \n" +
-                                    "WHERE productid = (\n" +
-                                    "    SELECT MIN(productid)\n" +
-                                    "    FROM tbproduct AS t2\n" +
-                                    "    WHERE t2.productcategorysub3 = t1.first_part);";
+        String queryCategoryRooms = "SELECT productid, productimg, productcategorysub3 FROM tbproduct AS t1 \n" +
+                                    "WHERE productcategorysub3  LIKE (SELECT DISTINCT t2.productcategorysub3 FROM tbproduct AS t2 );";
         Cursor cursor = tbProduct.queryData(queryCategoryRooms);
+        Log.d("Van vao duoc load room", "mung ghe");
         while (cursor!= null && cursor.moveToNext()) {
             String[] imgUrls = cursor.getString(1).split(";");
             String firstImg = imgUrls[0].trim();
+            Log.d("Danh muc phong", cursor.getString(2));
+
             items.add(new CategoryItem(cursor.getString(1), firstImg ,cursor.getString(2)));
         }
         cursor.close();
@@ -97,10 +94,10 @@ public class CategoryPageFragment extends Fragment {
     private List<CategoryItem> loadCategoryCollectionsData() {
         List<CategoryItem> items = new ArrayList<>();
         tbProduct = new TbProductImpl(getContext());
-        String queryCategoryRooms = "SELECT productid, productimg, productcategorysub4\n" +
+        String queryCategoryRooms = "SELECT productid, productimg, productcategorysub4 \n" +
                                     "FROM tbproduct AS t1\n" +
                                     "WHERE productid = (\n" +
-                                    "    SELECT MIN(productid)\n" +
+                                    "    SELECT MAX(productid)\n" +
                                     "    FROM tbproduct AS t2\n" +
                                     "    WHERE (t2.productcategorysub4 NOT LIKE '1') AND (t2.productcategorysub4 = t1.productcategorysub4));";
         Cursor cursor = tbProduct.queryData(queryCategoryRooms);
@@ -123,7 +120,7 @@ public class CategoryPageFragment extends Fragment {
                                     "    FROM tbproduct AS t2\n" +
                                     "    WHERE t2.productcategorysub1 = t1.productcategorysub1);";
         Cursor cursor = tbProduct.queryData(queryCategoryRooms);
-        while (cursor!= null && cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
             String[] imgUrls = cursor.getString(1).split(";");
             String firstImg = imgUrls[0].trim();
             items.add(new CategoryItem(cursor.getString(1), firstImg ,cursor.getString(2)));
