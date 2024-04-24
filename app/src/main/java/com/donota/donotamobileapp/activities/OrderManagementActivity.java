@@ -31,12 +31,14 @@ public class OrderManagementActivity extends AppCompatActivity {
 
     ProductOrderAdapter productOrderAdapter;
     ArrayList<ProductOrder> productOrders;
+    ConfirmedOrderFragment confirmedOrderFragment = new ConfirmedOrderFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityOrderManagementBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        getSupportFragmentManager().beginTransaction().replace(R.id.fcvOrderManagement,confirmedOrderFragment).commit();
 
         loadFragment();
     }
