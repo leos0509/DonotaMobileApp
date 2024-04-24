@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.model.ProductCard;
 import androidx.appcompat.widget.AppCompatButton;
@@ -37,16 +38,19 @@ public class ProductGridAdapter extends RecyclerView.Adapter<ProductGridAdapter.
     @Override
     public void onBindViewHolder(@NonNull ProductCardViewHolder holder, int position) {
         ProductCard productCard = productCards.get(position);
+
         Log.d("ProductGridAdapter", "onBindViewHolder: Binding item at position " + position);
-        holder.imvProduct.setImageResource(productCard.getImageResourceId());
+
+        Glide.with(context)
+                .load(productCard.getImageUrl())
+                .into(holder.imvProduct);
         holder.txtProductName.setText(productCard.getProductName());
         holder.btnRating.setText(productCard.getRating());
-        holder.txtPrice.setText(productCard.getPrice());
+        holder.txtPrice.setText(String.valueOf(productCard.getPrice()));
     }
 
     @Override
     public int getItemCount() {
-        Log.d("ProductGridAdapter", "getItemCount: Item count is " + productCards.size());
         return productCards.size();
     }
 

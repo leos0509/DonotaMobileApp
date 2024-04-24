@@ -69,7 +69,7 @@ public class LogInFragment extends Fragment {
                         try {
                             Cursor cursor = tbCustomerProfile.queryData(queryCustomerId);
                             if (cursor != null && cursor.moveToFirst()) {
-                                PreferenceUtils.setCustomerId(context, cursor.getString(0));
+                                PreferenceUtils.setCustomerId(context, cursor.getInt(0));
                                 cursor.close();
                                 Intent intent = new Intent(context, MainActivity.class);
                                 startActivity(intent);

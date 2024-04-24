@@ -1,6 +1,7 @@
 package com.donota.donotamobileapp.fragments;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -63,43 +64,34 @@ public class CartPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentCartPageBinding.inflate(inflater, container, false);
-        View view = inflater.inflate(R.layout.fragment_cart_page, container, false);
-
-        RecyclerView recyclerView = view.findViewById(R.id.recvCartItems);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        // Example data
-//        List<CartItem> cartItems = new ArrayList<>();
-//        cartItems.add(new CartItem("Item 1", 19.99, 1));
-//        cartItems.add(new CartItem("Item 2", 29.99, 2));
-//        cartItems.add(new CartItem("Item 2", 29.99, 2));
-//        cartItems.add(new CartItem("Item 2", 29.99, 2));
-//        cartItems.add(new CartItem("Item 2", 29.99, 2));
-//        cartItems.add(new CartItem("Item 2", 29.99, 2));
-//        cartItems.add(new CartItem("Item 2", 29.99, 2));
-//        cartItems.add(new CartItem("Item 2", 29.99, 2));
-//        cartItems.add(new CartItem("Item 2", 29.99, 2));
-//        cartItems.add(new CartItem("Item 2", 29.99, 2));
-//        cartItems.add(new CartItem("Item 2", 29.99, 2));
-
-//        CartItemAdapter adapter = new CartItemAdapter(cartItems);
-        loadData();
-        recyclerView.setAdapter(adapter);
-
+        initData();
         return binding.getRoot();
     }
 
-//    private void initData() {
-//        = loadData();
-//    }
+    private void initData() {
+        adapter = new CartItemAdapter(loadData());
+        binding.recvCartItems.setAdapter(adapter);
+    }
 
     private List<CartItem> loadData() {
         context = getActivity();
         tbCart = new TbCartImpl(context);
         int customerId = PreferenceUtils.getCustomerId(context);
         cartItemList = new ArrayList<>();
-        String queryCart = "SELECT * FROM tbcart WHERE customerid  = " + customerId;
+
+        String queryCart = "SELECT tp.productname, tp.productprice, tp.productimg, tc.quantity \n\r"+
+                            "FROM tbproduct tp \n\r" +
+                            "JOIN tbcustomercart tc \n\r" +
+                            "ON tp.productid = tc.productid \n\r" +
+                            "WHERE tc.customerid = '" + String.valueOf(customerId) + "'";
+        Cursor cursor = tbCart.queryData(queryCart);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                cartItemList.add(new CartItem(cursor.getString(0), cursor.getInt(1), cursor.getInt(3),cursor.getString(2)));
+            }
+            cursor.close();
+            tbCart.close();
+        }
         return cartItemList;
     }
-
 }
