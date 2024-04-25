@@ -18,6 +18,7 @@ import com.donota.donotamobileapp.fragments.HomePageFragment;
 import com.donota.donotamobileapp.fragments.LogInFragment;
 import com.donota.donotamobileapp.fragments.LoginSignupFragment;
 import com.donota.donotamobileapp.fragments.ProductDetailFragment;
+import com.donota.donotamobileapp.fragments.SplashScreenFragment;
 
 
 import java.io.File;
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements LogInFragment.OnL
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         if (fragmentManager.findFragmentById(R.id.rootNavFragmentContainer) == null) {
-            transaction.add(R.id.rootNavFragmentContainer, new LoginSignupFragment());
+            transaction.add(R.id.rootNavFragmentContainer, new SplashScreenFragment());
         }
         transaction.commit();
     }
