@@ -1,6 +1,7 @@
 package com.donota.donotamobileapp.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.donota.donotamobileapp.R;
 
@@ -18,7 +19,6 @@ public class TopMenuFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_top_menu, container, false);
     }
 
@@ -26,23 +26,23 @@ public class TopMenuFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Set up the back button
         view.findViewById(R.id.backButton).setOnClickListener(v -> {
-            NavHostFragment.findNavController(TopMenuFragment.this).navigateUp();
+            FragmentManager fragmentManager = getParentFragmentManager();
+            fragmentManager.popBackStack();
         });
 
-        // Safely retrieve the title from arguments
         Bundle args = getArguments();
         String title = null;
         if (args != null) {
             title = args.getString("title");
         }
 
-        // Check if title is not null before setting it
         if (title != null) {
+            Log.d("TopMenuFragment", "Title retrieved: " + title);
             TextView titleTextView = view.findViewById(R.id.titleTextView);
             titleTextView.setText(title);
         } else {
+            Log.d("TopMenuFragment", "Title is null");
         }
     }
 }

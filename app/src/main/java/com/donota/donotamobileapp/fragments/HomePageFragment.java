@@ -28,9 +28,7 @@ import com.donota.donotamobileapp.utils.CarouselItemDecoration;
 import com.donota.donotamobileapp.utils.SpacingItemDecoration;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class HomePageFragment extends Fragment {
 
@@ -55,7 +53,6 @@ public class HomePageFragment extends Fragment {
 
         setupCarousels();
         setupProducts();
-
         loadFragment();
 
         ImageView imageView = view.findViewById(R.id.imvSlider);
@@ -69,17 +66,16 @@ public class HomePageFragment extends Fragment {
 
         return view;
     }
+
     private void setupCarousels() {
         List<CarouselItem> bestSellerItems = loadBestSellerCarouselData();
         carouselBestSellerRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        BestSellerCarouselAdapter carouselBestSellerAdapter = new BestSellerCarouselAdapter(getContext(), bestSellerItems, position -> {
-        });
+        BestSellerCarouselAdapter carouselBestSellerAdapter = new BestSellerCarouselAdapter(getContext(), bestSellerItems, position -> {});
         carouselBestSellerRecyclerView.setAdapter(carouselBestSellerAdapter);
 
         List<CarouselItem> categoryItems = loadCategoryCarouselData();
         carouselCategoryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        CategoryCarouselAdapter carouselCategoryAdapter = new CategoryCarouselAdapter(getContext(), categoryItems, position -> {
-        });
+        CategoryCarouselAdapter carouselCategoryAdapter = new CategoryCarouselAdapter(getContext(), categoryItems, position -> {});
 
         carouselCategoryRecyclerView.setAdapter(carouselCategoryAdapter);
 
@@ -87,6 +83,7 @@ public class HomePageFragment extends Fragment {
         carouselBestSellerRecyclerView.addItemDecoration(new CarouselItemDecoration(spacingInPixels, spacingInPixels));
         carouselCategoryRecyclerView.addItemDecoration(new CarouselItemDecoration(spacingInPixels, spacingInPixels));
     }
+
     private List<CarouselItem> loadBestSellerCarouselData() {
         carouselItems = new ArrayList<>();
         tbProduct = new TbProductImpl(getContext());
@@ -101,6 +98,7 @@ public class HomePageFragment extends Fragment {
         tbProduct.close();
         return carouselItems;
     }
+
     private List<CarouselItem> loadCategoryCarouselData() {
         carouselItems = new ArrayList<>();
         tbProduct = new TbProductImpl(getContext());
@@ -137,7 +135,7 @@ public class HomePageFragment extends Fragment {
         tbProduct = new TbProductImpl(getContext());
         String queryProduct = "SELECT productimg, productname, productrating, productprice from tbproduct ";
         Cursor cursor = tbProduct.queryData(queryProduct);
-        while (cursor!= null && cursor.moveToNext()) {
+        while (cursor != null && cursor.moveToNext()) {
             String[] imgUrls = cursor.getString(0).split(";");
             String firstImg = imgUrls[0].trim();
             productList.add(new ProductCard(firstImg, cursor.getString(1),cursor.getString(2),cursor.getInt(3)));
@@ -152,6 +150,7 @@ public class HomePageFragment extends Fragment {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         transaction.add(R.id.navigation_bar, new NavigationBarFragment());
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 }
