@@ -3,6 +3,7 @@ package com.donota.donotamobileapp.fragments;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.adapter.ProductCarouselAdapter;
+import com.donota.donotamobileapp.database.impl.TbCartImpl;
 import com.donota.donotamobileapp.database.impl.TbProductImpl;
 import com.donota.donotamobileapp.databinding.FragmentProductDetailBinding;
 import com.donota.donotamobileapp.model.Product;
 import com.donota.donotamobileapp.model.ProductCard;
 import com.donota.donotamobileapp.utils.CarouselItemDecoration;
+import com.donota.donotamobileapp.utils.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,12 +59,12 @@ public class ProductDetailFragment extends Fragment {
         product = getData();
         setUpProduct(product);
         loadTopMenu();
-        addEvents();
+        addEvents(product);
 
         return binding.getRoot();
     }
 
-    private void addEvents() {
+    private void addEvents(Product product) {
         binding.btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,6 +72,40 @@ public class ProductDetailFragment extends Fragment {
                 if (getActivity() instanceof OnProductBuyListener) {
                     ((OnProductBuyListener) getActivity()).onBuyProductSelected(bundle);
                 }
+            }
+        });
+        binding.btnAddToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int customerId = PreferenceUtils.getCustomerId(getContext());
+                String productId = product.getProductId();
+                TbCartImpl tbCart = new TbCartImpl(getContext());
+
+                String sqlUpdateCart = "UPDATE tbcustomercart\n" +
+                                    "   SET quantity = CASE\n" +
+                                    "                 WHEN customerid = " + customerId +"  AND productid LIKE '" +productId + "'\n" +
+                                    "                 THEN quantity + 1\n" +
+                                    "                 ELSE quantity\n" +
+                                    "               END\n" +
+                                    "WHERE customerid = 'customerid' AND productid = 'productid';";
+                boolean checkExist = false;
+
+                String sqlQuerycheck = "SELECT * FROM tbcustomercart WHERE customerid = " +customerId+ " AND productid =  '" + productId + "'";
+                Cursor cursor = tbCart.queryData(sqlQuerycheck);
+                if (cursor != null && cursor.getCount() != 0) {
+                    checkExist = true;
+                }
+
+                if (checkExist) {
+                    boolean updateFlag = tbCart.execSql(sqlUpdateCart);
+
+                    Log.d("Gio hang da ton tai", "koloi");
+                } else {
+                    boolean insertFlag = tbCart.insertData(customerId,productId);
+                    Log.d("Cart check", "Tao moi san pham");
+                }
+                cursor.close();
+                tbCart.close();
             }
         });
     }

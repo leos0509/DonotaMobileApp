@@ -35,6 +35,18 @@ public class TbCartImpl extends SQLiteOpenHelper implements Databases {
         onCreate(db);
     }
 
+    public boolean insertData(int customerId,String productId) {
+        SQLiteDatabase db = getWritableDatabase();
+        String insertQuery = "INSERT INTO tbcustomercart VALUES (" +customerId+ ", '" + productId + "', 1);";
+        try {
+            db.execSQL(insertQuery);
+            return true;
+        } catch (Exception e) {
+            Log.e("Error", e.toString());
+            return false;
+        }
+    }
+
     @Override
     public Cursor queryData(String sql) {
         SQLiteDatabase db = getReadableDatabase();

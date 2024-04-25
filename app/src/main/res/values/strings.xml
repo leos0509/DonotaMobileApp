@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">Donota Mobile App</string>
+    <string name="app_name">DONOTA</string>
+
+
     <string name="CancelOrder_Content">⭐Đơn hàng đang ở trạng thái Chờ xác nhận (Người bán chưa xác nhận đơn) \n
 ⭐Khi đơn hàng ở trạng thái Chờ lấy hàng (Người bán đang đóng gói và chuẩn bị giao cho đơn vị vận chuyển), yêu cầu sẽ cần được Người bán phản hồi: \n
 ⭐Người bán chấp nhận yêu cầu hủy đơn: Đơn hàng sẽ được hủy ngay lập tức \n
