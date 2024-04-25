@@ -7,45 +7,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.model.ProductCard;
 import androidx.appcompat.widget.AppCompatButton;
-
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class ProductCarouselAdapter extends RecyclerView.Adapter<ProductCarouselAdapter.ProductCardViewHolder> {
 
     private Context context;
     private List<ProductCard> productCards;
     private OnItemClickListener listener;
-
-    public Context getContext() {
-        return context;
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
-    public List<ProductCard> getProductCards() {
-        return productCards;
-    }
-
-    public void setProductCards(List<ProductCard> productCards) {
-        this.productCards = productCards;
-    }
-
-    public OnItemClickListener getListener() {
-        return listener;
-    }
-
-    public void setListener(OnItemClickListener listener) {
-        this.listener = listener;
-    }
 
     public ProductCarouselAdapter(Context context, List<ProductCard> productCards, OnItemClickListener listener) {
         this.context = context;
@@ -68,7 +43,10 @@ public class ProductCarouselAdapter extends RecyclerView.Adapter<ProductCarousel
                 .into(holder.imvProduct);
         holder.txtProductName.setText(productCard.getProductName());
         holder.btnRating.setText(productCard.getRating());
-        holder.txtPrice.setText(String.valueOf(productCard.getPrice()));
+
+        NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        String formattedPrice = format.format(productCard.getPrice());
+        holder.txtPrice.setText(formattedPrice);
     }
 
     @Override
@@ -90,6 +68,7 @@ public class ProductCarouselAdapter extends RecyclerView.Adapter<ProductCarousel
             txtPrice = itemView.findViewById(R.id.txtProductPrice);
         }
     }
+
     public interface OnItemClickListener {
         void onItemClick(ProductCard productCard);
     }

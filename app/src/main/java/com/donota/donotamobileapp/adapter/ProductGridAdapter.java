@@ -15,7 +15,9 @@ import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.model.ProductCard;
 import androidx.appcompat.widget.AppCompatButton;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class ProductGridAdapter extends RecyclerView.Adapter<ProductGridAdapter.ProductCardViewHolder> {
 
@@ -53,7 +55,10 @@ public class ProductGridAdapter extends RecyclerView.Adapter<ProductGridAdapter.
         holder.itemView.setOnClickListener(v -> onProductClickListener.onProductClick(productCard));
         holder.txtProductName.setText(productCard.getProductName());
         holder.btnRating.setText(productCard.getRating());
-        holder.txtPrice.setText(String.valueOf(productCard.getPrice()));
+        
+        NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        String formattedPrice = format.format(productCard.getPrice());
+        holder.txtPrice.setText(formattedPrice);
     }
 
     @Override
