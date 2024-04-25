@@ -7,11 +7,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.database.impl.TbCustomerProfileImpl;
 import com.donota.donotamobileapp.databinding.FragmentLogInBinding;
 import com.donota.donotamobileapp.utils.PreferenceUtils;
@@ -63,6 +68,18 @@ public class LogInFragment extends Fragment {
                 } else {
                     Toast.makeText(context, "Sai tên đăng nhập hoặc Email, xin hãy nhập lại", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        binding.txtForgotPw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = requireActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+
+                transaction.add(R.id.rootNavFragmentContainer, new ForgotPwFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
