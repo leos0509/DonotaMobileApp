@@ -47,7 +47,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
     }
 
     public double getCheckedItemPriceSum() {
-        double sum = 0;
+        int sum = 0;
         for (CartItem item : cartItems) {
             if (item.isChecked()) {
                 sum += item.getPrice() * item.getQuantity();
@@ -85,6 +85,15 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
         ImageView imvThumb;
         TextView txtName, txtPrice, txtQuantity;
 
+        public void bind(CartItem item) {
+            Glide.with(context)
+                    .load(item.getProductimg())
+                    .into(imvThumb);
+            txtName.setText(item.getName());
+            txtPrice.setText(formatCurrency(item.getPrice()));
+            txtQuantity.setText(String.valueOf(item.getQuantity()));
+        }
+
         public CartItemViewHolder(@NonNull View itemView) {
             super(itemView);
             checkboxSelect = itemView.findViewById(R.id.checkboxSelect);
@@ -103,15 +112,6 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
                     }
                 }
             });
-        }
-
-        public void bind(CartItem item) {
-            Glide.with(context)
-                    .load(item.getProductimg())
-                    .into(imvThumb);
-            txtName.setText(item.getName());
-            txtPrice.setText(formatCurrency(item.getPrice()));
-            txtQuantity.setText(String.valueOf(item.getQuantity()));
         }
 
         private String formatCurrency(double amount) {

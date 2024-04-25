@@ -1,5 +1,6 @@
 package com.donota.donotamobileapp.activities;
 
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -9,10 +10,21 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.donota.donotamobileapp.R;
+import com.donota.donotamobileapp.adapters.ProductOrderAdapter;
+import com.donota.donotamobileapp.database.impl.TbCartImpl;
 import com.donota.donotamobileapp.databinding.ActivityOrderConfirmationBinding;
+import com.donota.donotamobileapp.models.ProductOrder;
+import com.donota.donotamobileapp.utils.PreferenceUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CheckOutActivity extends AppCompatActivity {
     ActivityOrderConfirmationBinding binding;
+
+    List<ProductOrder> productOrderList;
+
+    ProductOrderAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,15 +37,67 @@ public class CheckOutActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        getData();
+        initAdapter();
+    }
+    private double orderValueCalculating( List<ProductOrder> productOrderList) {
+        double sum = 0;
+        for (ProductOrder productOrder : productOrderList) {
+            double productValue = productOrder.getProductPrice() * productOrder.getProductQuantity();
+            sum += productValue;
+        }
+        return sum;
+    }
+    private void attachTotal (List<ProductOrder> productOrderList) {
+        binding.txtOrderTotalDelivery.setText(String.valueOf(productOrderList.size() *100000));
+        binding.txtOrderDeliveryMethodPrice.setText(String.valueOf(productOrderList.size() *100000));
+        binding.txtTotalPayment.setText(String.valueOf(Math.round(orderValueCalculating(productOrderList) + productOrderList.size() * 100000) + "VND"));
+        binding.txtOrderTotalPayment.setText(String.valueOf(Math.round(orderValueCalculating(productOrderList)) + "VND"));
     }
 
-    private void getData() {
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            String productId = bundle.getString("productId");
-            int productPrice = bundle.getInt("productPrice");
-            // Use the data as needed
-        }
+
+    private void initAdapter() {
+        productOrderList = loadData(getCheckItems());
+        adapter = new ProductOrderAdapter(this, R.layout.item_confirmation_layout, productOrderList);
+        binding.lvOrderProduct.setAdapter(adapter);
+        attachTotal(productOrderList);
     }
+
+    private List<String> getCheckItems() {
+        List<String> checkedItems = getIntent().getStringArrayListExtra("checkedItems");
+        if (checkedItems != null) {
+            // Handle the received checked items data
+            for (String productId : checkedItems) {
+
+            }
+        }
+        return checkedItems;
+    }
+
+    private List<ProductOrder> loadData(List<String> productIdList){
+        List<ProductOrder> productOrderList = new ArrayList<>();
+        int customerid = PreferenceUtils.getCustomerId(this);
+        TbCartImpl tbCart = new TbCartImpl(this);
+        for (String productId : productIdList) {
+            String sql = "SELECT tbc.customerid,\n" +
+                    "       tbc.productid,\n" +
+                    "       tbc.quantity, \n" +
+                    "       tbp.productprice,\n" +
+                    "       tbp.productname,\n" +
+                    "       tbp.productimg\n" +
+                    "FROM tbcustomercart tbc\n" +
+                    "JOIN tbproduct tbp\n" +
+                    "ON tbc.productid = tbp.productid\n" +
+                    "WHERE tbc.customerid = " + customerid + " AND tbc.productid LIKE '" +productId+"';" ;
+            Cursor cursor = tbCart.queryData(sql);
+            if (cursor.moveToFirst()) {
+                String[] imgUrls = cursor.getString(5).split(";");
+                String itemImg = imgUrls[0].trim();
+                productOrderList.add(new ProductOrder(itemImg, cursor.getString(4), cursor.getInt(2), cursor.getDouble(3)));
+            }
+            cursor.close();
+        }
+        tbCart.close();
+        return productOrderList;
+    }
+
 }
