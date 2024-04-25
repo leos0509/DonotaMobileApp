@@ -35,11 +35,12 @@ public class AccountActivity extends AppCompatActivity {
 
     private void initData() {
         settingOptions = new ArrayList<>();
-        settingOptions.add(new SettingOptions("personal_info", R.drawable.baseline_person, "Tai khoan"));
-        settingOptions.add(new SettingOptions("setting", R.drawable.baseline_settings, "Cai dat chung"));
-        settingOptions.add(new SettingOptions("payment_setting", R.drawable.baseline_credit_card, "Cai dat thanh toan"));
-        settingOptions.add(new SettingOptions("address_setting", R.drawable.baseline_location, "Cai dat dia chi"));
-        settingOptions.add(new SettingOptions("policy_setting", R.drawable.baseline_policy, "Chinh sach"));
+        settingOptions.add(new SettingOptions("personal_info", R.drawable.baseline_person, "Tài khoản"));
+        settingOptions.add(new SettingOptions("wishlist", R.drawable.baseline_favorite, "Sản phẩm yêu thích"));
+        settingOptions.add(new SettingOptions("setting", R.drawable.baseline_settings, "Cài đặt chung"));
+        settingOptions.add(new SettingOptions("payment_setting", R.drawable.baseline_credit_card, "Cài đặt thanh toán"));
+        settingOptions.add(new SettingOptions("address_setting", R.drawable.baseline_location, "Cài đặt địa chỉ"));
+        settingOptions.add(new SettingOptions("policy_setting", R.drawable.baseline_policy, "Chính sách"));
     }
 
     private void loadData() {

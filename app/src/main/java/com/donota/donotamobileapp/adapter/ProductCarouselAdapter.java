@@ -23,6 +23,30 @@ public class ProductCarouselAdapter extends RecyclerView.Adapter<ProductCarousel
     private List<ProductCard> productCards;
     private OnItemClickListener listener;
 
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public List<ProductCard> getProductCards() {
+        return productCards;
+    }
+
+    public void setProductCards(List<ProductCard> productCards) {
+        this.productCards = productCards;
+    }
+
+    public OnItemClickListener getListener() {
+        return listener;
+    }
+
+    public void setListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
     public ProductCarouselAdapter(Context context, List<ProductCard> productCards, OnItemClickListener listener) {
         this.context = context;
         this.productCards = productCards;
@@ -67,6 +91,6 @@ public class ProductCarouselAdapter extends RecyclerView.Adapter<ProductCarousel
         }
     }
     public interface OnItemClickListener {
-        void onItemClick(int position);
+        void onItemClick(ProductCard productCard);
     }
 }
