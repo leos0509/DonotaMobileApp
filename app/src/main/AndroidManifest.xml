@@ -15,7 +15,7 @@
         android:theme="@style/Theme.DonotaMobileApp"
         tools:targetApi="31">
         <activity
-            android:name=".activities.AddInformationActivity"
+            android:name=".activities.CheckOutActivity"
             android:exported="false" />
         <activity
             android:name=".activities.LoginSuccessActivity"
@@ -42,7 +42,7 @@
             android:name=".activities.ConfirmOtpScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.CheckOutActivity"
+            android:name=".activities.AddInformationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity"

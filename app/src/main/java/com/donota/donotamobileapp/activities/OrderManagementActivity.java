@@ -34,7 +34,7 @@ public class OrderManagementActivity extends AppCompatActivity {
     ProductOrderAdapter productOrderAdapter;
     ArrayList<ProductOrder> productOrders;
     ConfirmedOrderFragment confirmedOrderFragment = new ConfirmedOrderFragment();
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

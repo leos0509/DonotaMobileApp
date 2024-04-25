@@ -31,34 +31,12 @@ public class AccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityAccountBinding.inflate(getLayoutInflater());
-
-        setSupportActionBar(binding.topAppBar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         setContentView(binding.getRoot());
-
 
         loadData();
         addEvents();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.top_menu_bar, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == android.R.id.home) {
-            this.finish();
-        } else if (item.getItemId() == R.id.containerLogInLayout) {
-           Intent intent = new Intent();
-        //startActivity típpp
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
 
     private void initData() {
