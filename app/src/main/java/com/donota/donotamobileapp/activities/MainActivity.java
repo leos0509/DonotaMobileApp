@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements LogInFragment.OnL
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         if (fragmentManager.findFragmentById(R.id.rootNavFragmentContainer) == null) {
-            transaction.add(R.id.rootNavFragmentContainer, new HomeNavFragment());
+            transaction.add(R.id.rootNavFragmentContainer, new LoginSignupFragment());
         }
         transaction.commit();
     }
