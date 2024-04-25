@@ -30,6 +30,8 @@
             style="@style/body2"
             android:layout_marginTop="5dp"
             android:paddingVertical="5dp"
+            android:maxLines="2"
+            android:ellipsize="end"
             app:layout_constraintTop_toBottomOf="@id/imvProduct"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
