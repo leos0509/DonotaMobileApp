@@ -16,6 +16,7 @@ import com.donota.donotamobileapp.databinding.ActivityMainBinding;
 import com.donota.donotamobileapp.fragments.HomeNavFragment;
 import com.donota.donotamobileapp.fragments.HomePageFragment;
 import com.donota.donotamobileapp.fragments.LogInFragment;
+import com.donota.donotamobileapp.fragments.LoginSignupFragment;
 import com.donota.donotamobileapp.fragments.ProductDetailFragment;
 
 
