@@ -100,10 +100,9 @@ public class MainActivity extends AppCompatActivity implements LogInFragment.OnL
         productDetailFragment.setArguments(bundle);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.rootNavFragmentContainer, productDetailFragment, "Sended selectedProductId")
+                .add(R.id.rootNavFragmentContainer, productDetailFragment, "Sended selectedProductId")
                 .addToBackStack(null)
                 .commit();
-
     }
 
     @Override
@@ -126,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements LogInFragment.OnL
         productDetailFragment.setArguments(bundle);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.rootNavFragmentContainer, productDetailFragment, "Sended selectedProductId")
+                .add(R.id.rootNavFragmentContainer, productDetailFragment, "Sended selectedProductId")
                 .addToBackStack(null)
                 .commit();
 

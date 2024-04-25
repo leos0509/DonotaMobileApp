@@ -30,8 +30,6 @@ public class PaymentSettingsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_payment_settings, container, false);
     }
 
-
-
     private void loadTopMenu() {
         TopMenuFragment topMenuFragment = new TopMenuFragment();
         Bundle args = new Bundle();
