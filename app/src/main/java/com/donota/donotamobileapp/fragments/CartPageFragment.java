@@ -36,8 +36,14 @@ public class CartPageFragment extends Fragment implements CartItemAdapter.OnChec
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         List<CartItem> cartItems = new ArrayList<>();
-        cartItems.add(new CartItem("Item 1", 19.99, 1));
-        cartItems.add(new CartItem("Item 2", 29.99, 2));
+        cartItems.add(new CartItem("Product 1", 290000, 1));
+        cartItems.add(new CartItem("Product 2", 180000, 2));
+        cartItems.add(new CartItem("Product 1", 290000, 1));
+        cartItems.add(new CartItem("Product 2", 180000, 2));
+        cartItems.add(new CartItem("Product 1", 290000, 1));
+        cartItems.add(new CartItem("Product 2", 180000, 2));
+        cartItems.add(new CartItem("Product 1", 290000, 1));
+        cartItems.add(new CartItem("Product 2", 180000, 2));
 
         CartItemAdapter adapter = new CartItemAdapter(cartItems, this);
         recyclerView.setAdapter(adapter);

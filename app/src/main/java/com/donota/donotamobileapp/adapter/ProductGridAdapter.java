@@ -55,7 +55,7 @@ public class ProductGridAdapter extends RecyclerView.Adapter<ProductGridAdapter.
         holder.itemView.setOnClickListener(v -> onProductClickListener.onProductClick(productCard));
         holder.txtProductName.setText(productCard.getProductName());
         holder.btnRating.setText(productCard.getRating());
-        
+
         NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
         String formattedPrice = format.format(productCard.getPrice());
         holder.txtPrice.setText(formattedPrice);
