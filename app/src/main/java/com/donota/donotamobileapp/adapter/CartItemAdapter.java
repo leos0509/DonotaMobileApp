@@ -7,17 +7,16 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.model.CartItem;
-
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartItemViewHolder> {
-    Context context;
+    private Context context;
     private List<CartItem> cartItems;
     private OnCheckedItemCountChangedListener listener;
 
@@ -41,14 +40,14 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
 
     public interface OnCheckedItemCountChangedListener {
         void onCheckedItemCountChanged(int count);
-        void onCheckedItemPriceSumChanged(double sum); // New method for price sum change
+        void onCheckedItemPriceSumChanged(double sum);
     }
 
     public double getCheckedItemPriceSum() {
         double sum = 0;
         for (CartItem item : cartItems) {
             if (item.isChecked()) {
-                sum += item.getPrice() * item.getQuantity(); // Assuming each item has a quantity
+                sum += item.getPrice() * item.getQuantity();
             }
         }
         return sum;
@@ -59,7 +58,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
         notifyItemChanged(position);
         if (listener != null) {
             listener.onCheckedItemCountChanged(getCheckedItemCount());
-            listener.onCheckedItemPriceSumChanged(getCheckedItemPriceSum()); // Notify about the price sum change
+            listener.onCheckedItemPriceSumChanged(getCheckedItemPriceSum());
         }
     }
 
@@ -91,20 +90,6 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
             txtPrice = itemView.findViewById(R.id.txtPrice);
             txtQuantity = itemView.findViewById(R.id.txtQuantity);
 
-            if (checkboxSelect.getTag() == null) {
-                checkboxSelect.setTag("initialized");
-                checkboxSelect.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        boolean isChecked = checkboxSelect.isChecked();
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            setItemChecked(position, isChecked);
-                        }
-                    }
-                });
-            }
-
             checkboxSelect.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -119,8 +104,13 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
 
         public void bind(CartItem item) {
             txtName.setText(item.getName());
-            txtPrice.setText(String.valueOf(item.getPrice()));
+            txtPrice.setText(formatCurrency(item.getPrice()));
             txtQuantity.setText(String.valueOf(item.getQuantity()));
+        }
+
+        private String formatCurrency(double amount) {
+            NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+            return format.format(amount);
         }
     }
 }

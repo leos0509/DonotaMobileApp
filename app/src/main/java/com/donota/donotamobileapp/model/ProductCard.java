@@ -5,12 +5,14 @@ public class ProductCard {
     private String productName;
     private String rating;
     private int price;
+    private String productId;
 
-    public ProductCard(String imageUrl, String productName, String rating, int price) {
+    public ProductCard(String imageUrl, String productName, String rating, int price, String productId) {
         this.imageUrl = imageUrl;
         this.productName = productName;
         this.rating = rating;
         this.price = price;
+        this.productId = productId;
     }
 
     public String getImageUrl() {
@@ -43,6 +45,14 @@ public class ProductCard {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 }
 

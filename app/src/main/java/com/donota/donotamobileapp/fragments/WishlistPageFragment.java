@@ -38,6 +38,7 @@ public class WishlistPageFragment extends Fragment implements ProductGridAdapter
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wishlist_page, container, false);
         setupProducts(view);
+        loadTopMenu();
         return view;
     }
 
@@ -60,6 +61,19 @@ public class WishlistPageFragment extends Fragment implements ProductGridAdapter
         recyclerView.setAdapter(productGridAdapter);
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing_4dp);
         recyclerView.addItemDecoration(new SpacingItemDecoration(spacingInPixels, spacingInPixels));
+    }
+
+    private void loadTopMenu() {
+        TopMenuFragment topMenuFragment = new TopMenuFragment();
+        Bundle args = new Bundle();
+        args.putString("title", "Sản phẩm yêu thích");
+        topMenuFragment.setArguments(args);
+
+        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        transaction.add(R.id.topMenuFragment, topMenuFragment);
+        transaction.commit();
     }
 
     @Override
