@@ -3,6 +3,7 @@ package com.donota.donotamobileapp.adapters;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.models.ProductOrder;
 import com.donota.donotamobileapp.models.SettingOptions;
@@ -18,6 +20,7 @@ import java.util.List;
 
 public class ProductOrderAdapter extends BaseAdapter {
     Activity activity;
+
     int item_confirmation_layout;
     List<ProductOrder> productOrderList;
 
@@ -53,20 +56,26 @@ public class ProductOrderAdapter extends BaseAdapter {
             holder.txtProductName = view.findViewById(R.id.txtProductName);
             holder.txtQuantity = view.findViewById(R.id.txtQuantity);
             holder.txtProductPrice = view.findViewById(R.id.txtProductPrice);
+            holder.txtTotal = view.findViewById(R.id.txtTotalPayment);
+            holder.txtTotalPayment = view.findViewById(R.id.txtOrderTotalPayment);
             view.setTag(holder);
         }else{
             holder = (ProductOrderAdapter.ViewHolder) view.getTag();
         }
         ProductOrder productOrder = productOrderList.get(position);
-        holder.imvProductThumb.setImageResource(productOrder.getProductThumb());
+        Glide.with(activity)
+                .load(productOrder.getProductThumb())
+                .into(holder.imvProductThumb);
         holder.txtProductName.setText(productOrder.getProductName());
-        holder.txtQuantity.setText(productOrder.getProductQuantity());
-        holder.txtProductPrice.setText(String.valueOf( Math.round(productOrder.getProductPrice())) + "đ");
+        holder.txtQuantity.setText(String.valueOf(productOrder.getProductQuantity()));
+        holder.txtProductPrice.setText(String.valueOf( Math.round(productOrder.getProductPrice())) + "VND");
+
 
         return view;
     }
+
     public static class ViewHolder{
         ImageView imvProductThumb;
-        TextView txtProductName, txtProductPrice, txtQuantity;
+        TextView txtProductName, txtProductPrice, txtQuantity, txtTotal, txtTotalPayment;
     }
 }

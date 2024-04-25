@@ -15,34 +15,34 @@
         android:theme="@style/Theme.DonotaMobileApp"
         tools:targetApi="31">
         <activity
-            android:name=".activities.CheckOutActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.LoginSuccessActivity"
+            android:name=".activities.OrderSuccessActivity"
             android:exported="false" />
         <activity
             android:name=".activities.ChangePwSuccessActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.OrderSuccessActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.SettingContentActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.AccountActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.SplashScreenActivity"
             android:exported="false" />
         <activity
             android:name=".activities.LoginSignupActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.ConfirmOtpScreenActivity"
+            android:name=".activities.SettingContentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.LoginSuccessActivity"
             android:exported="false" />
         <activity
             android:name=".activities.AddInformationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.SplashScreenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ConfirmOtpScreenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.CheckOutActivity"
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity"
