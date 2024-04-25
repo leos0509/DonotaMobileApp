@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -39,6 +41,18 @@ public class LogInFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentLogInBinding.inflate(inflater, container, false);
         addEvents();
+
+        binding.txtForgotPw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = requireActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+
+                transaction.add(R.id.rootNavFragmentContainer, new ForgotPwFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
 
         return binding.getRoot();
     }
