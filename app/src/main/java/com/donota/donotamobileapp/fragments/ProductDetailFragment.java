@@ -55,7 +55,7 @@ public class ProductDetailFragment extends Fragment {
         
         product = getData();
         setUpProduct(product);
-        loadFragment();
+        loadTopMenu();
         addEvents();
 
         return binding.getRoot();
@@ -166,10 +166,16 @@ public class ProductDetailFragment extends Fragment {
         return productList;
     }
 
-    private void loadFragment(){
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+    private void loadTopMenu() {
+        TopMenuFragment topMenuFragment = new TopMenuFragment();
+        Bundle args = new Bundle();
+        args.putString("title", "Chi tiết sản phẩm");
+        topMenuFragment.setArguments(args);
+
+        FragmentManager fragmentManager = getParentFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.rootNavFragmentContainer, new HomeNavFragment());
+
+        transaction.add(R.id.topMenuFragment, topMenuFragment);
         transaction.commit();
     }
 
