@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.model.CartItem;
 import java.text.NumberFormat;
@@ -20,7 +22,8 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
     private List<CartItem> cartItems;
     private OnCheckedItemCountChangedListener listener;
 
-    public CartItemAdapter(List<CartItem> cartItems, OnCheckedItemCountChangedListener listener) {
+    public CartItemAdapter(Context context, List<CartItem> cartItems, OnCheckedItemCountChangedListener listener) {
+        this.context = context;
         this.cartItems = cartItems;
         this.listener = listener;
     }
@@ -103,6 +106,9 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
         }
 
         public void bind(CartItem item) {
+            Glide.with(context)
+                    .load(item.getProductimg())
+                    .into(imvThumb);
             txtName.setText(item.getName());
             txtPrice.setText(formatCurrency(item.getPrice()));
             txtQuantity.setText(String.valueOf(item.getQuantity()));

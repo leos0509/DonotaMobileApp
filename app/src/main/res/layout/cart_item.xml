@@ -59,12 +59,12 @@
 
         <TextView
             android:id="@+id/txtPrice"
+            style="@style/bodyBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Price"
-            style="@style/bodyBold"
-            android:textFontWeight="700"
             android:layout_marginTop="10dp"
+            android:text="Price"
+            android:textFontWeight="700"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txtName" />
 
@@ -77,8 +77,8 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnRemove"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:text="-"
                 android:textColor="#FFF"
                 android:background="@drawable/quantity_btn_bg"
@@ -90,8 +90,8 @@
 
             <TextView
                 android:id="@+id/txtQuantity"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:gravity="center"
                 android:text="1"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -101,8 +101,8 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnAdd"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:text="+"
                 android:textColor="#FFF"
                 android:background="@drawable/quantity_btn_bg"

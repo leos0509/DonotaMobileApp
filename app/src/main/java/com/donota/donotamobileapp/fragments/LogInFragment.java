@@ -11,7 +11,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.database.impl.TbCustomerProfileImpl;
 import com.donota.donotamobileapp.databinding.FragmentLogInBinding;
 import com.donota.donotamobileapp.utils.PreferenceUtils;
@@ -35,39 +38,54 @@ public class LogInFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentLogInBinding.inflate(inflater, container, false);
-
-        binding.btnConfirmLogIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = getActivity();
-                String customerAccountEmail = binding.edtUserNameEmail.getText().toString();
-                String customerPassword = binding.edtInputPw.getText().toString();
-                if (validateCustomerAccountEmail(context, customerAccountEmail)) {
-                    if (validatePassword(context, customerPassword, customerAccountEmail)) {
-                        tbCustomerProfile = new TbCustomerProfileImpl(context);
-                        String queryCustomerId = "SELECT customerid FROM tbcustomerprofile WHERE (customeraccount LIKE '" + customerAccountEmail +
-                                "') OR ( customeremail LIKE '" + customerAccountEmail + "')";
-                        try {
-                            Cursor cursor = tbCustomerProfile.queryData(queryCustomerId);
-                            if (cursor != null && cursor.moveToFirst()) {
-                                PreferenceUtils.setCustomerId(context, cursor.getInt(0));
-                                cursor.close();
-                                listener.onLoginSuccess();
-                            }
-                        } finally {
-                            tbCustomerProfile.close();
-                        }
-                    } else {
-                        Toast.makeText(context, "Mật khẩu sai, xin hãy nhập lại !!!", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(context, "Sai tên đăng nhập hoặc Email, xin hãy nhập lại", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        addEvents();
 
         return binding.getRoot();
     }
+
+    private void addEvents() {
+        binding.btnConfirmLogIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processLogIn();
+            }
+        });
+
+        binding.txtForgotPw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    private void processLogIn() {
+        Context context = getActivity();
+        String customerAccountEmail = binding.edtUserNameEmail.getText().toString();
+        String customerPassword = binding.edtInputPw.getText().toString();
+        if (validateCustomerAccountEmail(context, customerAccountEmail)) {
+            if (validatePassword(context, customerPassword, customerAccountEmail)) {
+                tbCustomerProfile = new TbCustomerProfileImpl(context);
+                String queryCustomerId = "SELECT customerid FROM tbcustomerprofile WHERE (customeraccount LIKE '" + customerAccountEmail +
+                        "') OR ( customeremail LIKE '" + customerAccountEmail + "')";
+                try {
+                    Cursor cursor = tbCustomerProfile.queryData(queryCustomerId);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        PreferenceUtils.setCustomerId(context, cursor.getInt(0));
+                        cursor.close();
+                        listener.onLoginSuccess();
+                    }
+                } finally {
+                    tbCustomerProfile.close();
+                }
+            } else {
+                Toast.makeText(context, "Mật khẩu sai, xin hãy nhập lại !!!", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(context, "Sai tên đăng nhập hoặc Email, xin hãy nhập lại", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     private boolean validateCustomerAccountEmail(Context context, String customerAccountEmail) {
         tbCustomerProfile = new TbCustomerProfileImpl(context);

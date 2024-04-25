@@ -1,5 +1,6 @@
 package com.donota.donotamobileapp.fragments;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +15,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.adapter.CartItemAdapter;
+import com.donota.donotamobileapp.database.impl.TbCartImpl;
 import com.donota.donotamobileapp.model.CartItem;
+import com.donota.donotamobileapp.utils.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CartPageFragment extends Fragment implements CartItemAdapter.OnCheckedItemCountChangedListener {
+
+    RecyclerView recyclerView;
 
     public CartPageFragment() {}
 
@@ -32,26 +37,47 @@ public class CartPageFragment extends Fragment implements CartItemAdapter.OnChec
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cart_page, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.recvCartItems);
+        recyclerView = view.findViewById(R.id.recvCartItems);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        List<CartItem> cartItems = new ArrayList<>();
-        cartItems.add(new CartItem("Product 1", 290000, 1));
-        cartItems.add(new CartItem("Product 2", 180000, 2));
-        cartItems.add(new CartItem("Product 1", 290000, 1));
-        cartItems.add(new CartItem("Product 2", 180000, 2));
-        cartItems.add(new CartItem("Product 1", 290000, 1));
-        cartItems.add(new CartItem("Product 2", 180000, 2));
-        cartItems.add(new CartItem("Product 1", 290000, 1));
-        cartItems.add(new CartItem("Product 2", 180000, 2));
-
-        CartItemAdapter adapter = new CartItemAdapter(cartItems, this);
-        recyclerView.setAdapter(adapter);
-
         loadTopMenu();
+        initAdapter();
 
         return view;
     }
+
+    private List<CartItem> loadData (){
+        int customerid = PreferenceUtils.getCustomerId(getContext());
+        List<CartItem> cartItems = new ArrayList<>();
+        TbCartImpl tbCart = new TbCartImpl(getContext());
+        String sql = "SELECT tbc.customerid,\n" +
+                "       tbc.productid,\n" +
+                "       tbc.quantity, \n" +
+                "       tbp.productprice,\n" +
+                "       tbp.productname,\n" +
+                "       tbp.productimg\n" +
+                "FROM tbcustomercart tbc\n" +
+                "JOIN tbproduct tbp\n" +
+                "ON tbc.productid = tbp.productid\n" +
+                "WHERE tbc.customerid = " + customerid + ";";
+        Cursor cursor = tbCart.queryData(sql);
+
+        while (cursor != null && cursor.moveToNext()) {
+            String[] imgUrls = cursor.getString(5).split(";");
+            String itemImg = imgUrls[0].trim();
+            cartItems.add(new CartItem(itemImg,cursor.getString(4), cursor.getInt(3), cursor.getInt(2)));
+        }
+        cursor.close();
+        tbCart.close();
+
+        return cartItems;
+    }
+    private void initAdapter() {
+        List<CartItem> cartItems = loadData();
+        CartItemAdapter adapter = new CartItemAdapter(getContext(),cartItems, this);
+        recyclerView.setAdapter(adapter);
+    }
+
 
     private void loadTopMenu() {
         TopMenuFragment topMenuFragment = new TopMenuFragment();
