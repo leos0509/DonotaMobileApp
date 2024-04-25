@@ -1,7 +1,11 @@
 package com.donota.donotamobileapp.activities;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,11 +16,14 @@ import androidx.core.view.WindowInsetsCompat;
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.adapters.ProductOrderAdapter;
 import com.donota.donotamobileapp.database.impl.TbCartImpl;
+import com.donota.donotamobileapp.database.impl.TbProductImpl;
 import com.donota.donotamobileapp.databinding.ActivityOrderConfirmationBinding;
 import com.donota.donotamobileapp.models.ProductOrder;
 import com.donota.donotamobileapp.utils.PreferenceUtils;
+import com.donota.donotamobileapp.utils.ServiceUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CheckOutActivity extends AppCompatActivity {
@@ -38,7 +45,38 @@ public class CheckOutActivity extends AppCompatActivity {
             return insets;
         });
         initAdapter();
+        addEvents();
     }
+
+    private void addEvents() {
+        Date date = new Date();
+        String productOrderId = ServiceUtils.orderIdGenerator(this, "DN", date);
+        double orderValue = orderValueCalculating(productOrderList);
+        int customerId = PreferenceUtils.getCustomerId(this);
+        long orderDate = ServiceUtils.dateConversion(date);
+        TbProductImpl tbProduct = new TbProductImpl(this);
+        Intent intent = new Intent(this, OrderSuccessActivity.class);
+
+        binding.buttonCheckOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("order id", productOrderId);
+                String update = "INSERT INTO tborder (\n" +
+                        "                        orderid,\n" +
+                        "                        ordervalue,\n" +
+                        "                        customerid,\n" +
+                        "                        orderdate\n" +
+                        "                    )\n" +
+                        "                    VALUES ( '" + productOrderId +"', " + orderValue + ", " + customerId+ ", " + orderDate +");";
+                boolean commitTransaction = tbProduct.execSql(update);
+                if (commitTransaction) {startActivity(intent);}
+                else {
+                    Toast.makeText(CheckOutActivity.this, "Failed to place order", Toast.LENGTH_SHORT).show();}
+            }
+        });
+        tbProduct.close();
+    }
+
     private double orderValueCalculating( List<ProductOrder> productOrderList) {
         double sum = 0;
         for (ProductOrder productOrder : productOrderList) {

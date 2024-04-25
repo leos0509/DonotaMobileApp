@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 public class ServiceUtils {
-    public long dateConversion (Date date) {
+    public static long dateConversion (Date date) {
         long converseDate = 0;
         converseDate = date.getTime();
         return converseDate;
@@ -35,28 +35,29 @@ public class ServiceUtils {
         String orderNumberPattern = "%04d";
         String orderID = "";
 
-        if (getLastestOrderDate(context, date.getTime())) {
+//        if (getLastestOrderDate(context, date.getTime())) {
             orderID = normalizedProvinceName + datePattern + String.format(orderNumberPattern, totalOrder + 1);
-        } else {
-            orderID = normalizedProvinceName + datePattern + "0001";
-        }
+//        } else {
+//            orderID = normalizedProvinceName + datePattern + "0001";
+//        }
         return orderID;
     }
     private static int countPreviousOrder (Context context, String province, long date) {
         TbOrderImpl orderdb = new TbOrderImpl(context);
-        String sql = "SELECT COUNT(*) FROM tborder WHERE orderid LIKE '"+ province + "%' AND orderDate > " + date;
+        String sql = "SELECT orderid FROM tborder WHERE orderid LIKE '%"+ province + "%' AND orderDate > " + date;
         Cursor cursor  = orderdb.queryData(sql);
-        int previousOrders = 0 ;
-        if (cursor.moveToFirst()) {
-            cursor.getInt(0);
-        }
+        int previousOrders = cursor.getCount() ;
+//        if (cursor.moveToFirst()) {
+//            cursor.getInt(0);
+//        }
         cursor.close();
+        orderdb.close();
         return previousOrders;
     }
 
     private static boolean getLastestOrderDate (Context context, long date) {
         TbOrderImpl orderdb = new TbOrderImpl(context);
-        String sql = "SELECT orderid FROM tborder ORDER BY orderdate LIMIT 1" ;
+        String sql = "SELECT orderid FROM tborder ORDER BY orderdate DESC LIMIT 1" ;
         Cursor cursor  = orderdb.queryData(sql);
         long lastestOrderDate = 0;
         if (cursor.moveToFirst()) {
@@ -70,7 +71,7 @@ public class ServiceUtils {
         Date date = new Date (dateInLong);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        String startOfYearDate = "01/01/" + String.valueOf(calendar.get(1));
+        String startOfYearDate = "01/01/" + String.valueOf(calendar.get(Calendar.YEAR));
 
         Date date1 = new Date ();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
