@@ -18,10 +18,10 @@
             android:name=".activities.AddInformationActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.ChangePwSuccessActivity"
+            android:name=".activities.LoginSuccessActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.LoginSuccessActivity"
+            android:name=".activities.ChangePwSuccessActivity"
             android:exported="false" />
         <activity
             android:name=".activities.OrderSuccessActivity"
