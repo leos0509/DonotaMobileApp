@@ -20,4 +20,5 @@
     <string name="desc_2">Khám phá bộ sưu tập tuyển chọn của chúng tôi để tìm những món đồ phản ánh phong cách và cá tính độc đáo của bạn.</string>
     <string name="f_pw"><u>Quên mật khẩu?</u></string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="resend_otp"><u>Gửi lại</u></string>
 </resources>

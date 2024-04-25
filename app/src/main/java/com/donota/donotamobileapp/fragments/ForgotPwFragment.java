@@ -33,7 +33,9 @@ public class ForgotPwFragment extends Fragment {
                 if (validateEmailFormat()) {
                     FragmentManager manager = requireActivity().getSupportFragmentManager();
                     FragmentTransaction transaction = manager.beginTransaction();
-                    transaction.replace(R.id.rootNavFragmentContainer, new HomeNavFragment());
+
+                    transaction.replace(R.id.rootNavFragmentContainer, new PasswordConfirmationFragment());
+                    transaction.addToBackStack(null);
                     transaction.commit();
                 }
             }
