@@ -10,33 +10,33 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.donota.donotamobileapp.R;
-import com.donota.donotamobileapp.databinding.FragmentResetPwBinding;
+import com.donota.donotamobileapp.databinding.FragmentPasswordResetSuccessBinding;
 
-public class ResetPwFragment extends Fragment {
+public class PasswordResetSuccessFragment extends Fragment {
 
-    private FragmentResetPwBinding binding;
+    private FragmentPasswordResetSuccessBinding binding;
 
-    public ResetPwFragment() {
+    public PasswordResetSuccessFragment() {
         // Required empty public constructor
     }
 
-    public static ResetPwFragment newInstance() {
-        return new ResetPwFragment();
+    public static PasswordResetSuccessFragment newInstance() {
+        return new PasswordResetSuccessFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentResetPwBinding.inflate(inflater, container, false);
+        // Inflate the layout for this fragment
+        binding = FragmentPasswordResetSuccessBinding.inflate(inflater, container, false);
 
-        binding.btnConfirmNewPw.setOnClickListener(new View.OnClickListener() {
+        binding.btnViewLoginPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-                transaction.add(R.id.rootNavFragmentContainer, new PasswordResetSuccessFragment());
-                transaction.addToBackStack(null);
+                transaction.replace(R.id.rootNavFragmentContainer, new LoginSignupFragment());
                 transaction.commit();
             }
         });
