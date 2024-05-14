@@ -1,6 +1,9 @@
 package com.donota.donotamobileapp.activities;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -8,7 +11,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.donota.donotamobileapp.R;
@@ -22,16 +26,14 @@ public class AddInformationActivity extends AppCompatActivity {
     private EditText edtPhoneNumb;
     private EditText edtEmail;
     private EditText edtAddress;
-
     private Button btnUpdateProfile;
-
+    private ActivityResultLauncher<Intent> activityResultLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityAddInformationBinding.inflate(getLayoutInflater());
 
-        EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
         edtName = findViewById(R.id.edtCustomerName);
         edtDOB = findViewById(R.id.edtCustomerDOB);
@@ -40,6 +42,13 @@ public class AddInformationActivity extends AppCompatActivity {
         edtAddress = findViewById(R.id.edtCustomerAddress);
         btnUpdateProfile = findViewById(R.id.btnUpdate);
 
+        // Khởi tạo ActivityResultLauncher
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                Bitmap photo = (Bitmap) result.getData().getExtras().get("data");
+                binding.avatarImageView.setImageBitmap(photo);
+            }
+        });
 
         btnUpdateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +57,13 @@ public class AddInformationActivity extends AppCompatActivity {
             }
         });
 
+        binding.imvCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                activityResultLauncher.launch(intent);
+            }
+        });
 
         Spinner spinner = binding.spnProvinces;
         String[] provinces = {
@@ -63,32 +79,28 @@ public class AddInformationActivity extends AppCompatActivity {
                 "Tuyên Quang", "Vĩnh Long", "Vĩnh Phúc", "Yên Bái"
         };
 
-
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, provinces);
-
-
-        // Thiết lập giao diện của Spinner
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-
-        // Thiết lập Adapter cho Spinner
         spinner.setAdapter(adapter);
     }
+
     private void updateProfile() {
         String name = edtName.getText().toString().trim();
         String dob = edtDOB.getText().toString().trim();
-        String phoneNumb = "";
-        if (edtPhoneNumb.getText().toString().trim().length() == 10) {
-            phoneNumb = edtPhoneNumb.getText().toString().trim();
-        } else {
-            Toast.makeText(this, "Vui lòng nhập lại số điện thoại", Toast.LENGTH_SHORT).show();
-        }
+        String phoneNumb = edtPhoneNumb.getText().toString().trim();
         String email = edtEmail.getText().toString().trim();
         String address = edtAddress.getText().toString().trim();
+
+        if (phoneNumb.length() != 10) {
+            Toast.makeText(this, "Vui lòng nhập lại số điện thoại", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if (name.isEmpty() || dob.isEmpty() || phoneNumb.isEmpty() || email.isEmpty() || address.isEmpty()) {
             Toast.makeText(this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
             return;
         }
+
         Toast.makeText(this, "Cập nhật thông tin thành công", Toast.LENGTH_SHORT).show();
     }
 }
