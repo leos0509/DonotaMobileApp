@@ -139,4 +139,11 @@ public class CartPageFragment extends Fragment implements CartItemAdapter.OnChec
         }
         return checkedItems;
     }
+
+    public void updateCartItemQuantity(CartItem cartItem, int newQuantity) {
+        cartItem.setQuantity(newQuantity);
+        // Optionally, update the UI to reflect the new quantity
+        // For example, if you have a TextView displaying the quantity, update its text
+        // textViewQuantity.setText(String.valueOf(cartItem.getQuantity()));
+    }
 }
