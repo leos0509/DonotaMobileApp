@@ -7,12 +7,15 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.model.CartItem;
+
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
@@ -38,6 +41,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
     @Override
     public void onBindViewHolder(@NonNull CartItemViewHolder holder, int position) {
         CartItem item = cartItems.get(position);
+
         holder.bind(item);
     }
 
@@ -84,6 +88,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
         CheckBox checkboxSelect;
         ImageView imvThumb;
         TextView txtName, txtPrice, txtQuantity;
+        AppCompatButton btnAdd, btnRemove;
 
         public void bind(CartItem item) {
             Glide.with(context)
@@ -91,6 +96,9 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
                     .into(imvThumb);
             txtName.setText(item.getName());
             txtPrice.setText(formatCurrency(item.getPrice()));
+            txtQuantity.setText(String.valueOf(item.getQuantity()));
+
+            // Update the quantity in the TextView
             txtQuantity.setText(String.valueOf(item.getQuantity()));
         }
 
@@ -101,14 +109,42 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
             txtName = itemView.findViewById(R.id.txtName);
             txtPrice = itemView.findViewById(R.id.txtPrice);
             txtQuantity = itemView.findViewById(R.id.txtQuantity);
+            btnAdd = itemView.findViewById(R.id.btnAdd);
+            btnRemove = itemView.findViewById(R.id.btnRemove);
 
             checkboxSelect.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     boolean isChecked = checkboxSelect.isChecked();
                     int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
+                    if (position!= RecyclerView.NO_POSITION) {
                         setItemChecked(position, isChecked);
+                    }
+                }
+            });
+
+            btnAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position!= RecyclerView.NO_POSITION) {
+                        CartItem item = cartItems.get(position);
+                        item.setQuantity(item.getQuantity() + 1);
+                        notifyItemChanged(position);
+                    }
+                }
+            });
+
+            btnRemove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position!= RecyclerView.NO_POSITION) {
+                        CartItem item = cartItems.get(position);
+                        if (item.getQuantity() > 1) {
+                            item.setQuantity(item.getQuantity() - 1);
+                            notifyItemChanged(position);
+                        }
                     }
                 }
             });
