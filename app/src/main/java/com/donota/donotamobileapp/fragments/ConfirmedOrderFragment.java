@@ -74,8 +74,6 @@ public class ConfirmedOrderFragment extends Fragment {
         binding = FragmentConfirmedOrderBinding.inflate(inflater, container, false);
 
 
-
-
         return binding.getRoot();
     }
 }

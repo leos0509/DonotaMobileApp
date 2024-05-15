@@ -135,6 +135,12 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
                     int position = getAdapterPosition();
                     if (position!= RecyclerView.NO_POSITION) {
                         CartItem item = cartItems.get(position);
+                        String query = "UPDATE tbcustomercart\n" +
+                                "   SET quantity = '"+ (item.getQuantity() + 1) +"'\n" +
+                                " WHERE customerid = '"+PreferenceUtils.getCustomerId(context)+"' AND \n" +
+                                "       productid = '"+item.getProductId()+"';";
+                        TbCartImpl tbCart = new TbCartImpl(context);
+                        tbCart.execSql(query);
                         item.setQuantity(item.getQuantity() + 1);
                         notifyItemChanged(position);
                     }
@@ -145,9 +151,16 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
+
                     if (position!= RecyclerView.NO_POSITION) {
                         CartItem item = cartItems.get(position);
                         if (item.getQuantity() > 1) {
+                            String query = "UPDATE tbcustomercart\n" +
+                                    "   SET quantity = '"+ (item.getQuantity() - 1) +"'\n" +
+                                    " WHERE customerid = '"+PreferenceUtils.getCustomerId(context)+"' AND \n" +
+                                    "       productid = '"+item.getProductId()+"';";
+                            TbCartImpl tbCart = new TbCartImpl(context);
+                            tbCart.execSql(query);
                             item.setQuantity(item.getQuantity() - 1);
                             notifyItemChanged(position);
                         }

@@ -97,7 +97,7 @@ public class CartPageFragment extends Fragment implements CartItemAdapter.OnChec
         while (cursor != null && cursor.moveToNext()) {
             String[] imgUrls = cursor.getString(5).split(";");
             String itemImg = imgUrls[0].trim();
-            cartItems.add(new CartItem(cursor.getString(1),itemImg,cursor.getString(4), cursor.getDouble(3), cursor.getInt(2)));
+            cartItems.add(new CartItem(cursor.getString(1), itemImg ,cursor.getString(4), cursor.getDouble(3), cursor.getInt(2)));
         }
         cursor.close();
         tbCart.close();

@@ -93,6 +93,7 @@ public class CheckOutActivity extends AppCompatActivity {
         binding.txtOrderDeliveryMethodPrice.setText(String.valueOf(productOrderList.size() *100000));
         binding.txtTotalPayment.setText(String.valueOf(Math.round(orderValueCalculating(productOrderList) + productOrderList.size() * 100000) + "VND"));
         binding.txtOrderTotalPayment.setText(String.valueOf(Math.round(orderValueCalculating(productOrderList)) + "VND"));
+
     }
 
 
