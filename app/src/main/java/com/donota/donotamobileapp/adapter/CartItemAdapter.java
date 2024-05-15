@@ -88,7 +88,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
         CheckBox checkboxSelect;
         ImageView imvThumb;
         TextView txtName, txtPrice, txtQuantity;
-        AppCompatButton btnAdd, btnRemove;
+        AppCompatButton btnAdd, btnRemove, btnRemoveItem;
 
         public void bind(CartItem item) {
             Glide.with(context)
@@ -111,6 +111,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
             txtQuantity = itemView.findViewById(R.id.txtQuantity);
             btnAdd = itemView.findViewById(R.id.btnAdd);
             btnRemove = itemView.findViewById(R.id.btnRemove);
+            btnRemoveItem = itemView.findViewById(R.id.btnRemoveItem);
 
             checkboxSelect.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -146,6 +147,13 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
                             notifyItemChanged(position);
                         }
                     }
+                }
+            });
+
+            btnRemoveItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
                 }
             });
         }
