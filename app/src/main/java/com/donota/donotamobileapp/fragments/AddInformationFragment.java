@@ -30,6 +30,11 @@ import androidx.fragment.app.FragmentTransaction;
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.databinding.FragmentAddInformationBinding;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+
 public class AddInformationFragment extends Fragment {
     private FragmentAddInformationBinding binding;
     private EditText edtName;
@@ -76,7 +81,13 @@ public class AddInformationFragment extends Fragment {
                     }
                 });
 
-        btnUpdateProfile.setOnClickListener(v -> updateProfile());
+        btnUpdateProfile.setOnClickListener(v -> {
+            try {
+                updateProfile();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         Spinner spinner = binding.spnProvinces;
         String[] provinces = {"An Giang", "Bà Rịa - Vũng Tàu", /*...*/ "Yên Bái"};
@@ -97,7 +108,7 @@ public class AddInformationFragment extends Fragment {
         });
     }
 
-    private void updateProfile() {
+    private void updateProfile() throws ParseException {
         String name = edtName.getText().toString().trim();
         String dob = edtDOB.getText().toString().trim();
         String phoneNumb = edtPhoneNumb.getText().toString().trim();
@@ -109,17 +120,23 @@ public class AddInformationFragment extends Fragment {
             return;
         }
 
-        if (name.isEmpty() || dob.isEmpty() || phoneNumb.isEmpty() || email.isEmpty() || address.isEmpty()) {
+        if (name.isEmpty() || dob.isEmpty() || email.isEmpty() || address.isEmpty()) {
             Toast.makeText(getContext(), "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
             return;
         }
 
         Toast.makeText(getContext(), "Cập nhật thông tin thành công", Toast.LENGTH_SHORT).show();
+        insertIntoDb(name, dob, phoneNumb, email, address);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.rootNavFragmentContainer, new HomeNavFragment());
         fragmentTransaction.replace(R.id.homeNavFragmentContainer, new AccountPageFragment());
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    private void insertIntoDb(String name, String dob, String phonenumb, String email, String address) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date parsedDate = formatter.parse(dob);
     }
 }

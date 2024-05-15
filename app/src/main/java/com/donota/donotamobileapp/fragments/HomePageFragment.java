@@ -26,6 +26,7 @@ import com.donota.donotamobileapp.databinding.FragmentHomepageBinding;
 import com.donota.donotamobileapp.model.CarouselItem;
 import com.donota.donotamobileapp.model.ProductCard;
 import com.donota.donotamobileapp.utils.CarouselItemDecoration;
+import com.donota.donotamobileapp.utils.PreferenceUtils;
 import com.donota.donotamobileapp.utils.SpacingItemDecoration;
 
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class HomePageFragment extends Fragment {
         carouselBestSellerRecyclerView = view.findViewById(R.id.revCarouselBestSeller);
         carouselCategoryRecyclerView = view.findViewById(R.id.revCarouselCategory);
         productRecyclerView = view.findViewById(R.id.revProduct);
-
+        Log.d("CustomerId", String.valueOf(PreferenceUtils.getCustomerId(getContext())));
         setupCarousels();
         setupProducts();
         loadFragment();

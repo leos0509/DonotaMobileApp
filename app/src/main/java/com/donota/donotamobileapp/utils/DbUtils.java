@@ -1,5 +1,10 @@
 package com.donota.donotamobileapp.utils;
 
+import android.content.Context;
+import android.database.Cursor;
+
+import com.donota.donotamobileapp.database.impl.TbCustomerProfileImpl;
+
 public class DbUtils {
     public static final String DB_NAME = "donotadb.db";
     public static final int DB_VERSION = 1;
@@ -37,5 +42,15 @@ public class DbUtils {
     public static final String TBL_CUSTOMER_WISHLIST = "tbcustomerwishlist";
     public static final String TBL_CUSTOMER_ADDRESS = "tbcustomeraddress";
     public static final String COL_CUSTOMER_ADDRESS = "address";
+
+    public static void countCustomer(Context context) {
+        TbCustomerProfileImpl tbCustomerProfile = new TbCustomerProfileImpl(context);
+        int numberOfCustomer = 0;
+        String query = "SELECT COUNT(customerid) FROM tbcustomerprofile;";
+        Cursor cursor = tbCustomerProfile.queryData(query);
+        if (!cursor.isNull(0)) {
+            numberOfCustomer = cursor.getInt(0);
+        }
+    }
 
 }
