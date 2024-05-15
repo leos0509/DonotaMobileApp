@@ -3,6 +3,7 @@ package com.donota.donotamobileapp.fragments;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.activities.CheckOutActivity;
 import com.donota.donotamobileapp.adapter.CartItemAdapter;
 import com.donota.donotamobileapp.database.impl.TbCartImpl;
+import com.donota.donotamobileapp.database.impl.TbCustomerWishListImpl;
 import com.donota.donotamobileapp.databinding.FragmentCartPageBinding;
 import com.donota.donotamobileapp.model.CartItem;
 import com.donota.donotamobileapp.utils.PreferenceUtils;
@@ -32,15 +34,12 @@ public class CartPageFragment extends Fragment implements CartItemAdapter.OnChec
     RecyclerView recyclerView;
 
     List<CartItem> cartItems;
-    AppCompatButton btnCheckOut;
-
-    FragmentCartPageBinding binding;
+    AppCompatButton btnCheckOut, btnAddWishList;
 
     public CartPageFragment() {}
 
     public static CartPageFragment newInstance() {
-        CartPageFragment fragment = new CartPageFragment();
-        return fragment;
+        return new CartPageFragment();
     }
 
     @Override
@@ -51,10 +50,11 @@ public class CartPageFragment extends Fragment implements CartItemAdapter.OnChec
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         btnCheckOut = view.findViewById(R.id.btnBuyNow);
+        btnAddWishList = view.findViewById(R.id.btnAddToWishlist);
 
-        addEvents();
         loadTopMenu();
         initAdapter();
+        addEvents();
 
         return view;
     }
@@ -66,7 +66,48 @@ public class CartPageFragment extends Fragment implements CartItemAdapter.OnChec
                 navigateToTargetActivity();
             }
         });
+        btnAddWishList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addItemsToWishList();
+            }
+        });
+    }
 
+    private void addItemsToWishList() {
+        List<String> items = getCheckedItems();
+        int customerId = PreferenceUtils.getCustomerId(getContext());
+        TbCustomerWishListImpl tbCustomerWishList = new TbCustomerWishListImpl(getContext());
+        items.removeIf(itemChecked -> checkItemExisted(tbCustomerWishList, customerId, itemChecked));
+        if (!items.isEmpty()) {
+            for (String itemId : items) {
+                tbCustomerWishList.execSql("INSERT INTO tbcustomerwishlist (\n" +
+                        "                                   customerid,\n" +
+                        "                                   productid\n" +
+                        "                               )\n" +
+                        "                               VALUES ('" + customerId + "', " +"'" + itemId+"' );");
+                Log.d("wishlist item", customerId + itemId);
+            }
+            tbCustomerWishList.close();
+        }
+        Log.d("wishlist outer item", customerId + items.toString());
+    }
+
+    private boolean checkItemExisted(TbCustomerWishListImpl tbCustomerWishList, int customerId, String wishListItem) {
+        List<String> productId = new ArrayList<>();
+        String queryWishListItems = "SELECT productid \n" +
+                "                FROM tbcustomerwishlist \n" +
+                "                WHERE customerid = " + customerId;
+        Cursor cursor = tbCustomerWishList.queryData(queryWishListItems);
+        while (cursor != null && cursor.moveToNext()) {
+            productId.add(cursor.getString(0));
+        }
+        for (String product : productId) {
+            if (product.equals(wishListItem)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void initAdapter() {
@@ -127,7 +168,7 @@ public class CartPageFragment extends Fragment implements CartItemAdapter.OnChec
     private void navigateToTargetActivity() {
         List<String> checkedItems = getCheckedItems();
         Intent intent = new Intent(getContext(), CheckOutActivity.class);
-        intent.putStringArrayListExtra("checkedItems", new ArrayList<String>(checkedItems));
+        intent.putStringArrayListExtra("checkedItems", new ArrayList<>(checkedItems));
         startActivity(intent);
     }
     private List<String> getCheckedItems() {
