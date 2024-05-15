@@ -1,24 +1,25 @@
 package com.donota.donotamobileapp.fragments;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.adapters.SettingOptionsAdapter;
+import com.donota.donotamobileapp.database.impl.TbCustomerProfileImpl;
 import com.donota.donotamobileapp.databinding.FragmentAccountPageBinding; // Adjusted import
 import com.donota.donotamobileapp.models.SettingOptions;
+import com.donota.donotamobileapp.utils.PreferenceUtils;
 
 import java.util.ArrayList;
 
@@ -56,12 +57,12 @@ public class AccountPageFragment extends Fragment {
             }
         });
 
-        loadData();
+        initData();
         addEvents();
         return view;
     }
 
-    private void initData() {
+    private void loadData() {
         settingOptions = new ArrayList<>();
         settingOptions.add(new SettingOptions("personal_info", R.drawable.baseline_person, "Tài khoản"));
         settingOptions.add(new SettingOptions("wishlist", R.drawable.baseline_favorite, "Sản phẩm yêu thích"));
@@ -70,12 +71,26 @@ public class AccountPageFragment extends Fragment {
         settingOptions.add(new SettingOptions("policy_setting", R.drawable.baseline_policy, "Chính sách"));
     }
 
-    private void loadData() {
-        initData();
+    private void initData() {
+        loadData();
         if (getActivity() != null) {
             settingOptionsAdapter = new SettingOptionsAdapter(getActivity(), R.layout.setting_items_layout, settingOptions);
             binding.lvSettingOptions.setAdapter(settingOptionsAdapter);
         }
+        int customerId = PreferenceUtils.getCustomerId(getContext());
+        String customerEmail = "";
+        String customerName = "";
+        TbCustomerProfileImpl tbCustomerProfile = new TbCustomerProfileImpl(getContext());
+        String query = "SELECT customername, customeremail\n" +
+                "  FROM tbcustomerprofile \n" +
+                "  WHERE customerid = '" + customerId + "';";
+        Cursor cursor = tbCustomerProfile.queryData(query);
+        while (cursor.moveToNext()){
+            customerName = cursor.getString(0);
+            customerEmail = cursor.getString(1);
+        }
+        binding.txtUserName.setText(customerName);
+        binding.txtUserEmail.setText(customerEmail);
     }
 
     private void addEvents() {
@@ -87,6 +102,16 @@ public class AccountPageFragment extends Fragment {
         binding.imvCamera.setOnClickListener(view -> {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             activityResultLauncher.launch(intent);
+        });
+
+        binding.btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PreferenceUtils.setCustomerId(getContext(),0);
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.rootNavFragmentContainer, new LoginSignupFragment());
+                transaction.commit();
+            }
         });
     }
 

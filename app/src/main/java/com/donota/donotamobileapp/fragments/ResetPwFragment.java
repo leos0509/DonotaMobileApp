@@ -37,7 +37,6 @@ public class ResetPwFragment extends Fragment {
                 updateDb();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-
                 transaction.add(R.id.rootNavFragmentContainer, new PasswordResetSuccessFragment());
                 transaction.addToBackStack(null);
                 transaction.commit();
