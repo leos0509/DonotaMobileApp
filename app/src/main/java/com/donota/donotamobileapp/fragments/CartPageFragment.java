@@ -3,6 +3,7 @@ package com.donota.donotamobileapp.fragments;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,13 +36,10 @@ public class CartPageFragment extends Fragment implements CartItemAdapter.OnChec
     List<CartItem> cartItems;
     AppCompatButton btnCheckOut, btnAddWishList;
 
-    FragmentCartPageBinding binding;
-
     public CartPageFragment() {}
 
     public static CartPageFragment newInstance() {
-        CartPageFragment fragment = new CartPageFragment();
-        return fragment;
+        return new CartPageFragment();
     }
 
     @Override
@@ -80,7 +78,7 @@ public class CartPageFragment extends Fragment implements CartItemAdapter.OnChec
         List<String> items = getCheckedItems();
         int customerId = PreferenceUtils.getCustomerId(getContext());
         TbCustomerWishListImpl tbCustomerWishList = new TbCustomerWishListImpl(getContext());
-        items.removeIf(itemChecked -> checkWishList(tbCustomerWishList, customerId, itemChecked));
+        items.removeIf(itemChecked -> checkItemExisted(tbCustomerWishList, customerId, itemChecked));
         if (!items.isEmpty()) {
             for (String itemId : items) {
                 tbCustomerWishList.execSql("INSERT INTO tbcustomerwishlist (\n" +
@@ -88,26 +86,28 @@ public class CartPageFragment extends Fragment implements CartItemAdapter.OnChec
                         "                                   productid\n" +
                         "                               )\n" +
                         "                               VALUES ('" + customerId + "', " +"'" + itemId+"' );");
+                Log.d("wishlist item", customerId + itemId);
             }
             tbCustomerWishList.close();
         }
+        Log.d("wishlist outer item", customerId + items.toString());
     }
 
-    private boolean checkWishList(TbCustomerWishListImpl tbCustomerWishList, int customerId, String wishListItem) {
+    private boolean checkItemExisted(TbCustomerWishListImpl tbCustomerWishList, int customerId, String wishListItem) {
         List<String> productId = new ArrayList<>();
-        String queryProduct = "SELECT productid \n" +
+        String queryWishListItems = "SELECT productid \n" +
                 "                FROM tbcustomerwishlist \n" +
                 "                WHERE customerid = " + customerId;
-        Cursor cursor = tbCustomerWishList.queryData(queryProduct);
+        Cursor cursor = tbCustomerWishList.queryData(queryWishListItems);
         while (cursor != null && cursor.moveToNext()) {
             productId.add(cursor.getString(0));
         }
         for (String product : productId) {
-            if (product == wishListItem) {
-                return false;
+            if (product.equals(wishListItem)) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     private void initAdapter() {

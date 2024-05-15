@@ -119,14 +119,13 @@ public class WishlistPageFragment extends Fragment implements ProductGridAdapter
         transaction.commit();
     }
 
-
     @Override
     public boolean onProductLongClick(ProductCard productCard) {
         int customerId = PreferenceUtils.getCustomerId(getContext());
         String productId = productCard.getProductId();
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Xác nhận xóa");
-        builder.setMessage("Bạn có muốn xóa sản phẩm " + productCard.getProductName() + " khỏi wishlist ?");
+        builder.setMessage("Bạn có muốn xóa sản phẩm \"" + productCard.getProductName() + "\" khỏi wishlist ?");
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
