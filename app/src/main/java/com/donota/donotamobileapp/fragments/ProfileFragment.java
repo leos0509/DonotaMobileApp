@@ -8,9 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.donota.donotamobileapp.R;
+import com.donota.donotamobileapp.databinding.FragmentProfileBinding;
 
 public class ProfileFragment extends Fragment {
-
+    FragmentProfileBinding binding;
     public ProfileFragment() {
     }
 
@@ -39,7 +40,24 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        binding = FragmentProfileBinding.inflate(inflater, container, false);
         loadTopMenu();
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        addEvent();
+        return binding.getRoot();
+
     }
+    private void addEvent() {
+        binding.txtChangePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.add(R.id.rootNavFragmentContainer, new ResetPwFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+
+    }
+
 }

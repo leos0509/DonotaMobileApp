@@ -28,7 +28,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.donota.donotamobileapp.R;
+import com.donota.donotamobileapp.database.impl.TbCustomerProfileImpl;
 import com.donota.donotamobileapp.databinding.FragmentAddInformationBinding;
+import com.donota.donotamobileapp.utils.DbUtils;
+import com.donota.donotamobileapp.utils.PreferenceUtils;
+import com.donota.donotamobileapp.utils.ServiceUtils;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class AddInformationFragment extends Fragment {
     private FragmentAddInformationBinding binding;
@@ -39,6 +48,8 @@ public class AddInformationFragment extends Fragment {
     private EditText edtAddress;
     private ImageView avatarImageView;
     private Button btnUpdateProfile;
+
+    private int customerId;
     private ActivityResultLauncher<Intent> activityResultLauncher;
 
     @Nullable
@@ -76,7 +87,13 @@ public class AddInformationFragment extends Fragment {
                     }
                 });
 
-        btnUpdateProfile.setOnClickListener(v -> updateProfile());
+        btnUpdateProfile.setOnClickListener(v -> {
+            try {
+                updateProfile();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         Spinner spinner = binding.spnProvinces;
         String[] provinces = {"An Giang", "Bà Rịa - Vũng Tàu", /*...*/ "Yên Bái"};
@@ -97,7 +114,7 @@ public class AddInformationFragment extends Fragment {
         });
     }
 
-    private void updateProfile() {
+    private void updateProfile() throws ParseException {
         String name = edtName.getText().toString().trim();
         String dob = edtDOB.getText().toString().trim();
         String phoneNumb = edtPhoneNumb.getText().toString().trim();
@@ -109,17 +126,53 @@ public class AddInformationFragment extends Fragment {
             return;
         }
 
-        if (name.isEmpty() || dob.isEmpty() || phoneNumb.isEmpty() || email.isEmpty() || address.isEmpty()) {
+        if (name.isEmpty() || dob.isEmpty() || email.isEmpty() || address.isEmpty()) {
             Toast.makeText(getContext(), "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Toast.makeText(getContext(), "Cập nhật thông tin thành công", Toast.LENGTH_SHORT).show();
+        Bundle bundle = getArguments();
+        assert bundle != null;
+        String customerAccount = bundle.getString("account");
+        String customerPassword = bundle.getString("pass");
+
+        if (insertIntoDb(name, dob, phoneNumb, email, address, customerAccount, customerPassword)){
+            Toast.makeText(getContext(), "Cập nhật thông tin thành công", Toast.LENGTH_SHORT).show();
+            PreferenceUtils.setCustomerId(getContext(), customerId);
+        }
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.rootNavFragmentContainer, new HomeNavFragment());
+        fragmentTransaction.replace(R.id.rootNavFragmentContainer, new HomePageFragment());
         fragmentTransaction.replace(R.id.homeNavFragmentContainer, new AccountPageFragment());
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    private boolean insertIntoDb(String name, String dob, String phonenumb, String email, String address, String customerAccount, String customerPassword) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date parsedDate = formatter.parse(dob);
+        long convertedDate = ServiceUtils.dateConversion(parsedDate);
+        customerId = DbUtils.getCustomerCount(getContext()) + 1;
+
+        TbCustomerProfileImpl tbCustomerProfile = new TbCustomerProfileImpl(getContext());
+        String query = "INSERT INTO tbcustomerprofile (\n" +
+                "                                  customerid,\n" +
+                "                                  customername,\n" +
+                "                                  phonenumb,\n" +
+                "                                  customeraccount,\n" +
+                "                                  customeraccountpassword,\n" +
+                "                                  customerdob,\n" +
+                "                                  customeremail\n" +
+                "                              )\n" +
+                "                              VALUES (\n" +
+                "                                  '" + customerId+ "',\n" +
+                "                                  '" + name+ "',\n" +
+                "                                  '" + phonenumb+ "',\n" +
+                "                                  '"+ customerAccount+"',\n" +
+                "                                  '"+ customerPassword+"',\n" +
+                "                                  '"+ convertedDate+"',\n" +
+                "                                  '"+ email+"');";
+        tbCustomerProfile.close();
+        return tbCustomerProfile.execSql(query);
     }
 }

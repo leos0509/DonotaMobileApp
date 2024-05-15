@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -61,31 +62,49 @@ public class RegisterFragment extends Fragment {
         binding.btnConfirmSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Context context = getActivity();
-                String customerAccount = binding.edtUserName.getText().toString();
-                String customerEmail = binding.edtInputEmail.getText().toString();
-                String customerPassword = binding.edtInputPw.getText().toString();
-                String confirmPassword = binding.edtReInputPw.getText().toString();
-
-                if (verifyEmailInput(context, customerEmail) && verifyCustomerAccountInput(context, customerAccount)) {
-                    if (!customerPassword.equals(confirmPassword)) {
-                        Toast.makeText(getActivity(), "Mật khẩu xác nhận không trùng khớp!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        PreferenceUtils.setCustomerAccount(context, customerAccount);
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.rootNavFragmentContainer, new AddInformationFragment());
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
-                    }
-                } else {
-                    Toast.makeText(getContext(), "Đã xảy ra lỗi khi đăng ký!", Toast.LENGTH_SHORT).show();
-                }
-
+                registerProcess();
             }
         });
         return binding.getRoot();
     }
+
+    private void registerProcess() {
+        Context context = getActivity();
+        String customerAccount = binding.edtUserName.getText().toString();
+        String customerEmail = binding.edtInputEmail.getText().toString();
+        String customerPassword = binding.edtInputPw.getText().toString();
+        String confirmPassword = binding.edtReInputPw.getText().toString();
+
+        if (verifyEmailInput(context, customerEmail) && verifyCustomerAccountInput(context, customerAccount)) {
+            if (!customerPassword.equals(confirmPassword)) {
+                Toast.makeText(getActivity(), "Mật khẩu xác nhận không trùng khớp!", Toast.LENGTH_SHORT).show();
+            } else {
+                PreferenceUtils.setCustomerAccount(context, customerAccount);
+                FragmentTransaction fragmentTransaction = getFragmentTransaction(customerAccount, customerEmail, customerPassword);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+            }
+        } else {
+            Toast.makeText(getContext(), "Đã xảy ra lỗi khi đăng ký!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @NonNull
+    private FragmentTransaction getFragmentTransaction(String customerAccount, String customerEmail, String customerPassword) {
+        Bundle bundle = new Bundle();
+        bundle.putString("account", customerAccount);
+        bundle.putString("email", customerEmail);
+        bundle.putString("pass", customerPassword);
+        AddInformationFragment addInformationFragment = new AddInformationFragment();
+        addInformationFragment.setArguments(bundle);
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.rootNavFragmentContainer, addInformationFragment);
+        return fragmentTransaction;
+    }
+
+
     private boolean verifyEmailInput (Context context, String email) {
         String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "(gmail\\.com|uel\\.edu\\.vn|yahoo\\.com|st\\.uel\\.edu\\.vn)$";
             Pattern pattern = Pattern.compile(EMAIL_PATTERN);
