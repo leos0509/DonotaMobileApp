@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -77,35 +78,7 @@ public class ProductDetailFragment extends Fragment {
         binding.btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int customerId = PreferenceUtils.getCustomerId(getContext());
-                String productId = product.getProductId();
-                TbCartImpl tbCart = new TbCartImpl(getContext());
-
-                String sqlUpdateCart = "UPDATE tbcustomercart\n" +
-                                    "   SET quantity = CASE\n" +
-                                    "                 WHEN customerid = " + customerId +"  AND productid LIKE '" +productId + "'\n" +
-                                    "                 THEN quantity + 1\n" +
-                                    "                 ELSE quantity\n" +
-                                    "               END\n" +
-                                    "WHERE customerid = 'customerid' AND productid = 'productid';";
-                boolean checkExist = false;
-
-                String sqlQuerycheck = "SELECT * FROM tbcustomercart WHERE customerid = " +customerId+ " AND productid =  '" + productId + "'";
-                Cursor cursor = tbCart.queryData(sqlQuerycheck);
-                if (cursor != null && cursor.getCount() != 0) {
-                    checkExist = true;
-                }
-
-                if (checkExist) {
-                    boolean updateFlag = tbCart.execSql(sqlUpdateCart);
-
-                    Log.d("Gio hang da ton tai", "koloi");
-                } else {
-                    boolean insertFlag = tbCart.insertData(customerId,productId);
-                    Log.d("Cart check", "Tao moi san pham");
-                }
-                cursor.close();
-                tbCart.close();
+                addToCart();
             }
         });
     }
@@ -234,6 +207,36 @@ public class ProductDetailFragment extends Fragment {
     }
     public void sendSimilarProduct (String productId) {
         similarProductPasser.onSimilarProduct(productId);
+    }
+
+    public void addToCart(){
+        int customerId = PreferenceUtils.getCustomerId(getContext());
+        String productId = product.getProductId();
+        TbCartImpl tbCart = new TbCartImpl(getContext());
+
+        String sqlUpdateCart = "UPDATE tbcustomercart\n" +
+                "   SET quantity = CASE\n" +
+                "                 WHEN customerid = " + customerId +"  AND productid LIKE '" +productId + "'\n" +
+                "                 THEN quantity + 1\n" +
+                "                 ELSE quantity\n" +
+                "               END\n" +
+                "WHERE customerid = 'customerid' AND productid = 'productid';";
+        boolean checkExist = false;
+
+        String sqlQuerycheck = "SELECT * FROM tbcustomercart WHERE customerid = " +customerId+ " AND productid =  '" + productId + "'";
+        Cursor cursor = tbCart.queryData(sqlQuerycheck);
+        if (cursor != null && cursor.getCount() != 0) {
+            checkExist = true;
+        }
+        if (checkExist) {
+            boolean updateFlag = tbCart.execSql(sqlUpdateCart);
+        } else {
+            boolean insertFlag = tbCart.insertData(customerId,productId);
+        }
+        cursor.close();
+        tbCart.close();
+        Toast.makeText(getContext(), "Sản phẩm đã thêm vào giỏ thành công!", Toast.LENGTH_SHORT).show();
+
     }
 
 }
