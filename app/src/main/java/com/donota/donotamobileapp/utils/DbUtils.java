@@ -1,10 +1,5 @@
 package com.donota.donotamobileapp.utils;
 
-import android.content.Context;
-import android.database.Cursor;
-
-import com.donota.donotamobileapp.database.impl.TbCustomerProfileImpl;
-
 public class DbUtils {
     public static final String DB_NAME = "donotadb.db";
     public static final int DB_VERSION = 1;
@@ -43,17 +38,4 @@ public class DbUtils {
     public static final String TBL_CUSTOMER_ADDRESS = "tbcustomeraddress";
     public static final String COL_CUSTOMER_ADDRESS = "address";
 
-    public static int getCustomerCount(Context context) {
-        int count = 0;
-        String countQuery = "SELECT customerid FROM " + TBL_CUSTOMER_PROFILE;
-        TbCustomerProfileImpl tbCustomerProfile = new TbCustomerProfileImpl(context);
-        Cursor cursor = tbCustomerProfile.queryData(countQuery);
-
-        while (cursor.moveToNext()) {
-            count += 1;
-        }
-        cursor.close();
-        tbCustomerProfile.close();
-        return count;
-    }
 }
