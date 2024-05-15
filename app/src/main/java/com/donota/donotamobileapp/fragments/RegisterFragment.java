@@ -98,7 +98,7 @@ public class RegisterFragment extends Fragment {
         bundle.putString("pass", customerPassword);
         AddInformationFragment addInformationFragment = new AddInformationFragment();
         addInformationFragment.setArguments(bundle);
-        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.rootNavFragmentContainer, addInformationFragment);
         return fragmentTransaction;

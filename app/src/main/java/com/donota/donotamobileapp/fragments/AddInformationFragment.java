@@ -140,12 +140,9 @@ public class AddInformationFragment extends Fragment {
             Toast.makeText(getContext(), "Cập nhật thông tin thành công", Toast.LENGTH_SHORT).show();
             PreferenceUtils.setCustomerId(getContext(), customerId);
         }
-
-
-
-        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.rootNavFragmentContainer, new HomeNavFragment());
+        fragmentTransaction.replace(R.id.rootNavFragmentContainer, new HomePageFragment());
         fragmentTransaction.replace(R.id.homeNavFragmentContainer, new AccountPageFragment());
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
@@ -174,8 +171,7 @@ public class AddInformationFragment extends Fragment {
                 "                                  '"+ customerAccount+"',\n" +
                 "                                  '"+ customerPassword+"',\n" +
                 "                                  '"+ convertedDate+"',\n" +
-                "                                  '"+ email+"',\n" +
-                "                              );";
+                "                                  '"+ email+"');";
         tbCustomerProfile.close();
         return tbCustomerProfile.execSql(query);
     }
