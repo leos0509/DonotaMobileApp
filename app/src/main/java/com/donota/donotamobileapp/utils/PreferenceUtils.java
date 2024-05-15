@@ -33,20 +33,22 @@ public class PreferenceUtils {
     }
 
     public static int getCustomerId(Context context) {
-        SharedPreferences sharedPreferences = getSharedPreferences(context);
-        String customerIdStr = sharedPreferences.getString(KEY_CUSTOMER_ID, null);
-
-        if (customerIdStr!= null) {
-            try {
-                return Integer.parseInt(customerIdStr);
-            } catch (NumberFormatException e) {
-                Log.e("PreferenceUtils", "Failed to parse customer ID as integer.", e);
-                return -1;
-            }
-        } else {
-            return -1;
-        }
+        return getSharedPreferences(context).getInt(KEY_CUSTOMER_ACCOUNT, 0);
     }
+//        SharedPreferences sharedPreferences = getSharedPreferences(context);
+//        String customerIdStr = sharedPreferences.getString(KEY_CUSTOMER_ID, null);
+//
+//        if (customerIdStr!= null) {
+//            try {
+//                return Integer.parseInt(customerIdStr);
+//            } catch (NumberFormatException e) {
+//                Log.e("PreferenceUtils", "Failed to parse customer ID as integer.", e);
+//                return -1;
+//            }
+//        } else {
+//            return -1;
+//        }
+//    }
 
     public static String getCustomerAccount(Context context) {
         return getSharedPreferences(context).getString(KEY_CUSTOMER_ACCOUNT, null); // Use the correct key
