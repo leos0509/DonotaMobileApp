@@ -74,9 +74,9 @@ public class HomeNavFragment extends Fragment {
         if (fragmentManager.findFragmentById(R.id.navigation_bar) == null) {
             transaction.add(R.id.navigation_bar, new NavigationBarFragment());
         }
-        if (fragmentManager.findFragmentById(R.id.homeNavFragmentContainer) == null) {
+//        if (fragmentManager.findFragmentById(R.id.homeNavFragmentContainer) == null) {
             transaction.add(R.id.homeNavFragmentContainer, new HomePageFragment());
-        }
+//        }
         transaction.commit();
     }
 }

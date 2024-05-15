@@ -109,7 +109,7 @@ public class AccountPageFragment extends Fragment {
             public void onClick(View v) {
                 PreferenceUtils.setCustomerId(getContext(),0);
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.rootNavFragmentContainer, new LoginSignupFragment());
+                transaction.add(R.id.rootNavFragmentContainer, new LoginSignupFragment());
                 transaction.commit();
             }
         });
