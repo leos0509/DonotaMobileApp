@@ -168,7 +168,7 @@ public class CartPageFragment extends Fragment implements CartItemAdapter.OnChec
     private void navigateToTargetActivity() {
         List<String> checkedItems = getCheckedItems();
         Intent intent = new Intent(getContext(), CheckOutActivity.class);
-        intent.putStringArrayListExtra("checkedItems", new ArrayList<String>(checkedItems));
+        intent.putStringArrayListExtra("checkedItems", new ArrayList<>(checkedItems));
         startActivity(intent);
     }
     private List<String> getCheckedItems() {
