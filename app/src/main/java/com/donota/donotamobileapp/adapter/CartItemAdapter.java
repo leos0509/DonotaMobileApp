@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
@@ -14,7 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.donota.donotamobileapp.R;
+import com.donota.donotamobileapp.database.impl.TbCartImpl;
 import com.donota.donotamobileapp.model.CartItem;
+import com.donota.donotamobileapp.model.ProductCard;
+import com.donota.donotamobileapp.utils.PreferenceUtils;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -29,6 +33,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
         this.context = context;
         this.cartItems = cartItems;
         this.listener = listener;
+
     }
 
     @NonNull
@@ -41,13 +46,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
     @Override
     public void onBindViewHolder(@NonNull CartItemViewHolder holder, int position) {
         CartItem item = cartItems.get(position);
-
         holder.bind(item);
-    }
-
-    public interface OnCheckedItemCountChangedListener {
-        void onCheckedItemCountChanged(int count);
-        void onCheckedItemPriceSumChanged(double sum);
     }
 
     public double getCheckedItemPriceSum() {
@@ -83,6 +82,12 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
     public int getItemCount() {
         return cartItems.size();
     }
+
+    public interface OnCheckedItemCountChangedListener {
+        void onCheckedItemCountChanged(int count);
+        void onCheckedItemPriceSumChanged(double sum);
+    }
+
 
     public class CartItemViewHolder extends RecyclerView.ViewHolder {
         CheckBox checkboxSelect;
@@ -153,7 +158,21 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
             btnRemoveItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    int position = getAdapterPosition();
+                    CartItem cartItem = cartItems.get(position);
+                    int customerId = PreferenceUtils.getCustomerId(context);
+                    String productId = cartItem.getProductId();
+                    TbCartImpl tbCart = new TbCartImpl(context);
+                    String queryUpdateRemove = "DELETE FROM tbcustomercart\n" +
+                            "      WHERE customerid = '"+customerId+"' AND \n" +
+                            "            productid = '"+productId+"';";
+                    boolean deleted = tbCart.execSql(queryUpdateRemove);
+                    if (deleted) {
+                        cartItems.remove(position);
+                        notifyItemRemoved(position);
+                        Toast.makeText(context, "Đã xóa sản phẩm ra khỏi giỏ hàng", Toast.LENGTH_SHORT).show();
+                    }
+                    tbCart.close();
                 }
             });
         }

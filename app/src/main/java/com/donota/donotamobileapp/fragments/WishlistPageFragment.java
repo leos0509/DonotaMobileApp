@@ -59,12 +59,6 @@ public class WishlistPageFragment extends Fragment implements ProductGridAdapter
         return view;
     }
 
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        setupProducts(view);
-        super.onViewStateRestored(savedInstanceState);
-    }
-
     private void setupProducts(View view) {
         recyclerView = view.findViewById(R.id.revWishlistProduct);
         productCards = loadWishListData();
@@ -150,7 +144,6 @@ public class WishlistPageFragment extends Fragment implements ProductGridAdapter
                 dialog.dismiss();
             }
         });
-
         Dialog dialog = builder.create();
         dialog.show();
         return false;

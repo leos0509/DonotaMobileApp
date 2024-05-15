@@ -10,7 +10,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.donota.donotamobileapp.R;
+import com.donota.donotamobileapp.database.impl.TbCustomerProfileImpl;
 import com.donota.donotamobileapp.databinding.FragmentResetPwBinding;
+import com.donota.donotamobileapp.utils.PreferenceUtils;
 
 public class ResetPwFragment extends Fragment {
 
@@ -32,6 +34,7 @@ public class ResetPwFragment extends Fragment {
         binding.btnConfirmNewPw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                updateDb();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
 
@@ -42,6 +45,15 @@ public class ResetPwFragment extends Fragment {
         });
 
         return binding.getRoot();
+    }
+
+    private void updateDb() {
+        TbCustomerProfileImpl tbCustomerProfile = new TbCustomerProfileImpl(getContext());
+        int customerid = PreferenceUtils.getCustomerId(getContext());
+        String updatePasswordQuery = "UPDATE tbcustomerprofile\n" +
+                "   SET customeraccountpassword = 'customeraccountpassword',\n" +
+                " WHERE customerid = '" +customerid+"'";
+        tbCustomerProfile.execSql(updatePasswordQuery);
     }
 
     @Override
