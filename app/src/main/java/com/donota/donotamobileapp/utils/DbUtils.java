@@ -1,6 +1,9 @@
 package com.donota.donotamobileapp.utils;
 
 import android.content.Context;
+import android.database.Cursor;
+
+import com.donota.donotamobileapp.database.impl.TbCustomerProfileImpl;
 
 public class DbUtils {
     public static final String DB_NAME = "donotadb.db";
