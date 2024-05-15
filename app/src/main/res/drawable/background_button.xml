@@ -1,0 +1,18 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <ripple android:color="@color/secondary2" android:duration="500">
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/primary1" />
+                    <corners android:radius="20dp" />
+                </shape>
+            </item>
+        </ripple>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/primary1" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+</selector>

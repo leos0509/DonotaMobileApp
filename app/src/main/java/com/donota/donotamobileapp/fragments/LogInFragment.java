@@ -1,0 +1,158 @@
+package com.donota.donotamobileapp.fragments;
+
+import android.content.Context;
+import android.content.res.ColorStateList;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.donota.donotamobileapp.R;
+import com.donota.donotamobileapp.database.impl.TbCustomerProfileImpl;
+import com.donota.donotamobileapp.databinding.FragmentLogInBinding;
+import com.donota.donotamobileapp.utils.PreferenceUtils;
+
+public class LogInFragment extends Fragment {
+    FragmentLogInBinding binding;
+    TbCustomerProfileImpl tbCustomerProfile;
+    // Inside LogInFragment
+    private OnLoginSuccessListener listener;
+
+    public LogInFragment() {
+    }
+
+    public static LogInFragment newInstance() {
+        LogInFragment fragment = new LogInFragment();
+        return fragment;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        binding = FragmentLogInBinding.inflate(inflater, container, false);
+        addEvents();
+
+        binding.txtForgotPw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = requireActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+
+                transaction.add(R.id.rootNavFragmentContainer, new ForgotPwFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+        return binding.getRoot();
+    }
+
+    private void addEvents() {
+        binding.btnConfirmLogIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processLogIn();
+            }
+        });
+
+        binding.txtForgotPw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    private void processLogIn() {
+        Context context = getActivity();
+        String customerAccountEmail = binding.edtUserNameEmail.getText().toString();
+        String customerPassword = binding.edtInputPw.getText().toString();
+        if (validateCustomerAccountEmail(context, customerAccountEmail)) {
+            if (validatePassword(context, customerPassword, customerAccountEmail)) {
+                tbCustomerProfile = new TbCustomerProfileImpl(context);
+                String queryCustomerId = "SELECT customerid FROM tbcustomerprofile WHERE (customeraccount LIKE '" + customerAccountEmail +
+                        "') OR ( customeremail LIKE '" + customerAccountEmail + "')";
+                try {
+                    Cursor cursor = tbCustomerProfile.queryData(queryCustomerId);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        PreferenceUtils.setCustomerId(context, cursor.getInt(0));
+                        cursor.close();
+                        listener.onLoginSuccess();
+                    }
+                } finally {
+                    tbCustomerProfile.close();
+                }
+            } else {
+                Toast.makeText(context, "Mật khẩu sai, xin hãy nhập lại!", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(context, "Sai tên đăng nhập hoặc Email, xin hãy nhập lại!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    private boolean validateCustomerAccountEmail(Context context, String customerAccountEmail) {
+        tbCustomerProfile = new TbCustomerProfileImpl(context);
+        String queryValidate = "SELECT count(customerid) FROM tbcustomerprofile WHERE (customeraccount LIKE '" + customerAccountEmail +
+                "') OR ( customeremail LIKE '" + customerAccountEmail + "')";
+        int count;
+        try {
+            Cursor cursor = tbCustomerProfile.queryData(queryValidate);
+            if (cursor != null && cursor.moveToFirst()) {
+                count = cursor.getInt(0);
+                cursor.close();
+                return count == 1;
+            }
+        } finally {
+            tbCustomerProfile.close();
+        }
+        return false;
+    }
+
+    private boolean validatePassword(Context context, String passWord, String customerAccountEmail) {
+        tbCustomerProfile = new TbCustomerProfileImpl(context);
+
+        String queryValidate = "SELECT count(customerid) FROM tbcustomerprofile WHERE customeraccountpassword LIKE '" + passWord + "' AND (customeraccount LIKE '" + customerAccountEmail +
+                "' OR customeremail LIKE '" + customerAccountEmail + "')";
+        int count;
+        try {
+            Cursor cursor = tbCustomerProfile.queryData(queryValidate);
+            if (cursor != null && cursor.moveToFirst()) {
+                count = cursor.getInt(0);
+                Log.d("debug", String.valueOf(count));
+                cursor.close();
+                return count == 1;
+            }
+        } finally {
+            tbCustomerProfile.close();
+        }
+        return false;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof OnLoginSuccessListener) {
+            listener = (OnLoginSuccessListener) context;
+        } else {
+            throw new RuntimeException(context
+                    + " must implement OnLoginSuccessListener");
+        }
+    }
+
+    public interface OnLoginSuccessListener {
+        void onLoginSuccess();
+    }
+
+}

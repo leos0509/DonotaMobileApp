@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.LoginSuccessActivity"
+    android:background="@color/gray">
+    <ImageView
+        android:id="@+id/imvCheck"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:src="@drawable/check_circle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="250dp"/>
+    <TextView
+        android:id="@+id/txtLoginSuccess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đăng nhập thành công!"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary2"
+        app:layout_constraintTop_toBottomOf="@id/imvCheck"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+        android:id="@+id/txtThanks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cảm ơn bạn đã đăng ký."
+        android:textColor="@color/primary2"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/txtLoginSuccess"
+        app:layout_constraintBottom_toTopOf="@id/btnViewMainPage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnViewMainPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Khám phá ngay"
+        android:textSize="22sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/background_button"
+        app:layout_constraintTop_toBottomOf="@id/txtThanks"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="50dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
