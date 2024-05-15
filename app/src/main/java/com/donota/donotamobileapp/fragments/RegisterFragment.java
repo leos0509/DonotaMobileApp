@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -79,9 +80,7 @@ public class RegisterFragment extends Fragment {
                 Toast.makeText(getActivity(), "Mật khẩu xác nhận không trùng khớp!", Toast.LENGTH_SHORT).show();
             } else {
                 PreferenceUtils.setCustomerAccount(context, customerAccount);
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.rootNavFragmentContainer, new AddInformationFragment());
+                FragmentTransaction fragmentTransaction = getFragmentTransaction(customerAccount, customerEmail, customerPassword);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
 
@@ -91,6 +90,19 @@ public class RegisterFragment extends Fragment {
         }
     }
 
+    @NonNull
+    private FragmentTransaction getFragmentTransaction(String customerAccount, String customerEmail, String customerPassword) {
+        Bundle bundle = new Bundle();
+        bundle.putString("account", customerAccount);
+        bundle.putString("email", customerEmail);
+        bundle.putString("pass", customerPassword);
+        AddInformationFragment addInformationFragment = new AddInformationFragment();
+        addInformationFragment.setArguments(bundle);
+        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.rootNavFragmentContainer, addInformationFragment);
+        return fragmentTransaction;
+    }
 
 
     private boolean verifyEmailInput (Context context, String email) {

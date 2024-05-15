@@ -28,7 +28,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.donota.donotamobileapp.R;
+import com.donota.donotamobileapp.database.impl.TbCustomerProfileImpl;
 import com.donota.donotamobileapp.databinding.FragmentAddInformationBinding;
+import com.donota.donotamobileapp.utils.DbUtils;
+import com.donota.donotamobileapp.utils.PreferenceUtils;
+import com.donota.donotamobileapp.utils.ServiceUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,6 +48,8 @@ public class AddInformationFragment extends Fragment {
     private EditText edtAddress;
     private ImageView avatarImageView;
     private Button btnUpdateProfile;
+
+    private int customerId;
     private ActivityResultLauncher<Intent> activityResultLauncher;
 
     @Nullable
@@ -125,9 +131,19 @@ public class AddInformationFragment extends Fragment {
             return;
         }
 
-        Toast.makeText(getContext(), "Cập nhật thông tin thành công", Toast.LENGTH_SHORT).show();
-        insertIntoDb(name, dob, phoneNumb, email, address);
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        Bundle bundle = getArguments();
+        assert bundle != null;
+        String customerAccount = bundle.getString("account");
+        String customerPassword = bundle.getString("pass");
+
+        if (insertIntoDb(name, dob, phoneNumb, email, address, customerAccount, customerPassword)){
+            Toast.makeText(getContext(), "Cập nhật thông tin thành công", Toast.LENGTH_SHORT).show();
+            PreferenceUtils.setCustomerId(getContext(), customerId);
+        }
+
+
+
+        FragmentManager fragmentManager = getParentFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.rootNavFragmentContainer, new HomeNavFragment());
         fragmentTransaction.replace(R.id.homeNavFragmentContainer, new AccountPageFragment());
@@ -135,8 +151,32 @@ public class AddInformationFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
-    private void insertIntoDb(String name, String dob, String phonenumb, String email, String address) throws ParseException {
+    private boolean insertIntoDb(String name, String dob, String phonenumb, String email, String address, String customerAccount, String customerPassword) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date parsedDate = formatter.parse(dob);
+        long convertedDate = ServiceUtils.dateConversion(parsedDate);
+        customerId = DbUtils.getCustomerCount(getContext()) + 1;
+
+        TbCustomerProfileImpl tbCustomerProfile = new TbCustomerProfileImpl(getContext());
+        String query = "INSERT INTO tbcustomerprofile (\n" +
+                "                                  customerid,\n" +
+                "                                  customername,\n" +
+                "                                  phonenumb,\n" +
+                "                                  customeraccount,\n" +
+                "                                  customeraccountpassword,\n" +
+                "                                  customerdob,\n" +
+                "                                  customeremail\n" +
+                "                              )\n" +
+                "                              VALUES (\n" +
+                "                                  '" + customerId+ "',\n" +
+                "                                  '" + name+ "',\n" +
+                "                                  '" + phonenumb+ "',\n" +
+                "                                  '"+ customerAccount+"',\n" +
+                "                                  '"+ customerPassword+"',\n" +
+                "                                  '"+ convertedDate+"',\n" +
+                "                                  '"+ email+"',\n" +
+                "                              );";
+        tbCustomerProfile.close();
+        return tbCustomerProfile.execSql(query);
     }
 }
