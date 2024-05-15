@@ -1,5 +1,6 @@
 package com.donota.donotamobileapp.fragments;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,13 +31,20 @@ public class LoginSignupFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        showInitialFragment();
 
         Button btnSignUp = binding.btnSignUp;
         Button btnLogIn = binding.btnLogIn;
 
+        btnLogIn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primary2)));
+        btnSignUp.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.secondary2)));
+
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                btnSignUp.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primary2)));
+                btnLogIn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.secondary2)));
+
                 navigateToRegister();
             }
         });
@@ -44,9 +52,19 @@ public class LoginSignupFragment extends Fragment {
         btnLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                btnLogIn.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.primary2)));
+                btnSignUp.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.secondary2)));
+
                 navigateToLogIn();
             }
         });
+    }
+
+    private void showInitialFragment() {
+        FragmentManager manager = getChildFragmentManager();
+        if (manager.findFragmentById(R.id.containerLogInLayout) == null) {
+            navigateToLogIn();
+        }
     }
 
     private void navigateToRegister() {

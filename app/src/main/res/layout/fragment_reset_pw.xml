@@ -81,23 +81,35 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtNewPwGuide" />
 
-            <EditText
-                android:id="@+id/edtInputNewPw"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputNewPwLayout"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/edittext_background"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:paddingLeft="15dp"
-                android:paddingTop="5dp"
-                android:paddingRight="15dp"
-                android:paddingBottom="5dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/primary2"
-                style="@style/body2"
+                android:hint="Nhập mật khẩu"
+                android:textColorHint="@color/secondary2"
+                app:hintTextColor="@color/primary2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtInputNewPw" />
+                app:layout_constraintTop_toBottomOf="@+id/txtInputNewPw"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/secondary2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtInputNewPw"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/edittext_background"
+                    android:ems="10"
+                    android:inputType="textPassword"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/primary2"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/txtReInputNewPw"
@@ -110,25 +122,37 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtInputNewPw" />
+                app:layout_constraintTop_toBottomOf="@+id/textInputNewPwLayout" />
 
-            <EditText
-                android:id="@+id/edtReInputPw"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textReInputPwLayout"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/edittext_background"
-                android:ems="10"
-                android:inputType="textPassword"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:paddingLeft="15dp"
-                android:paddingTop="5dp"
-                android:paddingRight="15dp"
-                android:paddingBottom="5dp"
-                android:textColor="@color/primary2"
-                style="@style/body2"
+                android:hint="Nhập lại mật khẩu"
+                android:textColorHint="@color/secondary2"
+                app:hintTextColor="@color/primary2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtReInputNewPw" />
+                app:layout_constraintTop_toBottomOf="@+id/txtReInputNewPw"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/secondary2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtReInputPw"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/edittext_background"
+                    android:ems="10"
+                    android:inputType="textPassword"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/primary2"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnConfirmNewPw"
@@ -144,7 +168,7 @@
                 style="@style/button1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtReInputPw" />
+                app:layout_constraintTop_toBottomOf="@+id/textReInputPwLayout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

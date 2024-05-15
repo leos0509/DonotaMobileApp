@@ -67,7 +67,7 @@ public class RegisterFragment extends Fragment {
             public void onClick(View view) {
                 Context context = getActivity();
                 String customerAccount = binding.edtUserName.getText().toString();
-                String customerEmail = binding.edtEmail.getText().toString();
+                String customerEmail = binding.edtInputEmail.getText().toString();
                 String customerPassword = binding.edtInputPw.getText().toString();
                 String confirmPassword = binding.edtReInputPw.getText().toString();
 

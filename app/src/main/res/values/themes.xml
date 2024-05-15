@@ -3,6 +3,8 @@
     <style name="Base.Theme.DonotaMobileApp" parent="Theme.Material3.Light">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/primary1</item>
+
     </style>
 
     <style name="Theme.DonotaMobileApp" parent="Base.Theme.DonotaMobileApp" />

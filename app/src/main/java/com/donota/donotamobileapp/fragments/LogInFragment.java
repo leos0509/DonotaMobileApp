@@ -1,6 +1,7 @@
 package com.donota.donotamobileapp.fragments;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -93,10 +94,10 @@ public class LogInFragment extends Fragment {
                     tbCustomerProfile.close();
                 }
             } else {
-                Toast.makeText(context, "Mật khẩu sai, xin hãy nhập lại !!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Mật khẩu sai, xin hãy nhập lại!", Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(context, "Sai tên đăng nhập hoặc Email, xin hãy nhập lại", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Sai tên đăng nhập hoặc Email, xin hãy nhập lại!", Toast.LENGTH_SHORT).show();
         }
     }
 
