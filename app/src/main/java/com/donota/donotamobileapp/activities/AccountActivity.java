@@ -3,9 +3,13 @@ package com.donota.donotamobileapp.activities;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.donota.donotamobileapp.R;
@@ -33,6 +37,8 @@ public class AccountActivity extends AppCompatActivity {
         addEvents();
     }
 
+
+
     private void initData() {
         settingOptions = new ArrayList<>();
         settingOptions.add(new SettingOptions("personal_info", R.drawable.baseline_person, "Tài khoản"));
@@ -56,6 +62,14 @@ public class AccountActivity extends AppCompatActivity {
                 SettingOptions selectedOption = settingOptions.get(position);
                 Intent intent = new Intent(AccountActivity.this, SettingContentActivity.class);
                 intent.putExtra("settingID", selectedOption.getSettingID());
+                startActivity(intent);
+            }
+        });
+
+        binding.btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AccountActivity.this, LoginSignupActivity.class);
                 startActivity(intent);
             }
         });

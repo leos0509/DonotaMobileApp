@@ -5,6 +5,7 @@
     android:background="@drawable/white_no_corner_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/fragmentForgotPw"
     tools:context=".fragments.ForgotPwFragment">
 
     <ImageView
@@ -73,23 +74,33 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtCheckEmail" />
 
-            <EditText
-                android:id="@+id/edtInputEmail"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputEmailLayout"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/edittext_background"
-                android:ems="10"
-                android:inputType="textEmailAddress"
-                android:paddingLeft="20dp"
-                android:paddingTop="5dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="5dp"
-                android:layout_marginTop="4dp"
-                android:textColor="@color/primary1"
-                android:textSize="16sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:hint="Nhập Email"
+                android:textColorHint="@color/secondary2"
+                app:hintTextColor="@color/primary2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtConfirmEmail" />
+                app:layout_constraintTop_toBottomOf="@+id/txtConfirmEmail">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtInputEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/edittext_background"
+                    android:ems="10"
+                    android:inputType="textEmailAddress"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/primary2"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btnConfirmEmail"
@@ -102,7 +113,7 @@
                 style="@style/button1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtInputEmail" />
+                app:layout_constraintTop_toBottomOf="@+id/textInputEmailLayout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

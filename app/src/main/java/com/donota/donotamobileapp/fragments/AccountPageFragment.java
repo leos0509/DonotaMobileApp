@@ -1,11 +1,16 @@
 package com.donota.donotamobileapp.fragments;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -19,9 +24,10 @@ import java.util.ArrayList;
 
 public class AccountPageFragment extends Fragment {
 
-    private FragmentAccountPageBinding binding; // Adjusted to use the correct binding class
+    private FragmentAccountPageBinding binding;
     private SettingOptionsAdapter settingOptionsAdapter;
     private ArrayList<SettingOptions> settingOptions;
+    private ActivityResultLauncher<Intent> activityResultLauncher;
 
     public AccountPageFragment() {
         // Required empty public constructor
@@ -38,10 +44,17 @@ public class AccountPageFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = FragmentAccountPageBinding.inflate(inflater, container, false); // Adjusted to use the correct binding class
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentAccountPageBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+
+        // Khởi tạo ActivityResultLauncher
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == getActivity().RESULT_OK && result.getData() != null) {
+                Bitmap photo = (Bitmap) result.getData().getExtras().get("data");
+                binding.avatarImageView.setImageBitmap(photo);
+            }
+        });
 
         loadData();
         addEvents();
@@ -51,7 +64,7 @@ public class AccountPageFragment extends Fragment {
     private void initData() {
         settingOptions = new ArrayList<>();
         settingOptions.add(new SettingOptions("personal_info", R.drawable.baseline_person, "Tài khoản"));
-        settingOptions.add(new SettingOptions("wishlist", R.drawable.material_symbols__favorite_outline, "Sản phẩm yêu thích"));
+        settingOptions.add(new SettingOptions("wishlist", R.drawable.baseline_favorite, "Sản phẩm yêu thích"));
         settingOptions.add(new SettingOptions("payment_setting", R.drawable.baseline_credit_card, "Cài đặt thanh toán"));
         settingOptions.add(new SettingOptions("address_setting", R.drawable.baseline_location, "Cài đặt địa chỉ"));
         settingOptions.add(new SettingOptions("policy_setting", R.drawable.baseline_policy, "Chính sách"));
@@ -66,12 +79,14 @@ public class AccountPageFragment extends Fragment {
     }
 
     private void addEvents() {
-        binding.lvSettingOptions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SettingOptions selectedOption = settingOptions.get(position);
-                handleFragmentTransaction(selectedOption.getSettingID());
-            }
+        binding.lvSettingOptions.setOnItemClickListener((parent, view, position, id) -> {
+            SettingOptions selectedOption = settingOptions.get(position);
+            handleFragmentTransaction(selectedOption.getSettingID());
+        });
+
+        binding.imvCamera.setOnClickListener(view -> {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            activityResultLauncher.launch(intent);
         });
     }
 

@@ -61,12 +61,13 @@ public class RegisterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentRegisterBinding.inflate(inflater,container,false);
+
         binding.btnConfirmSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Context context = getActivity();
                 String customerAccount = binding.edtUserName.getText().toString();
-                String customerEmail = binding.edtEmail.getText().toString();
+                String customerEmail = binding.edtInputEmail.getText().toString();
                 String customerPassword = binding.edtInputPw.getText().toString();
                 String confirmPassword = binding.edtReInputPw.getText().toString();
 

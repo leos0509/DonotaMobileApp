@@ -26,6 +26,16 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ava" />
     </androidx.cardview.widget.CardView>
+    <ImageView
+        android:id="@+id/imvCamera"
+        app:layout_constraintStart_toEndOf="@id/cvAva"
+        app:layout_constraintEnd_toEndOf="@id/cvAva"
+        app:layout_constraintBottom_toBottomOf="@id/cvAva"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="end|bottom"
+        android:layout_marginStart="12dp"
+        android:src="@drawable/baseline_camera" />
 
 
     <TextView
