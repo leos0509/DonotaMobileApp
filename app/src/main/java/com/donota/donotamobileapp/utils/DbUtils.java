@@ -42,7 +42,6 @@ public class DbUtils {
     public static final String TBL_CUSTOMER_WISHLIST = "tbcustomerwishlist";
     public static final String TBL_CUSTOMER_ADDRESS = "tbcustomeraddress";
     public static final String COL_CUSTOMER_ADDRESS = "address";
-
     public static int getCustomerCount(Context context) {
         int count = 0;
         String countQuery = "SELECT customerid FROM " + TBL_CUSTOMER_PROFILE;
