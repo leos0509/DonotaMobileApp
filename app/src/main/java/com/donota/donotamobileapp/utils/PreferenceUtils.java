@@ -26,7 +26,7 @@ public class PreferenceUtils {
     }
     public static void setCustomerAccount(Context context, String customerAccount) {
         SharedPreferences.Editor editor = getSharedPreferences(context).edit();
-        editor.putString(KEY_CUSTOMER_ID, customerAccount);
+        editor.putString(KEY_CUSTOMER_ACCOUNT, customerAccount);
         editor.apply();
     }
 

@@ -6,17 +6,33 @@
     android:background="@drawable/gray_no_corner_bg"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.CartPageFragment">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recvCartItems"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="20dp"
-        android:paddingHorizontal="5dp"
+        android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/topMenuFragment"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recvCartItems"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recvCartItems"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/topMenuFragment"
         android:background="@drawable/bottom_navigation_bg"
@@ -81,7 +97,6 @@
             android:paddingVertical="10dp"
             android:layout_marginHorizontal="10dp"
             app:layout_constraintTop_toBottomOf="@id/horizontalLine1">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

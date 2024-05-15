@@ -81,7 +81,7 @@
                 android:layout_marginTop="5dp"
                 android:hint="Nhập Email"
                 android:textColorHint="@color/secondary2"
-                app:hintTextColor="@color/primary2"
+                app:hintTextColor="@color/primary1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtConfirmEmail">
@@ -90,7 +90,6 @@
                     android:id="@+id/edtInputEmail"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="@drawable/edittext_background"
                     android:ems="10"
                     android:inputType="textEmailAddress"
                     android:paddingLeft="15dp"
