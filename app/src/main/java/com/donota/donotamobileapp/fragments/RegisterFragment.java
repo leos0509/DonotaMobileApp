@@ -1,25 +1,21 @@
 package com.donota.donotamobileapp.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.donota.donotamobileapp.R;
-import com.donota.donotamobileapp.activities.AccountActivity;
 import com.donota.donotamobileapp.database.impl.TbCustomerProfileImpl;
 import com.donota.donotamobileapp.databinding.FragmentRegisterBinding;
 import com.donota.donotamobileapp.utils.PreferenceUtils;
-
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -76,11 +72,9 @@ public class RegisterFragment extends Fragment {
                         Toast.makeText(getActivity(), "Mật khẩu xác nhận không trùng khớp!", Toast.LENGTH_SHORT).show();
                     } else {
                         PreferenceUtils.setCustomerAccount(context, customerAccount);
-                        AccountPageFragment accountPageFragment = new AccountPageFragment();
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.rootNavFragmentContainer, new HomeNavFragment());
-                        fragmentTransaction.replace(R.id.homeNavFragmentContainer, new AccountPageFragment());
+                        fragmentTransaction.replace(R.id.rootNavFragmentContainer, new AddInformationFragment());
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                     }
