@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.adapters.ProductOrderAdapter;
 import com.donota.donotamobileapp.database.impl.TbCartImpl;
+import com.donota.donotamobileapp.database.impl.TbOrderImpl;
 import com.donota.donotamobileapp.database.impl.TbProductImpl;
 import com.donota.donotamobileapp.databinding.ActivityOrderConfirmationBinding;
 import com.donota.donotamobileapp.models.ProductOrder;
@@ -53,17 +54,16 @@ public class CheckOutActivity extends AppCompatActivity {
 
     private void addEvents() {
         Date date = new Date();
-        String productOrderId = ServiceUtils.orderIdGenerator(this, "DN", date);
+        String productOrderId = ServiceUtils.orderIdGenerator(this, "QN", date);
         double orderValue = orderValueCalculating(productOrderList);
         int customerId = PreferenceUtils.getCustomerId(this);
         long orderDate = ServiceUtils.dateConversion(date);
-        TbProductImpl tbProduct = new TbProductImpl(this);
+        TbOrderImpl tbOrder = new TbOrderImpl(this);
         Intent intent = new Intent(this, OrderSuccessActivity.class);
 
         binding.buttonCheckOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("order id", productOrderId);
                 String update = "INSERT INTO tborder (\n" +
                         "                        orderid,\n" +
                         "                        ordervalue,\n" +
@@ -71,13 +71,28 @@ public class CheckOutActivity extends AppCompatActivity {
                         "                        orderdate\n" +
                         "                    )\n" +
                         "                    VALUES ( '" + productOrderId +"', " + orderValue + ", " + customerId+ ", " + orderDate +");";
-                boolean commitTransaction = tbProduct.execSql(update);
-                if (commitTransaction) {startActivity(intent);}
+                boolean commitTransaction = tbOrder.execSql(update);
+                if (commitTransaction) {
+                    for (ProductOrder productOrder : productOrderList) {
+                        String updateCart = "DELETE FROM tbcustomercart\n" +
+                                "      WHERE customerid = '"+PreferenceUtils.getCustomerId(CheckOutActivity.this)+"' AND \n" +
+                                "            productid = '"+productOrder.getProductId()+"'";
+                        TbCartImpl tbCart = new TbCartImpl(CheckOutActivity.this);
+                        tbCart.execSql(updateCart);
+                        tbCart.close();
+                    }
+
+                    startActivity(intent);
+                }
                 else {
-                    Toast.makeText(CheckOutActivity.this, "Failed to place order", Toast.LENGTH_SHORT).show();}
+                    Toast.makeText(CheckOutActivity.this, "Failed to place order", Toast.LENGTH_SHORT).show();
+                }
+                tbOrder.close();
+
+
             }
         });
-        tbProduct.close();
+
     }
 
     private double orderValueCalculating( List<ProductOrder> productOrderList) {
@@ -134,7 +149,7 @@ public class CheckOutActivity extends AppCompatActivity {
             if (cursor.moveToFirst()) {
                 String[] imgUrls = cursor.getString(5).split(";");
                 String itemImg = imgUrls[0].trim();
-                productOrderList.add(new ProductOrder(itemImg, cursor.getString(4), cursor.getInt(2), cursor.getDouble(3)));
+                productOrderList.add(new ProductOrder(itemImg,cursor.getString(1), cursor.getString(4), cursor.getInt(2), cursor.getDouble(3)));
             }
             cursor.close();
         }

@@ -21,6 +21,7 @@ import com.donota.donotamobileapp.fragments.ConfirmedOrderFragment;
 import com.donota.donotamobileapp.fragments.PaymentSettingsFragment;
 import com.donota.donotamobileapp.fragments.PolicyFragment;
 import com.donota.donotamobileapp.fragments.ProfileFragment;
+import com.donota.donotamobileapp.fragments.TopMenuFragment;
 import com.donota.donotamobileapp.models.ProductOrder;
 import com.donota.donotamobileapp.models.SettingOptions;
 
@@ -43,10 +44,24 @@ public class OrderManagementActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fcvOrderManagement,confirmedOrderFragment).commit();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fcvOrderManagement,confirmedOrderFragment).commit();
-
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+        loadTopMenu();
         loadFragment();
     }
+    private void loadTopMenu() {
+        TopMenuFragment topMenuFragment = new TopMenuFragment();
+        Bundle args = new Bundle();
+        args.putString("title", "Tài khoản");
+        topMenuFragment.setArguments(args);
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        transaction.add(R.id.topMenuFragment, topMenuFragment);
+        transaction.commit();
+    }
     private void loadFragment() {
         binding.txtConfirmation.setOnClickListener(clickListener);
         binding.txtPacking.setOnClickListener(clickListener);

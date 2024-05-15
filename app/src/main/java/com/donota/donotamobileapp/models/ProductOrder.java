@@ -3,15 +3,18 @@ package com.donota.donotamobileapp.models;
 public class ProductOrder {
     String productThumb;
     String productName;
+
+    String productId;
     int productQuantity;
     double productPrice;
 
 
-    public ProductOrder(String productThumb, String productName, int productQuantity, double productPrice) {
+    public ProductOrder(String productThumb,String productId, String productName, int productQuantity, double productPrice) {
         this.productThumb = productThumb;
         this.productName = productName;
         this.productQuantity = productQuantity;
         this.productPrice = productPrice;
+        this.productId = productId;
     }
 
     public String getProductThumb() {
@@ -44,6 +47,13 @@ public class ProductOrder {
 
     public void setProductPrice(double productPrice) {
         this.productPrice = productPrice;
+    }
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 
 }

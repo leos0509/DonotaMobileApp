@@ -18,6 +18,9 @@
             android:name=".activities.OrderSuccessActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.OrderManagementActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.ChangePwSuccessActivity"
             android:exported="false" />
         <activity
