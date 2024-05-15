@@ -19,6 +19,7 @@ import com.donota.donotamobileapp.R;
 import com.donota.donotamobileapp.activities.CheckOutActivity;
 import com.donota.donotamobileapp.adapter.CartItemAdapter;
 import com.donota.donotamobileapp.database.impl.TbCartImpl;
+import com.donota.donotamobileapp.database.impl.TbCustomerWishListImpl;
 import com.donota.donotamobileapp.databinding.FragmentCartPageBinding;
 import com.donota.donotamobileapp.model.CartItem;
 import com.donota.donotamobileapp.utils.PreferenceUtils;
@@ -32,7 +33,7 @@ public class CartPageFragment extends Fragment implements CartItemAdapter.OnChec
     RecyclerView recyclerView;
 
     List<CartItem> cartItems;
-    AppCompatButton btnCheckOut;
+    AppCompatButton btnCheckOut, btnAddWishList;
 
     FragmentCartPageBinding binding;
 
@@ -51,10 +52,11 @@ public class CartPageFragment extends Fragment implements CartItemAdapter.OnChec
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         btnCheckOut = view.findViewById(R.id.btnBuyNow);
+        btnAddWishList = view.findViewById(R.id.btnAddToWishlist);
 
-        addEvents();
         loadTopMenu();
         initAdapter();
+        addEvents();
 
         return view;
     }
@@ -66,7 +68,46 @@ public class CartPageFragment extends Fragment implements CartItemAdapter.OnChec
                 navigateToTargetActivity();
             }
         });
+        btnAddWishList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addItemsToWishList();
+            }
+        });
+    }
 
+    private void addItemsToWishList() {
+        List<String> items = getCheckedItems();
+        int customerId = PreferenceUtils.getCustomerId(getContext());
+        TbCustomerWishListImpl tbCustomerWishList = new TbCustomerWishListImpl(getContext());
+        items.removeIf(itemChecked -> checkWishList(tbCustomerWishList, customerId, itemChecked));
+        if (!items.isEmpty()) {
+            for (String itemId : items) {
+                tbCustomerWishList.execSql("INSERT INTO tbcustomerwishlist (\n" +
+                        "                                   customerid,\n" +
+                        "                                   productid\n" +
+                        "                               )\n" +
+                        "                               VALUES ('" + customerId + "', " +"'" + itemId+"' );");
+            }
+            tbCustomerWishList.close();
+        }
+    }
+
+    private boolean checkWishList(TbCustomerWishListImpl tbCustomerWishList, int customerId, String wishListItem) {
+        List<String> productId = new ArrayList<>();
+        String queryProduct = "SELECT productid \n" +
+                "                FROM tbcustomerwishlist \n" +
+                "                WHERE customerid = " + customerId;
+        Cursor cursor = tbCustomerWishList.queryData(queryProduct);
+        while (cursor != null && cursor.moveToNext()) {
+            productId.add(cursor.getString(0));
+        }
+        for (String product : productId) {
+            if (product == wishListItem) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void initAdapter() {

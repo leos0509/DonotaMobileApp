@@ -62,15 +62,15 @@ public class ConfirmedOrderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_confirmed_order, container, false);
+        View view = inflater.inflate(R.layout.activity_order_management, container, false);
 
-//        TextView txtConfirmation = view.findViewById(R.id.txtConfirmation);
-//        txtConfirmation.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ((OrderManagementActivity) requireActivity()).loadConfirmedOrderFragment();
-//            }
-//        });
+        TextView txtConfirmation = view.findViewById(R.id.txtConfirmation);
+        txtConfirmation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((OrderManagementActivity) requireActivity()).loadConfirmedOrderFragment();
+            }
+        });
 
         return view;
     }

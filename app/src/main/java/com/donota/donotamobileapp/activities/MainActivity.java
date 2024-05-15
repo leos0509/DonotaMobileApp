@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements LogInFragment.OnL
 
         if (fragmentManager.findFragmentById(R.id.rootNavFragmentContainer) == null) {
             transaction.add(R.id.rootNavFragmentContainer, new HomeNavFragment());
+//            transaction.add(R.id.rootNavFragmentContainer, new SplashScreenFragment());
         }
         transaction.commit();
     }

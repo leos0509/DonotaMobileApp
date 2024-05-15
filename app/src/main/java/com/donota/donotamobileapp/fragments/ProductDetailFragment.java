@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -95,17 +96,14 @@ public class ProductDetailFragment extends Fragment {
                 if (cursor != null && cursor.getCount() != 0) {
                     checkExist = true;
                 }
-
                 if (checkExist) {
                     boolean updateFlag = tbCart.execSql(sqlUpdateCart);
-
-                    Log.d("Gio hang da ton tai", "koloi");
                 } else {
                     boolean insertFlag = tbCart.insertData(customerId,productId);
-                    Log.d("Cart check", "Tao moi san pham");
                 }
                 cursor.close();
                 tbCart.close();
+                Toast.makeText(getContext(), "Sản phẩm đã thêm vào giỏ thành công!", Toast.LENGTH_SHORT).show();
             }
         });
     }

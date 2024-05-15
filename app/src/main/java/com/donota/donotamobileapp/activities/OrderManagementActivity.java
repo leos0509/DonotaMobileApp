@@ -40,7 +40,7 @@ public class OrderManagementActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         getSupportFragmentManager().beginTransaction().replace(R.id.fcvOrderManagement,confirmedOrderFragment).commit();
 
-        loadFragment();
+        loadConfirmedOrderFragment();
     }
 
     private void loadFragment() {
@@ -51,7 +51,7 @@ public class OrderManagementActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-    private void loadConfirmedOrderFragment() {
+    public void loadConfirmedOrderFragment() {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         ConfirmedOrderFragment confirmedOrderFragment = new ConfirmedOrderFragment();

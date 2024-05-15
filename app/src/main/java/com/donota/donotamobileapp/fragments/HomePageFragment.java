@@ -114,7 +114,6 @@ public class HomePageFragment extends Fragment {
         while (cursor.moveToNext()) {
             String[] imgUrls = cursor.getString(1).split(";");
             String itemImg = imgUrls[0].trim();
-            Log.d("sub1", cursor.getString(2));
             carouselItems.add(new CarouselItem(itemImg, cursor.getString(0)));
         }
         cursor.close();

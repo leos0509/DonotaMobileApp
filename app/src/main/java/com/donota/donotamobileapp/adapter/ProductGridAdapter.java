@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -25,6 +26,15 @@ public class ProductGridAdapter extends RecyclerView.Adapter<ProductGridAdapter.
     private List<ProductCard> productCards;
     private OnProductClickListener onProductClickListener;
 
+    private OnProductLongClickListener onProductLongClickListener;
+
+    public ProductGridAdapter(Context context, List<ProductCard> productCards, OnProductClickListener onProductClickListener, OnProductLongClickListener onProductLongClickListener) {
+        this.context = context;
+        this.productCards = productCards;
+        this.onProductClickListener = onProductClickListener;
+        this.onProductLongClickListener = onProductLongClickListener;
+    }
+
     public ProductGridAdapter(Context context, List<ProductCard> productCards, OnProductClickListener onProductClickListener) {
         this.context = context;
         this.productCards = productCards;
@@ -33,6 +43,9 @@ public class ProductGridAdapter extends RecyclerView.Adapter<ProductGridAdapter.
 
     public interface OnProductClickListener {
         void onProductClick(ProductCard productCard);
+    }
+    public interface OnProductLongClickListener {
+        boolean onProductLongClick(ProductCard productCard);
     }
 
     @NonNull
@@ -47,7 +60,6 @@ public class ProductGridAdapter extends RecyclerView.Adapter<ProductGridAdapter.
     public void onBindViewHolder(@NonNull ProductCardViewHolder holder, int position) {
         ProductCard productCard = productCards.get(position);
 
-        Log.d("ProductGridAdapter", "onBindViewHolder: Binding item at position " + position);
 
         Glide.with(context)
                 .load(productCard.getImageUrl())
@@ -55,6 +67,7 @@ public class ProductGridAdapter extends RecyclerView.Adapter<ProductGridAdapter.
         holder.itemView.setOnClickListener(v -> onProductClickListener.onProductClick(productCard));
         holder.txtProductName.setText(productCard.getProductName());
         holder.btnRating.setText(productCard.getRating());
+        holder.itemView.setOnLongClickListener(v -> onProductLongClickListener.onProductLongClick(productCard));
 
         NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
         String formattedPrice = format.format(productCard.getPrice());
@@ -81,5 +94,8 @@ public class ProductGridAdapter extends RecyclerView.Adapter<ProductGridAdapter.
         }
 
     }
-
-}
+    public void clear() {
+        int size = productCards.size();
+        productCards.clear();
+        notifyItemRangeRemoved(0, size);
+}   }
