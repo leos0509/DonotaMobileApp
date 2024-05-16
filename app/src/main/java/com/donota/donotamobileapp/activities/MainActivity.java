@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements LogInFragment.OnL
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         if (fragmentManager.findFragmentById(R.id.rootNavFragmentContainer) == null) {
-//            transaction.add(R.id.rootNavFragmentContainer, new HomeNavFragment());
             transaction.add(R.id.rootNavFragmentContainer, new SplashScreenFragment());
         }
         transaction.commit();
@@ -89,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements LogInFragment.OnL
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.rootNavFragmentContainer, new HomeNavFragment(), "Login Success");
         transaction.replace(R.id.homeNavFragmentContainer, new AccountPageFragment());
-        transaction.addToBackStack(null);
         transaction.commit();
     }
 

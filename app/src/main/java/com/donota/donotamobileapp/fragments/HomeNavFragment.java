@@ -70,9 +70,7 @@ public class HomeNavFragment extends Fragment {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        if (fragmentManager.findFragmentById(R.id.navigation_bar) == null) {
-            transaction.add(R.id.navigation_bar, new NavigationBarFragment());
-        }
+        transaction.add(R.id.navigation_bar, new NavigationBarFragment());
         if (fragmentManager.findFragmentById(R.id.homeNavFragmentContainer) == null) {
             transaction.add(R.id.homeNavFragmentContainer, new HomePageFragment());
         }
