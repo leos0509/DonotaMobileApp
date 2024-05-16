@@ -75,7 +75,7 @@ public class ProfileFragment extends Fragment {
             customerAccount = cursor.getString(2);
             dob = cursor.getInt(3);
             phoneNumb = cursor.getString(1);
-            email = cursor.getString(3);
+            email = cursor.getString(4);
         }
 
         SimpleDateFormat formatter = new SimpleDateFormat("mm/dd/yyyy");
