@@ -120,7 +120,6 @@ public class AddInformationFragment extends Fragment {
         String phoneNumb = edtPhoneNumb.getText().toString().trim();
         String email = edtEmail.getText().toString().trim();
         String address = edtAddress.getText().toString().trim();
-
         if (phoneNumb.length()!= 10) {
             Toast.makeText(getContext(), "Vui lòng nhập lại số điện thoại", Toast.LENGTH_SHORT).show();
             return;
@@ -152,7 +151,6 @@ public class AddInformationFragment extends Fragment {
         Date parsedDate = formatter.parse(dob);
         long convertedDate = ServiceUtils.dateConversion(parsedDate);
         customerId = DbUtils.getCustomerCount(getContext()) + 1;
-
         TbCustomerProfileImpl tbCustomerProfile = new TbCustomerProfileImpl(getContext());
         String query = "INSERT INTO tbcustomerprofile (\n" +
                 "                                  customerid,\n" +
