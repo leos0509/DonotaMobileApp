@@ -142,9 +142,8 @@ public class AddInformationFragment extends Fragment {
         }
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.rootNavFragmentContainer, new HomePageFragment());
+        fragmentTransaction.replace(R.id.rootNavFragmentContainer, new HomeNavFragment());
         fragmentTransaction.replace(R.id.homeNavFragmentContainer, new AccountPageFragment());
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 

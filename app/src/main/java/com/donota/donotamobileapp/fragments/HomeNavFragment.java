@@ -1,14 +1,13 @@
 package com.donota.donotamobileapp.fragments;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.donota.donotamobileapp.R;
 
@@ -74,9 +73,9 @@ public class HomeNavFragment extends Fragment {
         if (fragmentManager.findFragmentById(R.id.navigation_bar) == null) {
             transaction.add(R.id.navigation_bar, new NavigationBarFragment());
         }
-//        if (fragmentManager.findFragmentById(R.id.homeNavFragmentContainer) == null) {
+        if (fragmentManager.findFragmentById(R.id.homeNavFragmentContainer) == null) {
             transaction.add(R.id.homeNavFragmentContainer, new HomePageFragment());
-//        }
+        }
         transaction.commit();
     }
 }
