@@ -31,7 +31,6 @@ public class AccountPageFragment extends Fragment {
     private ActivityResultLauncher<Intent> activityResultLauncher;
 
     public AccountPageFragment() {
-        // Required empty public constructor
     }
 
     public static AccountPageFragment newInstance() {
