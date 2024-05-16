@@ -51,6 +51,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:text="Name"
             app:layout_constraintBottom_toTopOf="@id/txtPrice"
             app:layout_constraintEnd_toEndOf="parent"
@@ -66,7 +68,7 @@
             android:text="Price"
             android:textFontWeight="700"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtName" />
+            app:layout_constraintBottom_toTopOf="@id/quantityAdjust" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/quantityAdjust"
