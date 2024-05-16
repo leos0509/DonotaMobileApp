@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,11 +79,9 @@ public class ProfileFragment extends Fragment {
             phoneNumb = cursor.getString(1);
             email = cursor.getString(4);
         }
-
-        SimpleDateFormat formatter = new SimpleDateFormat("mm/dd/yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/YYYY");
         Date dateDob = new Date(dob);
         String dateString = formatter.format(dateDob);
-
         binding.txtNameValue.setText(customerName);
         binding.txtUserName.setText(customerAccount);
         if (dob != 0) {
